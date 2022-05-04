@@ -23,7 +23,7 @@ $(eval $(id).build := $3)
 $(eval $(id).src_dir := $($1.dir))
 $(eval $(id).variant_dir := $($2.dir))
 $(eval $(id).install_dir := $($3.dir)$2/)
-$(eval $(id).build_dir.top := $($(id).install_dir)build/)
+$(eval $(id).build_dir.top := $($(id).install_dir).build/)
 $(eval $(id).build_dir := $($(id).build_dir.top)$1/)
 $(eval $(id).dep_dir := $(DEP_DIR)/$2/$1/)
 
