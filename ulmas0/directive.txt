@@ -1,0 +1,13 @@
+DOT_ALIGN .align
+DOT_BSS .bss
+DOT_BYTE .byte
+DOT_DATA .data
+DOT_EQU .equ
+DOT_GLOBAL .global
+DOT_GLOBL .globl
+DOT_LONG .long
+DOT_QUAD .quad
+DOT_STRING .string
+DOT_SPACE .space
+DOT_TEXT .text
+DOT_WORD .word

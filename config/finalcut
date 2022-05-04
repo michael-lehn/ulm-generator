@@ -1,0 +1,2 @@
+fc_include_path := /usr/local/include
+fc_lib_path	:= /usr/local/lib
