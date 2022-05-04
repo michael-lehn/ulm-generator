@@ -99,6 +99,17 @@ MemView::selectSegment()
 }
 
 void
+MemView::initLayout()
+{
+    auto window_size = FSize{ 90, 25 };
+    setSize(window_size);
+    setMinimumSize(window_size);
+    auto x = int((getDesktopWidth() - 1 - window_size.getWidth()) / 2);
+    auto y = int((getDesktopHeight() - 1 - window_size.getHeight()) / 2);
+    FDialog::setGeometry(FPoint{ x, y }, window_size);
+}
+
+void
 MemView::updateAddrRange()
 {
     segChoice.clear();

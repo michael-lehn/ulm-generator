@@ -21,6 +21,8 @@ class IOView final : public finalcut::FDialog
 	IOView *ioView;
     };
 
+    void setInputFocus();
+
   private:
     using MatchList = std::vector<std::size_t>;
     using StringPos = std::wstring::size_type;

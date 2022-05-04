@@ -25,7 +25,7 @@ UlmApp::UlmApp(const int &argc, char *argv[])
   , view{ "&View", &menuBar }
   , viewCpu{ "&CPU", &view }
   , viewPrg{ "&Program", &view }
-  , viewMem{ "&Memory", &view }
+  , viewMem{ "&Virtual Memory", &view }
   , viewIO{ "&IO", &view }
 
   , debug{ "&Debug", &menuBar }
@@ -71,6 +71,8 @@ UlmApp::openCpuView(FWidget *)
 	  },
 	  std::ref(cpuView));
 	cpuView->show();
+    } else {
+	cpuView->setFocus();
     }
     udb_addCallback(cpuView.get(), &CpuView::notify);
 }
@@ -89,6 +91,8 @@ UlmApp::openCodeView(FWidget *)
 	  },
 	  std::ref(codeView));
 	codeView->show();
+    } else {
+	codeView->setFocus();
     }
     udb_addCallback(codeView.get(), &CodeView::notify);
 }
@@ -107,6 +111,8 @@ UlmApp::openMemView(FWidget *)
 	  },
 	  std::ref(memView));
 	memView->show();
+    } else {
+	memView->setFocus();
     }
     udb_addCallback(memView.get(), &MemView::notify);
 }
@@ -125,6 +131,9 @@ UlmApp::openIOView(FWidget *)
 	  },
 	  std::ref(ioView));
 	ioView->show();
+    } else {
+	ioView->setFocus();
+	ioView->setInputFocus();
     }
     udb_addCallback(ioView.get(), &IOView::notify);
 }

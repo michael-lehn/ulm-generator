@@ -20,6 +20,10 @@ main(int argc, char *argv[])
 
     finalcut::FWidget::setMainWidget(&ulmApp);
     ulmApp.show();
+    ulmApp.openCpuView(&ulmApp);
+    ulmApp.openMemView(&ulmApp);
+    ulmApp.openIOView(&ulmApp);
+    ulmApp.openCodeView(&ulmApp);
 
     return ulmApp.exec();
 }

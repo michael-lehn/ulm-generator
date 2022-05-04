@@ -88,16 +88,13 @@ IOView::InputBuffer::onKeyPress(FKeyEvent *ev)
 
     const auto key = ev->key();
     if (key == FKey::Erase || key == FKey::Backspace) {
-	stepCursorForward();
+	stepCursorBackward();
 	deletesCharacter();
 	ev->accept();
-/*
-// TODO:
     } else if (key == FKey::Tab) {
 	inputText("\\t");
-	stepCursorBackward(2);
+	stepCursorForward(2);
 	ev->accept();
-*/
     } else if (isEnterKey(key)) {
 	udb_in += getText().toString();
 	udb_out += getText()
@@ -132,12 +129,12 @@ IOView::initLayout()
 {
     FDialog::setText("I/O");
     setMinimumSize(FSize{ 40, 15 });
-    auto x = 3;
-    auto y = int(getDesktopHeight() / 4);
-    auto window_size =
-      FSize{ getDesktopWidth() * 1 / 3, getDesktopHeight() / 4 };
+    auto window_size = FSize{ 40, 15 };
+    auto x = 1;
+    auto y = int(getDesktopHeight() - 1 - window_size.getHeight());
     FDialog::setGeometry(FPoint{ x, y }, window_size);
     adjustSize();
+    input.setFocus();
 }
 
 void
@@ -195,6 +192,12 @@ IOView::adjustSize()
     input.setFocus();
     inBuf.setFocusable(false);
     scrolltext.setFocusable(false);
+}
+
+void
+IOView::setInputFocus()
+{
+    input.setFocus();
 }
 
 void

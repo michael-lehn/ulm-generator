@@ -73,9 +73,9 @@ CodeView::initLayout()
 {
     FDialog::setText("Program (Stage D: %IP points to next instruction)");
     setMinimumSize(FSize{ 51, 6 });
-    auto x = 1 + int((getDesktopWidth() - 72) / 2);
-    auto y = int(getDesktopHeight() / 11);
-    auto window_size = FSize{ 72, getDesktopHeight() * 7 / 8 };
+    auto x = 1 + int((getDesktopWidth() - 72));
+    auto y = 1;
+    auto window_size = FSize{ 72, getDesktopHeight() - y -1 };
     FDialog::setGeometry(FPoint{ x, y }, window_size);
     scrolltext.setGeometry(FPoint{ 1, 2 },
 			   FSize{ getWidth(), getHeight() - 1 });

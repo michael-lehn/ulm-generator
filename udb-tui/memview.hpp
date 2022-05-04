@@ -26,6 +26,7 @@ class MemView final : public finalcut::FDialog
     void onKeyPress(finalcut::FKeyEvent *ev) override;
     void onWheel(finalcut::FWheelEvent *ev) override;
     void selectSegment();
+    void initLayout() override;
 
     std::uint64_t segOffset{ 0 }; // address of top left mem cell
     std::uint64_t segSize{ 0 };	  // address of top left mem cell
