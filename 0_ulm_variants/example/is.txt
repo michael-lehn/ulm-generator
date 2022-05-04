@@ -1,5 +1,0 @@
-RRR     (OP u  8) (X  u  8) (Y u 8) (Z u  8)
-
-
-0x01 RRR
-    ulm_halt(0);

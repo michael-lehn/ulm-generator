@@ -25,7 +25,7 @@ main(int argc, char **argv)
 
     if (argc != NUM_IO + 1) {
 	fprintf(stderr,
-		"usage: %s is.txt fmt_instr_encoding.c instr.c "
+		"usage: %s isa.txt fmt_instr_encoding.c instr.c "
 		"instr_asm.c refman_fields.cpp refman_format.cpp"
 		"refman_instr.cpp mnemonic_tokens.txt parse_functions\n",
 		argv[0]);

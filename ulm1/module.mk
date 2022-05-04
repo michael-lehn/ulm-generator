@@ -12,7 +12,7 @@ $(this).prg.c := \
     xtest_fmt_check_parser.c
 
 $(this).xtest_fmt_parser.in := \
-    $$(variant_dir)is.txt
+    $$(variant_dir)isa.txt
 $(this).xtest_fmt_parser.out := \
     _gen_fmt_instr_encoding.c \
     _gen_instr.c \
