@@ -19,7 +19,9 @@ CodeView::CodeView(finalcut::FWidget *parent)
 
     FString instrStr;
     char asmStr[40];
-    for (uint64_t addr = 0, line = 0; addr < ulm_brk; addr += 4, ++line) {
+
+    FTextView::FTextViewList::size_type line = 0;
+    for (uint64_t addr = 0; addr < ulm_brk; addr += 4, ++line) {
 	uint32_t instr;
 	ulm_fetch32(addr, &instr);
 	ulm_asm(instr, asmStr, sizeof(asmStr));
