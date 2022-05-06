@@ -100,7 +100,8 @@ $(eval $(id).lib.ar_d := \
 $(eval $(id).link.libs := \
     $($(id).lib) \
     $(patsubst %,$($(id).build_dir.top)%,\
-	$($1.requires.lib)))
+	$($1.requires.lib))\
+    $($(id).lib))
 
 $(eval $(id).LINK.o := \
     $(if $($(id).cpp),$($3.LINK.cpp.o),$($3.LINK.c.o)))
