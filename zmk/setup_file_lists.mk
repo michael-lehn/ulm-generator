@@ -129,6 +129,7 @@ $($(id).build_dir)%.o : $($(id).src_dir)%.c \
 	$($3.COMPILE.c) \
 	    -o $$@ \
 	    -I $($(id).build_dir).. \
+	    $($($(id).module).CXXFLAGS) \
 	    -MT '$$@' \
 	    -MMD -MP \
 	    -MF $($(id).dep_dir)$$(notdir $$<).d \
@@ -140,6 +141,7 @@ $($(id).build_dir)%.o : $($(id).src_dir)%.cpp \
 	$($3.COMPILE.cpp) \
 	    -o $$@ \
 	    -I $($(id).build_dir).. \
+	    $($($(id).module).CXXFLAGS) \
 	    -MT '$$@' \
 	    -MMD -MP \
 	    -MF $($(id).dep_dir)$$(notdir $$<).d \

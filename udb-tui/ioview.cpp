@@ -114,7 +114,7 @@ IOView::InputBuffer::onKeyPress(FKeyEvent *ev)
     }
 
     if (ev->isAccepted()) {
-	drawInputField();
+	redraw();
 	forceTerminalUpdate();
     }
 }
