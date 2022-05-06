@@ -153,6 +153,7 @@ $($(id).lib)(%.o) : $($(id).src_dir)%.c \
       $($(id).requires.gen)
 	$($3.COMPILE.c) \
 	    $($1.CFLAGS) \
+	    $($($(id).module).CFLAGS) \
 	    -o $($(id).build_dir)$$(notdir $$%) \
 	    -I $($(id).build_dir.top) \
 	    -MT '$$@($$(notdir $$%))' \
@@ -166,6 +167,7 @@ $($(id).lib)(%.o) : $($(id).src_dir)%.cpp \
       $($(id).requires.gen)
 	$($3.COMPILE.cpp) \
 	    $($1.CFLAGS) \
+	    $($($(id).module).CXXFLAGS) \
 	    -o $($(id).build_dir)$$(notdir $$%) \
 	    -I $($(id).build_dir.top) \
 	    -MT '$$@($$(notdir $$%))' \
