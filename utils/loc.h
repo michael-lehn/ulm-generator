@@ -1,6 +1,7 @@
 #ifndef LOC_H
 #define LOC_H
 
+#include <stdarg.h>
 #include <stddef.h>
 #include <stdio.h>
 
