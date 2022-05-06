@@ -17,3 +17,7 @@ The debugger requires an installtion of the great `finalcut` library: https://gi
 # Compile
 
 A simple `make` should do. However, if `finalcut` is not installed or `config/finalcut` not correct the debugger module will be ignored.
+
+# Examples
+
+For testing `udb-tui` run `./1_ulm_build/ulm/udb-tui 0_ulm_variants/ulm/examples/hello`
