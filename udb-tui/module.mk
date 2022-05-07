@@ -13,7 +13,7 @@ $(this).requires.lib := \
     ulm2/libulm2.a
 
 $(this).CXXFLAGS := -I $(fc_include_path) -std=c++17
-$(this).LDFLAGS := -L $(fc_lib_path) -lfinal -ltermcap
+$(this).LDFLAGS := -Wl,-rpath $(fc_lib_path) -L $(fc_lib_path) -lfinal -ltermcap
 
 $(this).prg.cpp := \
     udb-tui.cpp
