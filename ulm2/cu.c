@@ -43,11 +43,14 @@ ulm_incrInstrPtr()
 static void
 illegalInstr(uint32_t opCode)
 {
+    /*
     // TODO: send notification instead of exit(1)
     printf("Opcode 0x%02" PRIX32 " not defined in instruction set.\n", opCode);
     printf("Instr 0x%08" PRIX32 "\n", ulm_instrReg);
     printf("Instr Ptr 0x%016" PRIX64 "\n", ulm_instrPtr);
     exit(1);
+    */
+    udb_illegalInstruction = true;
 }
 
 void

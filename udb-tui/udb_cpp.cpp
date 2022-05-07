@@ -65,7 +65,7 @@ void
 udb_run()
 {
     udb_inStep = false;
-    while (!ulm_halted) {
+    while (!ulm_halted && !udb_illegalInstruction) {
 	prevIP = ulm_instrPtr;
 	ulm_step();
 	if (udb_waitingForInput) {

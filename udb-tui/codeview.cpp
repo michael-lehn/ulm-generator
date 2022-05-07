@@ -56,6 +56,12 @@ CodeView::update(bool scrollToIP)
     scrolltext.getLine(currInstrPtr).highlight[1] = normInstr;
     prevInstrPtr = udb_getPrevIP() / 4;
     currInstrPtr = udb_getIP() / 4;
+
+    const auto &l = scrolltext.getLines();
+    if (currInstrPtr >= l.size()) {
+	return;
+    }
+
     scrolltext.getLine(prevInstrPtr).highlight[1] = prevInstr;
     scrolltext.getLine(currInstrPtr).highlight[1] = currInstr;
 

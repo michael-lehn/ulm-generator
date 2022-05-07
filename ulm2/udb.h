@@ -21,6 +21,7 @@ void ulm_halt(uint64_t code);
 extern bool udb_on;
 extern bool udb_inStep;
 extern uint64_t udb_numPages;
+extern bool udb_illegalInstruction;
 
 void udb_addRegMsg(size_t regId, enum UdbMod udbMod);
 void udb_addMemMsg(uint64_t addr, enum UdbMod udbMod);

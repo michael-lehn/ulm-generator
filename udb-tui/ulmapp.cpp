@@ -142,6 +142,10 @@ void
 UlmApp::step()
 {
     udb_step();
+    if (udb_illegalInstruction) {
+	notify();
+	return;
+    }
     udb_notify();
 }
 
@@ -149,6 +153,10 @@ void
 UlmApp::run()
 {
     udb_run();
+    if (udb_illegalInstruction) {
+	notify();
+	return;
+    }
     udb_notify();
 }
 
@@ -159,5 +167,9 @@ UlmApp::notify()
 	FString msg;
 	msg.sprintf("Program halted with exit code 0x%" PRIu64, ulm_exitCode);
 	FMessageBox::info(&menuBar, "Program halted", msg);
+    } else if (udb_illegalInstruction) {
+	FString msg;
+	msg.sprintf("Illegal instruction 0x%" PRIu32, ulm_instrReg);
+	FMessageBox::info(&menuBar, "Program crashed", msg);
     }
 }
