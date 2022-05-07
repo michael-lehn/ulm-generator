@@ -24,6 +24,9 @@ std::uint64_t prevIP;
 static bool
 waitingForInput()
 {
+    if (udb_eof) {
+	return false;
+    }
     if (udb_in.length() == 0 ||
 	(udb_in.front() == '\\' && udb_in.length() == 1)) {
 	ulm_waiting = udb_waitingForInput = true;
@@ -138,15 +141,22 @@ ulm_printChar(int ch)
 int
 ulm_readChar()
 {
+    if (udb_eof) {
+	return -1;
+    }
     if (waitingForInput()) {
-	if (udb_eof) {
-	    return -1;
-	}
 	return 0;
     }
-    char ch = udb_in.front();
+    int ch = udb_in.front();
     udb_in = udb_in.substr(1);
-    if (ch == '\\') {
+    if (ch == '^') {
+	int ch_ = udb_in.front();
+	if (ch_ == 'D') {
+	    udb_in = "";
+	    udb_eof = true;
+	    return -1;
+	}
+    } else if (ch == '\\') {
 	ch = udb_in.front();
 	udb_in = udb_in.substr(1);
 	switch (ch) {

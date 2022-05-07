@@ -95,6 +95,10 @@ IOView::InputBuffer::onKeyPress(FKeyEvent *ev)
 	inputText("\\t");
 	stepCursorForward(2);
 	ev->accept();
+    } else if (key == FKey::Ctrl_d) {
+	inputText("^D");
+	stepCursorForward(2);
+	ev->accept();
     } else if (isEnterKey(key)) {
 	udb_in += getText().toString();
 	udb_out += getText()
@@ -102,6 +106,7 @@ IOView::InputBuffer::onKeyPress(FKeyEvent *ev)
 		     .replace("\\t", "\t")
 		     .replace("\\\\", "\\")
 		     .toString();
+	udb_out += "\n";
 	setText("");
 	ev->accept();
     } else if (key == FKey::Back_tab || key == FKey::Up || key == FKey::Down) {
