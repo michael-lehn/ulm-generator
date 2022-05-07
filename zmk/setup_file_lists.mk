@@ -98,10 +98,11 @@ $(eval $(id).lib.ar_d := \
     $(if $($(id).lib.content.obsolete),$(id).ar_d))
 
 $(eval $(id).link.libs := \
+    --start-group \
     $($(id).lib) \
     $(patsubst %,$($(id).build_dir.top)%,\
 	$($1.requires.lib))\
-    $($(id).lib))
+    --end-group) 
 
 $(eval $(id).LINK.o := \
     $(if $($(id).cpp),$($3.LINK.cpp.o),$($3.LINK.c.o)))
