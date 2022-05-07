@@ -100,7 +100,8 @@ $(eval $(id).lib.ar_d := \
 $(eval $(id).link.libs := \
     $($(id).lib) \
     $(patsubst %,$($(id).build_dir.top)%,\
-	$($1.requires.lib)))
+	$($1.requires.lib)) \
+    $($(id).lib))
 
 $(eval $(id).LINK.o := \
     $(if $($(id).cpp),$($3.LINK.cpp.o),$($3.LINK.c.o)))
@@ -149,7 +150,8 @@ $($(id).build_dir)%.o : $($(id).src_dir)%.cpp \
 $($(id).build_dir)% : $($(id).build_dir)%.o $($(id).link.libs) \
     | $($(id).build_dir) $($(id).dep_dir) $($(id).dep.content.obsolete)
 	$($(id).LINK.o) $($1.LDFLAGS) $$< \
-	    -Wl,--start-group $($(id).link.libs) -Wl,--end-group \
+	    $($(id).link.libs) \
+	    $($1.LDFLAGS) \
 	    -o $$@
 
 $($(id).lib)(%.o) : $($(id).src_dir)%.c \
