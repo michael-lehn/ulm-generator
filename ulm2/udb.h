@@ -22,6 +22,7 @@ extern bool udb_on;
 extern bool udb_inStep;
 extern uint64_t udb_numPages;
 extern bool udb_illegalInstruction;
+extern bool udb_badAlignment;
 
 void udb_addRegMsg(size_t regId, enum UdbMod udbMod);
 void udb_addMemMsg(uint64_t addr, enum UdbMod udbMod);

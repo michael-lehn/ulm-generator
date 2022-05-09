@@ -24,7 +24,7 @@ ulm_halt(uint64_t code)
 void
 run()
 {
-    while (true) {
+    while (!udb_badAlignment && !udb_illegalInstruction) {
 	ulm_fetchInstr();
 
 #include <ulm1/_gen_instr.c>

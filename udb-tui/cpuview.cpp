@@ -14,10 +14,17 @@ CpuView::CpuView(FWidget *parent)
   , aluView{ this }
   , statusView{ this }
 {
+    auto fgColor = getForegroundColor();
+    auto bgColor = getBackgroundColor();
+
     setBorder(false);
     setSize(FSize{ 50, 23 });
+
     cuView.setGeometry(FPoint{ 0, 1 }, FSize{ getWidth(), 5 });
     cuView.setFocusable();
+    cuView.setForegroundColor(fgColor);
+    cuView.setBackgroundColor(bgColor);
+
     aluView.setGeometry(FPoint{ 0, 6 }, FSize{ getWidth(), 12 });
     aluView.setFocusable();
     statusView.setGeometry(FPoint{ 0, 19 }, FSize{ getWidth(), 1 });

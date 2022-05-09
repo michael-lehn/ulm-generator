@@ -183,7 +183,8 @@ ulm_fetch32(uint64_t addr, uint32_t *val)
 	fprintf(stderr, "%%IP: 0x%016" PRIx64 "\n", ulm_instrPtr); 
 	fprintf(stderr, "bad alignment: addr = 0x%016" PRIx64 ", size = 4\n",
 		addr);
-	abort();
+	udb_badAlignment = true;
+	return;
     }
     uint64_t offset;
     struct Page *p = getPage(addr, &offset, true);
@@ -213,7 +214,8 @@ ulm_fetch64(int64_t disp, ulm_Reg base, ulm_Reg index, uint64_t scale,
 		", ulm_regVal(base) = 0x%" PRIu64 ", "
 		"index = %" PRIu64 ", ulm_regVal(index) = 0x%" PRIu64 "\n",
 		disp, base, ulm_regVal(base), index, ulm_regVal(index));
-	abort();
+	udb_badAlignment = true;
+	return;
     }
 
     uint64_t offset;
@@ -247,7 +249,7 @@ ulm_store64(int64_t disp, ulm_Reg base, ulm_Reg index, uint64_t scale,
 	fprintf(stderr, "%%IP: 0x%016" PRIx64 "\n", ulm_instrPtr); 
 	fprintf(stderr, "bad alignment: addr = 0x%016" PRIu64 ", size = %zu\n",
 		addr, numBytes);
-	abort();
+	udb_badAlignment = true;
     }
 
     /*
