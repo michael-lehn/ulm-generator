@@ -71,6 +71,7 @@ UlmApp::openCpuView(FWidget *)
 	  },
 	  std::ref(cpuView));
 	cpuView->show();
+	udb_notify();
     } else {
 	cpuView->setFocus();
     }
@@ -91,6 +92,7 @@ UlmApp::openCodeView(FWidget *)
 	  },
 	  std::ref(codeView));
 	codeView->show();
+	udb_notify();
     } else {
 	codeView->setFocus();
     }
@@ -111,6 +113,7 @@ UlmApp::openMemView(FWidget *)
 	  },
 	  std::ref(memView));
 	memView->show();
+	udb_notify();
     } else {
 	memView->setFocus();
     }
@@ -131,6 +134,7 @@ UlmApp::openIOView(FWidget *)
 	  },
 	  std::ref(ioView));
 	ioView->show();
+	udb_notify();
     } else {
 	ioView->setFocus();
 	ioView->setInputFocus();

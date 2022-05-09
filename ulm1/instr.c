@@ -159,6 +159,7 @@ instrPrintAsmNotation(FILE *out)
     printCode(out, 0, "void\n");
     printCode(out, 0, "ulm_asm(uint32_t instr, char *s, size_t len)\n");
     printCode(out, 0, "{\n");
+    printCode(out, 1, "strncpy(s, \"%s\", len);\n", "");
 
     printOpcodeDef(out, "FMT_OPCODE", "instr");
     printCode(out, 1, "switch (FMT_OPCODE) {\n");

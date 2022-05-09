@@ -6,6 +6,7 @@
 #include <string.h>
 
 #include "loader.h"
+#include "udb.h"
 #include "vmem.h"
 
 uint64_t ulm_brk;
@@ -364,6 +365,9 @@ parse()
 	}
     }
     ulm_brk = addr;
+    ulm_setReg(ulm_brk, 1);
+    ulm_setReg(ulm_brk, 2);
+    ulm_setReg((ulm_brk + 7) / 8 * 8, 3);
     // printf("prog loaded\n");
     // printVMem();
     return true;
