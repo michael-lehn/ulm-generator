@@ -165,7 +165,7 @@ $($(id).lib)(%.o) : $($(id).src_dir)%.c \
 	    -MT '$$@($$(notdir $$%))' \
 	    -MMD -MP \
 	    -MF $($(id).dep_dir)$$(notdir $$<).d $$<
-	$(AR) crU $$@ $($(id).build_dir)$$(notdir $$%)
+	$(AR) $(ARFLAGS) $$@ $($(id).build_dir)$$(notdir $$%)
 	$(RM) $($(id).build_dir)$$(notdir $$%)
 
 $($(id).lib)(%.o) : $($(id).src_dir)%.cpp \
@@ -179,7 +179,7 @@ $($(id).lib)(%.o) : $($(id).src_dir)%.cpp \
 	    -MT '$$@($$(notdir $$%))' \
 	    -MMD -MP \
 	    -MF $($(id).dep_dir)$$(notdir $$<).d $$<
-	$(AR) crU $$@ $($(id).build_dir)$$(notdir $$%)
+	$(AR) $(ARFLAGS) $$@ $($(id).build_dir)$$(notdir $$%)
 	$(RM) $($(id).build_dir)$$(notdir $$%)
 
 $(eval \
