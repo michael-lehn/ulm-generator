@@ -1,5 +1,3 @@
-Test for HPC0
-
 # ulm-generator
 
 Generator for a ULM (Ulm Lecture Machine) virtual machine.
