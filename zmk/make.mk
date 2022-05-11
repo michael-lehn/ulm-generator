@@ -1,4 +1,5 @@
 include config/ar
+include config/nfs
 
 include zmk/add.mk
 include zmk/setup_build.mk
