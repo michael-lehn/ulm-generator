@@ -1,0 +1,6 @@
+ar_check := $(shell ar crU tmp foo.c > /dev/null 2>&1 || echo "sane")
+ifeq ($(strip $(ar_check)),sane)
+ARFLAGS := cr
+else
+ARFLAGS := crU
+endif
