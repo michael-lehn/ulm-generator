@@ -1,0 +1,17 @@
+# detect if files are on nfs. In that case build in /tmp/...
+
+on_nfs := $(shell stat -fc %T config/nfs)
+
+ifeq ($(strip $(on_nfs)),nfs)
+    $(info )
+    $(info **********************************************)
+    $(info Building ulm-generator on nfs is not supported)
+    $(info **********************************************)
+    $(info )
+    $(info If there is need for that contact michael.lehn@uni-ulm.de)
+    $(info )
+    $(error Have a nice day)
+else
+    $(info )
+endif
+
