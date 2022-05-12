@@ -141,6 +141,10 @@ CodeView::TextView::onMouseDown(FMouseEvent *ev)
     if (ev->getButton() == MouseButton::Left && ev->getX() < int(getWidth())) {
 	std::size_t line =
 	  codeView->scrolltext.getScrollPos().getY() + ev->getY() - 2;
+	const auto &l = codeView->scrolltext.getLines();
+	if (line >= l.size()) {
+	    return;
+	}
 	std::uint64_t addr = line * 4;
 	if (udb_breakpoint.find(addr) != udb_breakpoint.end()) {
 	    udb_breakpoint.erase(addr);
