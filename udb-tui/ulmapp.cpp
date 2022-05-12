@@ -169,7 +169,7 @@ UlmApp::notify()
 {
     if (ulm_halted) {
 	FString msg;
-	msg.sprintf("Program halted with exit code 0x%" PRIu64, ulm_exitCode);
+	msg.sprintf("Program halted with exit code 0x%" PRIX64, ulm_exitCode);
 	FMessageBox::info(&menuBar, "Program halted", msg);
     } else if (udb_badAlignment) {
 	FString msg;
