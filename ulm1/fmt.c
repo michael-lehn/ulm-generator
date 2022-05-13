@@ -288,8 +288,13 @@ printFmtInstrEncoding(FILE *out)
     printCode(out, 1, "switch (opCode) {\n");
 
     for (const struct FmtNode *n = fmtNode; n; n = n->next) {
+	bool fmtUsed = false;
 	for (const struct OpCodeNode *op = n->opCode; op; op = op->next) {
 	    printCode(out, 3, "case 0x%02" PRIX32 ":\n", op->cached);
+	    fmtUsed = true;
+	}
+	if (! fmtUsed) {
+	    continue;
 	}
 	assert(n->field); // we need at least the OP field
 	for (const struct FmtFieldNode *f = n->field; f; f = f->next) {
