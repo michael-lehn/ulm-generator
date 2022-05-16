@@ -22,8 +22,3 @@ $(this).xtest_fmt_parser.out := \
     _gen_refman_instr.cpp \
     _gen_mnemonic.txt \
     _gen_parseinstruction.c
-
-$(this).xtest_fmt_check_parser.in := \
-    $$(variant_dir)
-$(this).xtest_fmt_check_parser.out := \
-    _gen_fmt_testcase.c
