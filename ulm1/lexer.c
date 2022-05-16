@@ -56,7 +56,9 @@ nextCh()
     assert(in);
     token.loc.end = currPos;
 
-    ch = fgetc(in);
+    do {
+	ch = fgetc(in);
+    } while (ch == '\r');
 
     if (ch == '\n') {
 	++currPos.line;
