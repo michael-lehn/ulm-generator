@@ -1,6 +1,5 @@
 $(this).requires.gen := \
-	ulm1/_gen_instr.c \
-	ulm1/_gen_fmt_testcase.c
+	ulm1/_gen_instr.c
 
 $(this).requires.lib := ulm2/libulm2.a
 
