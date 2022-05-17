@@ -92,7 +92,7 @@ typeBinary(const struct Expr *x)
 	    return ABS;
 	}
     }
-    printTreeExpr(x);
+    //printTreeExpr(x);
     errorAt(x->loc, "illegal expression\n");
     return UNKNOWN;
 }

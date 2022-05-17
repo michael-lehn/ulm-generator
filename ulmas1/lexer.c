@@ -340,6 +340,7 @@ getToken()
     // check for identifiers
     if (isLetter(ch)) {
 	if (fieldPos == MnemonicField) {
+	    token.kind = UNKNOWN_TOKEN;
 #include <ulmas0/_gen_scanner_mnem.c>
 	} else {
 	    do {

@@ -40,7 +40,7 @@ main(int argc, char **argv)
     getToken();
     while (token.kind != EOI) {
 	if (token.kind == UNKNOWN_TOKEN) {
-	    error("bad token '%s'\n", token.val);
+	    error("bad token\n");
 	}
 
 	// skip empty lines
@@ -59,6 +59,10 @@ main(int argc, char **argv)
 	    }
 	} else {
 	    getToken();
+	}
+
+	if (token.kind == UNKNOWN_TOKEN) {
+	    error("bad token\n");
 	}
 
 	if (!parseInstruction() && !parseDirective()) {
