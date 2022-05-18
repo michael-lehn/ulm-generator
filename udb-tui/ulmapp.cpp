@@ -156,7 +156,7 @@ UlmApp::step()
 void
 UlmApp::run()
 {
-    udb_run();
+    udb_run(999);
     if (udb_illegalInstruction) {
 	notify();
 	return;

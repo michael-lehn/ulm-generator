@@ -480,6 +480,22 @@ getToken()
 	appendCharToStr(&token.val, ch);
 	nextCh();
 	token.kind = RPAREN;
+    } else if (ch == '[') {
+	appendCharToStr(&token.val, ch);
+	nextCh();
+	token.kind = LBRACKET;
+    } else if (ch == ']') {
+	appendCharToStr(&token.val, ch);
+	nextCh();
+	token.kind = RBRACKET;
+    } else if (ch == '{') {
+	appendCharToStr(&token.val, ch);
+	nextCh();
+	token.kind = LBRACE;
+    } else if (ch == '}') {
+	appendCharToStr(&token.val, ch);
+	nextCh();
+	token.kind = RBRACE;
     } else if (ch == '+') {
 	appendCharToStr(&token.val, ch);
 	nextCh();

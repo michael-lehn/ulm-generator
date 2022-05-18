@@ -65,12 +65,21 @@ udb_step()
 }
 
 void
-udb_run()
+udb_run(std::size_t maxCycles)
 {
+    std::size_t cycle = 0;
     udb_inStep = false;
+
     while (!ulm_halted && !udb_illegalInstruction && !udb_badAlignment) {
 	prevIP = ulm_instrPtr;
 	ulm_step();
+	++numCycles;
+	if (maxCycles) {
+	    ++cycle;
+	    if (cycle > maxCycles) {
+		break;
+	    }
+	}
 	if (udb_waitingForInput) {
 	    break;
 	}
