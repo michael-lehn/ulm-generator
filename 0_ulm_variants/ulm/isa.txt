@@ -37,21 +37,21 @@ MSR_R   (OP u  8) (X	s   8)	(Y  u  8) (Z u  8)
 #-------------------------------------------------------------------------------
 
 0x30 RRR
+#   Adds register X with register Y. Stores the result in register Z.
 :   addq    %X, %Y, %Z
     ulm_add64(ulm_regVal(X), ulm_regVal(Y), Z);
-#   Adds register X with register Y. Stores the result in register Z.
 
 0x38 URR
+#   Adds the unsigned immediate value X with the unsigned integer %Y. Stores
+#   the result in %Z. Updates the status flags.
 :   addq    X,  %Y, %Z
     ulm_add64(X, ulm_regVal(Y), Z);
-#   Adds the unsigned immediate value X with register Y. Stores the result in
-#   register Z.
 
 
 @addq
-#   Integer addition.
-#   Adds either the content of register X or the unsigend immediate value X to
-#   register Y. The result is stored in register Z.
+# Integer addition.
+# Adds either the content of register X or the unsigend immediate value X to
+# register Y. The result is stored in register Z.
 
 #-------------------------------------------------------------------------------
 
@@ -73,8 +73,7 @@ MSR_R   (OP u  8) (X	s   8)	(Y  u  8) (Z u  8)
 	       Z, Z + 1, Z + 2);
 0x3B URR
 :   divq    X,	    %Y,    %Z
-    ulm_div128(X, ulm_regVal(Y), ulm_regVal(Y + 1), Z,
-	       Z + 1, Z + 2);
+    ulm_div128(X, ulm_regVal(Y), ulm_regVal(Y + 1), Z, Z + 1, Z + 2);
 
 #-------------------------------------------------------------------------------
 

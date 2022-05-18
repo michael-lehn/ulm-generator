@@ -204,6 +204,32 @@ void
 printRefmanFormatDescription(FILE *out)
 {
     for (const struct FmtNode *n = fmtNode; n; n = n->next) {
+	printCode(out, 0, "namespace ULM_FMT { namespace %s {\n", n->id->cstr);
+	for (const struct FmtFieldNode *f = n->field; f; f = f->next) {
+	    printCode(
+	      out, 1,
+	      "auto %s = ulmdoc::declareBitField(\"%s\", Expr::%s, %zu);\n",
+	      f->id->cstr, f->id->cstr,
+	      f->type == SIGNED	    ? "SIGNED"
+	      : f->type == UNSIGNED ? "UNSIGNED"
+				    : "JUMP_OFFSET",
+	      f->numBits);
+	}
+	printCode(out, 1,
+		  "auto ulm_instrFmt = ulmdoc::InstrFmt({");
+	for (const struct FmtFieldNode *f = n->field; f; f = f->next) {
+	    printCode(out, 0, "%s", f->id->cstr);
+	    if (f->next) {
+		printCode(out, 0, ", ", f->id->cstr);
+	    }
+	}
+	printCode(out, 0, "});\n");
+
+	printCode(out, 0, "}} // namespace ULM_FMT::%s\n\n", n->id->cstr);
+    }
+
+    /*
+    for (const struct FmtNode *n = fmtNode; n; n = n->next) {
 	printCode(out, 0, "addFormat(\"%s\", {", n->id->cstr);
 	for (const struct FmtFieldNode *f = n->field; f; f = f->next) {
 	    printCode(out, 0, "%s::%s", n->id->cstr, f->id->cstr);
@@ -216,6 +242,7 @@ printRefmanFormatDescription(FILE *out)
 	    printCode(out, 0, "mathOperator.insert(\"%s\");\n", f->id->cstr);
 	}
     }
+    */
 }
 
 void
@@ -293,7 +320,7 @@ printFmtInstrEncoding(FILE *out)
 	    printCode(out, 3, "case 0x%02" PRIX32 ":\n", op->cached);
 	    fmtUsed = true;
 	}
-	if (! fmtUsed) {
+	if (!fmtUsed) {
 	    continue;
 	}
 	assert(n->field); // we need at least the OP field

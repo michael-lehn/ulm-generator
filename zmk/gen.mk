@@ -32,8 +32,10 @@ $(eval gen.in := \
 $(eval gen.out := \
     $(patsubst %,$($1.build_dir)%,\
 	$($(gen.module).$(gen.prg).out)))
-$(eval TARGET += $(gen.out))
+
 
 $(gen.out) : $2 $(gen.in) | $($1.build_dir)
 	$(value 2) $(value gen.in) $(value gen.out)
 endef
+
+#$(eval TARGET += $(gen.out))

@@ -25,7 +25,13 @@ $(eval $(id).variant_dir := $($2.dir))
 $(eval $(id).install_dir := $($3.dir)$2/)
 $(eval $(id).build_dir.top := $($(id).install_dir).build/)
 $(eval $(id).build_dir := $($(id).build_dir.top)$1/)
-$(eval $(id).dep_dir := $(DEP_DIR)/$2/$1/)
+$(eval $(id).dep_dir := $($(id).install_dir).dep/$2/$1/)
+
+$(if $($($(id).module).has.extra), \
+    $(call $($(id).module).extra,\
+	$($(id).src_dir),\
+	$($(id).build_dir),\
+	$($(id).install_dir)))
 
 $(eval $(id).requires.gen := \
     $(foreach i,$($1.requires.gen), \
@@ -109,12 +115,10 @@ $(eval $(id).LINK.o := \
 $(eval TARGET += $($(id).lib) $($(id).prg) $($(id).prg.c.o) $($(id).prg.cpp.o))
 $(eval DEP_FILES += $($(id).c.d) $($(id).cpp.d))
 $(eval EXTRA_DIRS += $($(id).build_dir) $($(id).dep_dir))
+$(eval CLEAN_DIRS := $(sort $(CLEAN_DIRS) $($(id).build_dir) $($(id).dep_dir))
 
 .PHONY: $($(id).dep.content.obsolete) $($(id).lib.ar_d)
 
-$($(id).dep.content.obsolete):
-	@echo "removing obsolete dep files $($(id).dep.content.obsolete)"
-	$(RM) $$@
 
 $($(id).lib.ar_d):
 	ar d $($(id).lib) $($(id).lib.content.obsolete) 

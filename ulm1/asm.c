@@ -587,7 +587,8 @@ asmPrintMnemonicDescription(FILE *out)
 {
     for (struct MnemonicListNode *n = mnemonicList; n; n = n->next) {
 	if (n->mnemonic.comment) {
-	    printCode(out, 1, "addMnemonicDescription(\"%s\", \"%s\");\n",
+	    printCode(out, 1,
+		      "ulmDoc.addMnemonicDescription(\"%s\", \"%s\");\n",
 		      n->mnemonic.ident->cstr, n->mnemonic.comment);
 	}
     }

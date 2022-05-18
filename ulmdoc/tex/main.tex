@@ -1,0 +1,57 @@
+%------------------------------------------------------------------------------
+% Report of the ULM (Ulm Lecture Machine)
+% (C) Copyright 2020 by Michael C. Lehn, Andreas F. Borchert
+%------------------------------------------------------------------------------
+
+\documentclass[
+   a4paper,
+   twoside,
+   bringhurst,
+   palatino,
+   english,
+   titlepage,
+   fleqn
+]{refman}
+
+\usepackage{xfp}
+\usepackage{tikz,multido,pgfplots}
+\usetikzlibrary{arrows,backgrounds,math}
+\usetikzlibrary{matrix,shapes,snakes,trees,calc}
+\usetikzlibrary{shapes.geometric,shapes.multipart}
+\usetikzlibrary{arrows.meta,chains,positioning,quotes}
+\usepackage{titlesec}
+\usepackage{tikz-qtree}
+
+\usepackage{minitoc}
+\usepackage{amsmath}
+\setcounter{tocdepth}{1}
+\setcounter{minitocdepth}{1}
+
+\pdfextension info {
+   /Title   (ULM Ulm Lecture Machine)
+   /Author  (Michael C. Lehn)
+}
+
+
+\makeindex
+
+\titlespacing*{\subsection}{0pt}{9.5ex}{4.3ex}
+
+\begin{document}
+   \dominitoc
+   \dominilof
+   \dominilot
+
+   \input{title}
+   \cleardoublepage
+   \thispagestyle{empty}
+   \tableofcontents
+
+    \chapter{Instructions}
+%ISA
+
+   \printindex
+   % \addcontentsline{toc}{chapter}{Index}
+   \nocite{*}
+   \bibliography{main}
+\end{document}

@@ -14,6 +14,7 @@ struct InstrNode
     {
 	uint32_t opCode;
 	const struct FmtNode *fmt;
+	const char *comment;
 	struct CodeNode
 	{
 	    const char *line;
@@ -49,6 +50,7 @@ makeInstr(uint32_t opCode)
     }
     in->instr.opCode = opCode;
     in->instr.fmt = 0;
+    in->instr.comment = 0;
     in->instr.codeNode = in->instr.codeNodeLast = 0;
     in->instr.asmNode = in->instr.asmNodeLast = 0;
     in->next = 0;
@@ -127,6 +129,17 @@ appendInstrAsmNotation(struct Instr *instr, const char *asmNotation,
 }
 
 void
+appendInstrComment(struct Instr *instr, const char *comment)
+{
+    comment = strdup(comment);
+    if (!comment) {
+	fprintf(stderr, "appendInstrComment: out of memory\n");
+	exit(1);
+    }
+    instr->comment = comment;
+}
+
+void
 instrPrintInstrList(FILE *out)
 {
     printOpcodeDef(out, "FMT_OPCODE", "ulm_instrReg");
@@ -195,21 +208,49 @@ void
 instrPrintInstrRefman(FILE *out)
 {
     for (const struct InstrNode *in = instrNode; in; in = in->next) {
-	for (const struct AsmNode *an = in->instr.asmNode; an; an = an->next) {
-	    printCode(out, 1,
-		      "addDescription(\"%s\", 0x%02" PRIX32 ", \"%s\", %s);\n",
-		      an->refmanMnemonic, in->instr.opCode,
-		      getFmtId(in->instr.fmt), an->refmanNotation);
+	printCode(out, 1, "{\n");
+	printCode(out, 2, "using namespace ULM_FMT::%s;\n",
+		  getFmtId(in->instr.fmt));
+
+	if (in->instr.asmNode) {
+	    const struct AsmNode *asmNode = in->instr.asmNode;
+
+	    printCode(out, 2, "ulmDoc.setActiveKey(\"%s\");\n",
+		      asmNode->refmanMnemonic);
+	    printCode(out, 2, "ulmDoc.addAsmNotation();\n");
+	    printCode(out, 2, "ulmDoc.addUnescapedDescription(%s);\n",
+		      asmNode->refmanNotation);
+
+	    if (asmNode->next) {
+		printCode(out, 2, "ulmDoc.addAsmAlternative();\n");
+		for (const struct AsmNode *n = asmNode->next; n; n = n->next) {
+		    printCode(out, 2, "ulmDoc.addUnescapedDescription(%s);\n",
+			      n->refmanNotation);
+		    printCode(out, 2, "ulmDoc.addLineBreak();\n");
+		}
+	    }
+	} else {
+	    printCode(out, 2, "ulmDoc.setActiveKey(\"0x%02" PRIX32 "\");\n",
+		      in->instr.opCode);
 	}
-	printCode(out, 1, "addImplementation(0x%02" PRIX32 ", [](){ \n",
+	if (in->instr.comment) {
+	    printCode(out, 2, "ulmDoc.addPurpose();\n");
+	    printCode(out, 2, "ulmDoc.addUnescapedDescription(\"%s\");\n",
+		      in->instr.comment);
+	}
+
+	printCode(out, 2, "ulmDoc.addFormat();\n");
+	printCode(out, 2,
+		  "ulmDoc.addDescription(ulm_instrFmt.tikz(0x%02" PRIX32
+		  "));\n",
 		  in->instr.opCode);
-	printCode(out, 2, "using namespace %s;\n", getFmtId(in->instr.fmt));
+	printCode(out, 2, "ulmDoc.addEffect();\n");
 	for (struct CodeNode *cn = in->instr.codeNode; cn; cn = cn->next) {
 	    if (!cn->next && *cn->line == 0) {
 		break;
 	    }
 	    printCode(out, 1, "%s\n", cn->line);
 	}
-	printCode(out, 1, "});\n");
+	printCode(out, 1, "}\n");
     }
 }

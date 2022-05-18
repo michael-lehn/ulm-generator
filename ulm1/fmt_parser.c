@@ -157,6 +157,11 @@ parseInstrLayout()
     expected(EOL);
     getToken();
 
+    const char *comment = getPendingComment();
+    if (*comment) {
+	appendInstrComment(instr, comment);
+    }
+
     // parse assembly notation(s)
     if (token.kind == COLON) {
 	parseAssemblyNotation(instr);

@@ -6,6 +6,7 @@ RANLIB := ranlib
 TARGET :=
 DEP_FILES :=
 EXTRA_DIRS :=
+REFMAN :=
 
 BUILD :=
 VARIANT :=
@@ -34,17 +35,20 @@ $(foreach m,$(MODULE),\
 .PHONY: all
 all: $(TARGET)
 
+refman: $(REFMAN)
+
 info:
 	@echo "VARIANT=$(VARIANT)"
 	@echo "BUILD=$(BUILD)"
 	@echo "MODULE=$(MODULE)"
 	@echo "dep files:"
 	@echo "DEP_FILES=$(DEP_FILES)"
+	@echo "EXTRA_DIRS=$(EXTRA_DIRS)"
 
 clean:
 	$(RM) $(TARGET)
-	$(RM) $(DEP_FILES)
-	$(RM) -r $(EXTRA_DIRS)
+	$(RM) $(REFMAN)
+	$(RM) -r $(CLEAN_DIRS)
 
 # create additionally needed directories
 $(sort $(EXTRA_DIRS)): ; @mkdir -p $@

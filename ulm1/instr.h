@@ -19,6 +19,7 @@ void appendInstrAsmNotation(struct Instr *instr, const char *asmNotation,
 			    const char *asmCopyOperands,
 			    const char *refmanMnemonic,
 			    const char *refmanAsmNotation);
+void appendInstrComment(struct Instr *instr, const char *comment);
 
 void instrPrintInstrList(FILE *out);
 void instrPrintAsmNotation(FILE *out);
