@@ -25,7 +25,8 @@ $(eval $(id).variant_dir := $($2.dir))
 $(eval $(id).install_dir := $($3.dir)$2/)
 $(eval $(id).build_dir.top := $($(id).install_dir).build/)
 $(eval $(id).build_dir := $($(id).build_dir.top)$1/)
-$(eval $(id).dep_dir := $($(id).install_dir).dep/$2/$1/)
+$(eval $(id).dep_dir.top := $($(id).install_dir).dep/)
+$(eval $(id).dep_dir := $($(id).dep_dir.top)$2/$1/)
 
 $(if $($($(id).module).has.extra), \
     $(call $($(id).module).extra,\
@@ -112,10 +113,12 @@ $(eval $(id).link.libs := \
 $(eval $(id).LINK.o := \
     $(if $($(id).cpp),$($3.LINK.cpp.o),$($3.LINK.c.o)))
 
-$(eval TARGET += $($(id).lib) $($(id).prg) $($(id).prg.c.o) $($(id).prg.cpp.o))
+$(eval OPT_TARGET += \
+    $($(id).lib) $($(id).prg) $($(id).prg.c.o) $($(id).prg.cpp.o))
 $(eval DEP_FILES += $($(id).c.d) $($(id).cpp.d))
 $(eval EXTRA_DIRS += $($(id).build_dir) $($(id).dep_dir))
-$(eval CLEAN_DIRS := $(sort $(CLEAN_DIRS) $($(id).build_dir) $($(id).dep_dir))
+$(eval CLEAN_DIRS := \
+    $(sort $(CLEAN_DIRS) $($(id).build_dir.top) $($(id).dep_dir.top)))
 
 .PHONY: $($(id).dep.content.obsolete) $($(id).lib.ar_d)
 

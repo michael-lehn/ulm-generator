@@ -7,6 +7,7 @@
 define install
 
 $(eval TARGET += $3$1)
+$(eval INSTALL += $3$1)
 
 $3$1 : $2$1
 	ln -f $$< $$@

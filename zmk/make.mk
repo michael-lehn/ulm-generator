@@ -3,7 +3,9 @@ include zmk/setup_build.mk
 include zmk/setup_file_lists.mk
 
 RANLIB := ranlib
+INSTALL :=
 TARGET :=
+OPT_TARGET :=
 DEP_FILES :=
 EXTRA_DIRS :=
 REFMAN :=
@@ -35,6 +37,8 @@ $(foreach m,$(MODULE),\
 .PHONY: all
 all: $(TARGET)
 
+opt: $(OPT_TARGET)
+
 refman: $(REFMAN)
 
 info:
@@ -44,10 +48,11 @@ info:
 	@echo "dep files:"
 	@echo "DEP_FILES=$(DEP_FILES)"
 	@echo "EXTRA_DIRS=$(EXTRA_DIRS)"
+	@echo "CLEAN_DIRS=$(CLEAN_DIRS)"
 
 clean:
-	$(RM) $(TARGET)
 	$(RM) $(REFMAN)
+	$(RM) $(INSTALL)
 	$(RM) -r $(CLEAN_DIRS)
 
 # create additionally needed directories
