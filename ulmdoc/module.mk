@@ -23,7 +23,7 @@ $(eval REFMAN += $3refman.pdf)
 $2% : $1tex/%
 	ln -f $$< $$@
 
-$2refman.pdf : $2refman.tex $2by-sa.pdf $2main.tex $2refman.cls $2title.tex
+$2refman.pdf : $2refman.tex $2by-sa.pdf $2refman.cls $2title.tex
 	(cd $2; lualatex refman.tex) 
 	(cd $2; lualatex refman.tex) 
 
