@@ -41,6 +41,7 @@ UlmApp::UlmApp(const int &argc, char *argv[])
     viewIO.addAccelerator(FKey::Ctrl_i);
     debugStep.addAccelerator(FKey::Ctrl_s);
     debugRun.addAccelerator(FKey::Ctrl_r);
+    debugTerminate.addAccelerator(FKey::Ctrl_t);
     ulmLine1.setSeparator();
     ulmLine2.setSeparator();
 
@@ -53,6 +54,7 @@ UlmApp::UlmApp(const int &argc, char *argv[])
 
     debugStep.addCallback("clicked", this, &UlmApp::step);
     debugRun.addCallback("clicked", this, &UlmApp::run);
+    debugTerminate.addCallback("clicked", this, &UlmApp::terminate);
 
     udb_addCallback(this, &UlmApp::notify);
 }
@@ -156,12 +158,34 @@ UlmApp::step()
 void
 UlmApp::run()
 {
+    if (!timerId) {
+	timerId = addTimer(33);
+    }
     udb_run(999);
+
+    if (ulm_halted || udb_illegalInstruction || udb_badAlignment) {
+	delTimer(timerId);
+    }
+
     if (udb_illegalInstruction) {
 	notify();
 	return;
     }
     udb_notify();
+}
+
+void
+UlmApp::terminate()
+{
+    if (timerId) {
+	delTimer(timerId);
+    }
+}
+
+void
+UlmApp::onTimer(finalcut::FTimerEvent *)
+{
+    run();
 }
 
 void

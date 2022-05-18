@@ -20,9 +20,12 @@ class UlmApp final : public finalcut::FApplication
     void openIOView(finalcut::FWidget *);
     void step();
     void run();
+    void terminate();
     void notify();
 
   private:
+    void onTimer(finalcut::FTimerEvent *);
+
     finalcut::FMenuBar menuBar;
     finalcut::FStatusBar statusbar;
 
@@ -55,6 +58,8 @@ class UlmApp final : public finalcut::FApplication
     std::unique_ptr<CodeView> codeView{ nullptr };
     std::unique_ptr<MemView> memView{ nullptr };
     std::unique_ptr<IOView> ioView{ nullptr };
+
+    int	timerId{0};
 };
 
 #endif // UDB_TUI_ULMAPP_HPP
