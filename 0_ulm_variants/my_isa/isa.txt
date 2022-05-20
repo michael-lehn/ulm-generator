@@ -58,4 +58,3 @@ U16R    (OP u 8) (XY u 16) (Z u 8)
 0x0D    RRR
 :   addq    %X, %Y, %Z
     ulm_add64(ulm_regVal(X), ulm_regVal(Y), Z);
-

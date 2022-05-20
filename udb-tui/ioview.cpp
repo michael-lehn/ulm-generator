@@ -101,6 +101,7 @@ IOView::InputBuffer::onKeyPress(FKeyEvent *ev)
 	ev->accept();
     } else if (isEnterKey(key)) {
 	udb_in += getText().toString();
+	udb_in += "\\n";
 	udb_out += getText()
 		     .replace("\\n", "\n")
 		     .replace("\\t", "\t")

@@ -68,7 +68,7 @@ std::uint64_t udb_getNumCycles();
 std::uint64_t udb_getIP();
 std::uint64_t udb_getPrevIP();
 void udb_step();
-void udb_run();
+void udb_run(std::size_t maxCycles = 0);
 
 #endif // UDBTUI_UDBCPP_HPP
 
