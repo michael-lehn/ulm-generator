@@ -91,7 +91,7 @@ operator+(ExprWrapper left, ExprWrapper right)
 ExprWrapper
 operator-(ExprWrapper left, ExprWrapper right)
 {
-    return makeIntBinaryOp(Expr::ADD, left.exprPtr, right.exprPtr);
+    return makeIntBinaryOp(Expr::SUB, left.exprPtr, right.exprPtr);
 }
 
 ExprWrapper
