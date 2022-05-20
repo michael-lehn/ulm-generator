@@ -35,17 +35,23 @@ UlmDoc::addDescription(const Description &description)
 void
 UlmDoc::addMnemonicDescription(const Key &key, const Description &description)
 {
-    intro[key] += description;
-    intro[key] += "\n";
+    addUnescapedDescription(description);
+}
+
+static std::string
+escapeStringForLatex(const std::string &str)
+{
+    std::string escaped = replace(str, "\\", "\\\\");
+    escaped = replace(escaped, "%", "\\%");
+    escaped = replace(escaped, "_", "\\_");
+    escaped = replace(escaped, "$", "\\$");
+    return escaped;
 }
 
 void
 UlmDoc::addUnescapedDescription(const Description &description)
 {
-    std::string escaped = replace(description, "\\", "\\\\");
-    escaped = replace(description, "%", "\\%");
-    escaped = replace(escaped, "$", "\\$");
-    page[activeKey] += escaped;
+    page[activeKey] += escapeStringForLatex(description);
     page[activeKey] += "\n";
 }
 
@@ -106,7 +112,8 @@ UlmDoc::print(std::ifstream &tex, std::ofstream &out) const
 	if (line == "%ISA") {
 	    for (const auto &p : page) {
 		out << "\\newpage" << std::endl;
-		out << "\\section{" << p.first << "}" << std::endl;
+		out << "\\section{" << escapeStringForLatex(p.first) << "}" <<
+		    std::endl;
 		if (intro.count(p.first)) {
 		    out << intro.find(p.first)->second << std::endl;
 		}
