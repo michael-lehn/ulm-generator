@@ -46,6 +46,65 @@
    \thispagestyle{empty}
    \tableofcontents
 
+    \chapter{Directives}
+
+    \section{.align <expr>}
+
+    Pad the location counter (in the current segment) to a multiple of
+    <expr>.
+
+    \section{.bss}
+
+    Set current segment to the BSS segment.
+
+    \section{.byte <expr>}
+
+    Expression is assembled into next byte.
+
+    \section{.data}
+
+    Set current segment to the data segment.
+
+    \section{.equ <ident>, <expr>}
+
+    Updates the symbol table. Sets the value of <ident> to <expr>.
+
+    \section{.global <ident>}
+
+    Updates the symbol table. Makes the symbol <ident> visible to the linker.
+
+
+    \section{.globl <ident>}
+
+    Equivalent to \textit{.globl <ident>}:
+
+    Updates the symbol table. Makes the symbol <ident> visible to the linker.
+
+    \section{.long <expr>}
+
+    Expression <expr> is assembled into next long word (4 bytes).
+
+    \section{.space <expr>}
+
+    Emits <expr> bytes. Each byte with value 0x00.
+
+    \section{.string <string-literal>}
+
+    Emits bytes for the zero-terminated <string-literal>.
+
+    \section{.text}
+
+    Set current segment to the text segment.
+
+    \section{.word <expr>}
+
+    Expression <expr> is assembled into next word (2 bytes).
+
+    \section{.quad <expr> }
+
+    Expression <expr> is assembled into next quad word (8 bytes).
+
+
     \chapter{Instructions}
 %ISA
 
