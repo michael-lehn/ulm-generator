@@ -33,10 +33,10 @@ $3refman.pdf : $2refman.pdf
 	ln -f $$< $$@
 
 $2refman-theon.pdf : $2refman.tex $2by-sa.pdf $2refman.cls $2title.tex
-	rsync -r $2 theon:/tmp/$(shell echo $$USER)_refman/$(strip $4)
-	ssh theon 'cd /tmp/$(shell echo $$USER)_refman/$(strip $4)/; lualatex refman.tex'
-	ssh theon 'cd /tmp/$(shell echo $$USER)_refman/$(strip $4)/; lualatex refman.tex'
-	scp theon:/tmp/$(shell echo $$USER)_refman/$(strip $4)/refman.pdf $2refman-theon.pdf
+	rsync -r $2 theon:_tmp_ulm/$(shell echo $$USER)_refman/$(strip $4)
+	ssh theon 'cd _tmp_ulm/$(shell echo $$USER)_refman/$(strip $4)/; lualatex refman.tex'
+	ssh theon 'cd _tmp_ulm/$(shell echo $$USER)_refman/$(strip $4)/; lualatex refman.tex'
+	scp theon:_tmp_ulm/$(shell echo $$USER)_refman/$(strip $4)/refman.pdf $2refman-theon.pdf
 
 $3refman-theon.pdf : $2refman-theon.pdf
 	ln -f $$< $$@
