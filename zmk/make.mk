@@ -39,8 +39,6 @@ all: $(TARGET)
 
 opt: $(OPT_TARGET)
 
-refman: $(REFMAN)
-
 info:
 	@echo "VARIANT=$(VARIANT)"
 	@echo "BUILD=$(BUILD)"

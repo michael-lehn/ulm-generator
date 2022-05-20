@@ -32,7 +32,8 @@ $(if $($($(id).module).has.extra), \
     $(call $($(id).module).extra,\
 	$($(id).src_dir),\
 	$($(id).build_dir),\
-	$($(id).install_dir)))
+	$($(id).install_dir), \
+	$($(id).variant)))
 
 $(eval $(id).requires.gen := \
     $(foreach i,$($1.requires.gen), \

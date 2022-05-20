@@ -17,8 +17,10 @@ $(this).has.extra := 1
 # $1	(src_dir)
 # $2	(build_dir)  
 # $3	(install_dir)  
+# $4	(variant)  
 define $(this).extra
 $(eval REFMAN += $3refman.pdf)
+$(eval REFMAN.theon += $3refman-theon.pdf)
 
 $2% : $1tex/%
 	ln -f $$< $$@
@@ -29,4 +31,15 @@ $2refman.pdf : $2refman.tex $2by-sa.pdf $2refman.cls $2title.tex
 
 $3refman.pdf : $2refman.pdf
 	ln -f $$< $$@
+
+$2refman-theon.pdf : $2refman.tex $2by-sa.pdf $2refman.cls $2title.tex
+	rsync -r $2 theon:/tmp/$(shell echo $$USER)_refman/$(strip $4)
+	ssh theon 'cd /tmp/$(shell echo $$USER)_refman/$(strip $4)/; lualatex refman.tex'
+	ssh theon 'cd /tmp/$(shell echo $$USER)_refman/$(strip $4)/; lualatex refman.tex'
+	scp theon:/tmp/$(shell echo $$USER)_refman/$(strip $4)/refman.pdf $2refman-theon.pdf
+
+$3refman-theon.pdf : $2refman-theon.pdf
+	ln -f $$< $$@
+
+
 endef
