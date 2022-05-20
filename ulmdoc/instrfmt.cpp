@@ -37,7 +37,10 @@ InstrFmt::tikz(std::size_t opCode)
 	std::ostringstream label;
 	if (i == 0) {
 	    if (size[i] % 4 == 0) {
-		label << "0x" << std::hex << std::uppercase << opCode;
+		label << "0x";
+		label.width(size[i]/4);
+		label.fill('0');
+		label << std::hex << std::uppercase << opCode;
 	    } else {
 		for (std::size_t j = size[i]; j-- > 0;) {
 		    label << ((opCode & (1 << j)) >> j);
