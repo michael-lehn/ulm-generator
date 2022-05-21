@@ -9,4 +9,3 @@ include zmk/make.mk
 refman: $(REFMAN)
 
 refman-theon: $(REFMAN.theon)
-

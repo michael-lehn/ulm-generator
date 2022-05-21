@@ -9,10 +9,12 @@
 void
 error(const char *fmt, ...)
 {
-    setColor(RED);
+    setColor(BOLD);
     fprintfLoc(stderr, &token.loc, "");
     setColor(SAD);
-    fprintf(stderr, " ");
+    setColor(BOLD_RED);
+    fprintf(stderr, " error: ");
+    setColor(RED);
 
     va_list argp;
     va_start(argp, fmt);
@@ -25,10 +27,12 @@ error(const char *fmt, ...)
 void
 errorAt(struct Loc loc, const char *fmt, ...)
 {
-    setColor(RED);
+    setColor(BOLD);
     fprintfLoc(stderr, &token.loc, "");
     setColor(SAD);
-    fprintf(stderr, " ");
+    setColor(BOLD_RED);
+    fprintf(stderr, " error: ");
+    setColor(RED);
 
     va_list argp;
     va_start(argp, fmt);
