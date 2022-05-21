@@ -1,5 +1,5 @@
-#ifndef USTR_H
-#define USTR_H
+#ifndef UTILS_USTR_H
+#define UTILS_USTR_H
 
 #include <stdbool.h>
 #include <stddef.h>
@@ -13,4 +13,4 @@ struct UStr
 struct UStr *makeUStr_(const char *s, bool *added);
 struct UStr *makeUStr(const char *s);
 
-#endif // USTR_H
+#endif // UTILS_USTR_H

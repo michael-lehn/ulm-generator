@@ -1,5 +1,5 @@
-#ifndef STR_H
-#define STR_H
+#ifndef UTILS_STR_H
+#define UTILS_STR_H
 
 #include <stddef.h>
 
@@ -17,4 +17,4 @@ void appendStrToStr(struct Str *str, struct Str *append);
 void copyCStrToStr(struct Str *str, const char *cstr);
 void appendCStrToStr(struct Str *str, const char *cstr);
 
-#endif // STR_H
+#endif // UTILS_STR_H
