@@ -443,7 +443,6 @@ getToken()
 	    do {
 		nextCh();
 	    } while (ch != EOF && ch != '\n');
-	    nextCh();
 	    return getToken();
 	} else if (ch == '*') {
 	    // ignore delimited comment
