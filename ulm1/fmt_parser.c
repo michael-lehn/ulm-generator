@@ -88,11 +88,18 @@ parseFmtLayout()
     assert(fmt);
     getToken();
 
+    struct UStr *opFieldId = makeUStr("OP");
+    bool hasOp = false;
+
     while (token.kind == LPAREN) {
 	// field ident
 	getToken();
 	expected(IDENT);
 	struct UStr *fieldId = makeUStr(token.val.cstr);
+
+	if (fieldId == opFieldId) {
+	    hasOp = true;
+	}
 
 	// field type ('u' for unsigend, 's' for signed, or 'j' for jump)
 	getToken();
@@ -124,6 +131,9 @@ parseFmtLayout()
 	getToken();
 	expected(RPAREN);
 	getToken();
+    }
+    if (! hasOp) {
+	error("Format has no field with identifier 'OP'\n");
     }
     expected(EOL);
     getToken();
