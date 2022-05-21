@@ -220,7 +220,7 @@ ulm_unconditionalRelJump(ExprWrapper offset)
 {
     std::ostringstream ss;
     ss << "\\[" << std::endl;
-    ss << "\\left(u(\\%\\mathit{IP}) + u(" << latex(offset)
+    ss << "\\left(u(\\%\\mathit{IP}) + s(" << latex(offset)
        << ")\\right) \\bmod 2^{64} \\to u(\\%\\mathit{IP})" << std::endl;
     ss << "\\]" << std::endl;
     ulmDoc.addDescription(ss.str());
@@ -236,7 +236,7 @@ ulm_conditionalRelJump(ExprWrapper condition, ExprWrapper offset)
     ss << "\\]" << std::endl;
     ss << "evaluates to true then" << std::endl;
     ss << "\\[" << std::endl;
-    ss << "\\left(u(\\%\\mathit{IP}) + u(" << latex(offset)
+    ss << "\\left(u(\\%\\mathit{IP}) + s(" << latex(offset)
        << ")\\right) \\bmod 2^{64} \\to u(\\%\\mathit{IP})" << std::endl;
     ss << "\\]" << std::endl;
     ulmDoc.addDescription(ss.str());
