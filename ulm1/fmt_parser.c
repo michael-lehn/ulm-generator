@@ -204,27 +204,12 @@ parseAssemblyNotation(struct Instr *instr)
 
 	struct AsmNode *asmNode = 0;
 	size_t numOperands = 0;
-	bool inOpt = false;
 	for (bool first = true; token.kind != EOL; first = false) {
 	    struct UStr *mnemonic = first ? makeUStr(token.val.cstr) : 0;
 	    enum TokenKind edgeToken = token.kind;
 	    size_t integerLiteral = tokenValToInteger();
 
-	    if (!mnemonic && token.kind == LBRACKET) {
-		if (inOpt) {
-		    error("optional sequence can not be nested");
-		}
-		inOpt = true;
-		getToken();
-		continue;
-	    } else if (!mnemonic && token.kind == RBRACKET) {
-		if (!inOpt) {
-		    error("no optional sequence to end");
-		}
-		inOpt = false;
-		getToken();
-		continue;
-	    } else if (!mnemonic && token.kind == IDENT) {
+	    if (!mnemonic && token.kind == IDENT) {
 		const struct UStr *fieldId = makeUStr(token.val.cstr);
 		const struct FmtFieldNode *field = getFmtField(fmt, fieldId);
 		getToken();

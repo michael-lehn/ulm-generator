@@ -196,6 +196,14 @@ getToken_()
 	appendCharToStr(&token.val, ch);
 	nextCh();
 	token.kind = PERCENT;
+    } else if (ch == '<') {
+	appendCharToStr(&token.val, ch);
+	nextCh();
+	token.kind = LANGLE;
+    } else if (ch == '>') {
+	appendCharToStr(&token.val, ch);
+	nextCh();
+	token.kind = RANGLE;
     } else if (ch == '{') {
 	appendCharToStr(&token.val, ch);
 	nextCh();
