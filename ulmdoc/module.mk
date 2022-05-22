@@ -6,6 +6,7 @@ $(this).prg.cpp := \
  	ulmrefman.cpp
 
 $(this).ulmrefman.in := \
+    $$(variant_dir)isa.txt \
     $$(src_dir)tex/main.tex
 
 $(this).ulmrefman.out := \

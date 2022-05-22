@@ -26,7 +26,8 @@ class UlmDoc
     void addAsmNotation();
     void addAsmAlternative();
 
-    void print(std::ifstream &tex, std::ofstream &out) const;
+    void print(std::ifstream &tex, std::ifstream &isa,
+	       std::ofstream &out) const;
 
   private:
     Key activeKey;

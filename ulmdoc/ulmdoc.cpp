@@ -107,7 +107,7 @@ UlmDoc::addAsmAlternative()
 */
 
 void
-UlmDoc::print(std::ifstream &tex, std::ofstream &out) const
+UlmDoc::print(std::ifstream &tex, std::ifstream &isa, std::ofstream &out) const
 {
     for (std::string line; std::getline(tex, line);) {
 	if (line == "%ISA") {
@@ -120,6 +120,18 @@ UlmDoc::print(std::ifstream &tex, std::ofstream &out) const
 		}
 		out << p.second << std::endl;
 	    }
+	    out << "\\chapter{ISA Source File for the ULM Generator}" <<
+		std::endl;
+	    out << "\\begin{lstlisting}[" << std::endl;
+	    out << "	frame=tb," << std::endl;
+	    out << "	numbers=left," << std::endl;
+	    out << "	numberstyle={\\tiny \\color{black}}," << std::endl;
+	    out << "	tabsize=8," << std::endl;
+	    out << "]" << std::endl;
+	    for (std::string line; std::getline(isa, line);) {
+		out << line << std::endl;
+	    }
+	    out << "\\end{lstlisting}" << std::endl;
 	} else {
 	    out << line << std::endl;
 	}

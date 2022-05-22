@@ -15,18 +15,26 @@ using namespace ulmdoc;
 int
 main(int argc, const char **argv)
 {
-    if (argc != 3) {
-	fprintf(stderr, "Example usage: %s template.tex out.tex\n", argv[0]);
+    if (argc != 4) {
+	fprintf(stderr, "Example usage: %s isa.txt template.tex out.tex\n",
+		argv[0]);
 	return 1;
     }
 
-    std::ifstream tex;
-    std::string mainTex = argv[1];
-    std::string refmanTex = argv[2];
+    std::ifstream tex, isa;
+    std::string isaTxt = argv[1];
+    std::string mainTex = argv[2];
+    std::string refmanTex = argv[3];
 
     tex.open(mainTex);
     if (!tex.is_open()) {
 	std::cerr << argv[0] << ": can not open input file '" << mainTex << "'"
+		  << std::endl;
+    }
+
+    isa.open(isaTxt);
+    if (!isa.is_open()) {
+	std::cerr << argv[0] << ": can not open input file '" << isaTxt << "'"
 		  << std::endl;
     }
 
@@ -39,7 +47,7 @@ main(int argc, const char **argv)
 
 #include <ulm1/_gen_refman_instr.cpp>
 
-    ulmDoc.print(tex, out);
+    ulmDoc.print(tex, isa, out);
 
     tex.close();
     out.close();
