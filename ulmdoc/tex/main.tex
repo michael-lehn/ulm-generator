@@ -46,6 +46,108 @@
    \thispagestyle{empty}
    \tableofcontents
 
+    \chapter{Description of the ULM}
+
+    \section{Data Types}
+
+    Binary digits are called \textit{bits} and have the value $0$ or $1$. A
+    \textit{bit pattern} is a sequence of bits. For example
+    \[
+	X := x_{n-1}\dots x_0\;\text{with}\;x_k \in \{0, 1\}\;\text{for}\;0
+	\leq k < n
+    \]
+    denotes a bit pattern $X$ with $n$ bits. The number of bits in bit pattern
+    is also called its size or width. The ULM architecture defines a
+    \textit{byte} as a bit pattern with 8 bits. Table~\ref{tab.data} lists
+    ULM's definitions for \textit{word}, \textit{long word}, \textit{quad word}
+    that refer to specific sizes of bit patterns.
+
+    
+
+
+    \begin{table}[t]
+    \begin{center}
+    \begin{tabular}{lll}
+    \hline
+    Data Size & Size in Bytes & Size in Number of Bits \\
+    \hline
+    Bytes     & -   & 8 \\
+    Word      & 2   & 16 \\
+    Long Word & 4   & 32 \\
+    Quad Word & 8   & 64 \\
+    \hline
+    \end{tabular}
+    \end{center}
+    \label{tab.data}
+    \caption{Names for specific sizes of bit patterns.}
+    \end{table}
+
+
+    \section{Expressing the Interpretation of a Bit Pattern}
+
+    For a bit pattern $X =  x_{n-1}\dots x_0$ its \textit{unsigned integer}
+    value is expressed and defined through
+    \[
+	u(X) = u(x_{n-1}\dots x_0) := \sum\limits_{k=0}^{n-1} x_k \cdot 2^k
+    \]
+    \textit{Signed integer} values are represented using the \textit{two's
+    complement} and in this respect the notation
+    \[
+	s(X) = s(x_{n-1}x_{n-2}\dots x_0) :=
+	\begin{cases}
+	u(x_{n-2}\dots x_0),		& \text{if}\; x_{n-1} = 0, \\
+	u(x_{n-2}\dots x_0) - 2^{n-1},	& \text{else} \\
+	\end{cases}
+    \]
+    is used.
+
+    \section{Registers and Virtual Memory}
+
+    The ULM has 256 registers denoted as \%0x00, \dots, \%0xFF. Each of these
+    registers has a width of 64 bits. The \%0x00 is a special purpose register
+    and also denoted as \textit{zero register}. Reading form the zero register
+    always gives a bit pattern where all bits have value 0 (zero bit pattern).
+    Writing to the zero register has no effect.
+
+
+    The (virtual) memory of the ULM is an array of $2^{64}$ memory cells. Each
+    memory cell can store exactly one byte. Each memory cell has an index which
+    is called its \textit{address}. The address is in the range from $0$ to
+    $2^{64-1}$ and the first memory cell of the array has address $0$. In
+    notations $M_1(a)$ denotes the memory cell with address $a$.
+
+
+    \subsection{Endianness}
+
+    For referring to data in memory in quantities of words, long words and quad
+    words the definitions
+    \[
+	\begin{array}{lcl}
+	M_2(a) & := & M_1(a) M_1(a+1) \\
+	M_4(a) & := & M_2(a) M_2(a+2) \\
+	M_8(a) & := & M_4(a) M_4(a+4) \\
+	\end{array}
+    \]
+    are used. The ULM architecture is a \textit{big endian} machine. Therefore
+    we have the equalities
+    \[
+	\begin{array}{lcl}
+	u(M_2(a)) & = & u(M_1(a) M_1(a+1)) \\
+	u(M_4(a)) & = & u(M_2(a) M_2(a+2)) \\
+	u(M_8(a)) & = & u(M_4(a) M_4(a+4)) \\
+	\end{array}
+    \]
+
+
+    \subsection{Alignment of Data}
+
+    A quantity of $k$ bytes in memory at address $a$ is aligned if $a$ is a
+    multiple of $k$, i.\,e.
+    \[
+	M_k(a)\;\text{is aligned}\;\Leftrightarrow\; a \bmod k = 0
+    \]
+
+
     \chapter{Directives}
 
     \section{.align <expr>}
