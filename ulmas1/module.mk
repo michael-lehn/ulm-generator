@@ -10,7 +10,9 @@ $(this).requires.gen := \
 	ulmas0/_gen_strtokenkind.c
 
 $(this).prg.c := \
- 	ulmas.c
+ 	ulmas.c \
+	xtest_lexer.c
 
 $(this).install := \
- 	ulmas
+ 	ulmas \
+	xtest_lexer

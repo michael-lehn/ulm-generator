@@ -132,6 +132,48 @@ parseUnaryExpr()
     return parsePrimaryExpr();
 }
 
+static uint64_t
+hexToUint(const char *s)
+{
+    s += 2;
+    uint64_t val = 0, digit;
+    while ((digit = *s++)) {
+	if (digit >= '0' && digit <= '9') {
+	    digit -= '0';
+	} else if (digit >= 'a' && digit <= 'f') {
+	    digit -= 'a';
+	} else if (digit >= 'A' && digit <= 'F') {
+	    digit -= 'A';
+	}
+	val = val * 16 + digit;
+    }
+    return val;
+}
+
+static uint64_t
+octToUint(const char *s)
+{
+    ++s;
+    uint64_t val = 0, digit;
+    while ((digit = *s++)) {
+	digit -= '0';
+	val = val * 8 + digit;
+    }
+    return val;
+}
+
+static uint64_t
+decToUint(const char *s)
+{
+    uint64_t val = 0, digit;
+    while ((digit = *s++)) {
+	digit -= '0';
+	val = val * 10 + digit;
+    }
+    return val;
+}
+
+
 static struct Expr *
 parsePrimaryExpr()
 {
@@ -143,13 +185,20 @@ parsePrimaryExpr()
 	    expr = makeValExpr(token.loc, ABS, val);
 	    getToken();
 	} break;
-	case DECIMAL_LITERAL:
-	case OCTAL_LITERAL:
 	case HEXADECIMAL_LITERAL: {
-	    uint64_t val = strtoll(token.val.cstr, 0, 0);
+	    uint64_t val = hexToUint(token.val.cstr);
 	    expr = makeValExpr(token.loc, ABS, val);
 	    getToken();
-
+	} break;
+	case OCTAL_LITERAL: {
+	    uint64_t val = octToUint(token.val.cstr);
+	    expr = makeValExpr(token.loc, ABS, val);
+	    getToken();
+	} break;
+	case DECIMAL_LITERAL: {
+	    uint64_t val = decToUint(token.val.cstr);
+	    expr = makeValExpr(token.loc, ABS, val);
+	    getToken();
 	} break;
 	case IDENT:
 	    expr = makeSymExpr(token.loc, makeUStr(token.val.cstr));
