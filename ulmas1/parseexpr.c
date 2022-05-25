@@ -141,9 +141,9 @@ hexToUint(const char *s)
 	if (digit >= '0' && digit <= '9') {
 	    digit -= '0';
 	} else if (digit >= 'a' && digit <= 'f') {
-	    digit -= 'a';
+	    digit -= 'a' + 10;
 	} else if (digit >= 'A' && digit <= 'F') {
-	    digit -= 'A';
+	    digit -= 'A' + 10;
 	}
 	val = val * 16 + digit;
     }
