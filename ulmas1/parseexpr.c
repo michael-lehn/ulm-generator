@@ -132,6 +132,7 @@ parseUnaryExpr()
     return parsePrimaryExpr();
 }
 
+/*
 static uint64_t
 hexToUint(const char *s)
 {
@@ -149,6 +150,7 @@ hexToUint(const char *s)
     }
     return val;
 }
+*/
 
 static uint64_t
 octToUint(const char *s)
@@ -186,7 +188,8 @@ parsePrimaryExpr()
 	    getToken();
 	} break;
 	case HEXADECIMAL_LITERAL: {
-	    uint64_t val = hexToUint(token.val.cstr);
+	    //uint64_t val = hexToUint(token.val.cstr);
+	    uint64_t val = strtoll(token.val.cstr, 0, 0);
 	    expr = makeValExpr(token.loc, ABS, val);
 	    getToken();
 	} break;
