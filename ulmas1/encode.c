@@ -92,7 +92,7 @@ encodeFieldType(uint64_t addr, enum FmtFieldType fieldType, struct Loc loc,
 
 static bool
 checkRange(size_t numBits, enum FmtFieldType fieldType, struct Loc loc,
-	   uint64_t val)
+	   uint64_t val, bool withErrorMsg)
 {
     uint64_t compare;
     switch (fieldType) {
@@ -100,10 +100,12 @@ checkRange(size_t numBits, enum FmtFieldType fieldType, struct Loc loc,
 	case SIGNED: {
 	    compare = ((int64_t)val << (64 - numBits)) >> (64 - numBits);
 	    if (compare != val) {
-		errorAt(loc,
-			"expression value %" PRId64 " (0x%" PRIX64
-			") not within range [-2^%zu, 2^%zu)\n",
-			(int64_t)val, val, numBits - 1, numBits - 1);
+		if (withErrorMsg) {
+		    errorAt(loc,
+			    "expression value %" PRId64 " (0x%" PRIX64
+			    ") not within range [-2^%zu, 2^%zu)\n",
+			    (int64_t)val, val, numBits - 1, numBits - 1);
+		}
 		return false;
 	    }
 	    return true;
@@ -111,10 +113,12 @@ checkRange(size_t numBits, enum FmtFieldType fieldType, struct Loc loc,
 	case UNSIGNED: {
 	    compare = (val << (64 - numBits)) >> (64 - numBits);
 	    if (compare != val) {
-		errorAt(loc,
-			"expression value %" PRId64 " (0x%" PRIX64
-			") not within range [0, 2^%zu)\n",
-			val, val, numBits);
+		if (withErrorMsg) {
+		    errorAt(loc,
+			    "expression value %" PRId64 " (0x%" PRIX64
+			    ") not within range [0, 2^%zu)\n",
+			    val, val, numBits);
+		}
 		return false;
 	    }
 	    return true;
@@ -174,7 +178,7 @@ encodeExprOperand(enum CgSeg cgSeg, uint64_t addr, uint32_t *instr,
     } else {
 	freeExpr(expr);
 	val = encodeFieldType(addr, fieldType, loc, valType, val);
-	checkRange(numBits, fieldType, loc, val);
+	checkRange(numBits, fieldType, loc, val, true);
 	encodeOperand(instr, bitPos, numBits, val);
     }
 }
@@ -196,8 +200,16 @@ encodeExpr(enum CgSeg cgSeg, uint64_t addr, size_t numBytes, struct Expr *expr)
     if (expr && fixupRequired(cgSeg, valType, SIGNED)) {
 	addFixupInteger(cgSeg, addr, numBytes * 8, 0, expr);
     } else {
+	size_t numBits = numBytes * 8;
+	bool checkSigned = checkRange(numBits, SIGNED, loc, val, false);
+	bool checkUnsigned = checkRange(numBits, UNSIGNED, loc, val, false);
+
+	if (!checkSigned && !checkUnsigned) {
+	    errorAt(loc,
+		    "expression value %s can not be encoded with %zu bits\n",
+		    strExpr(expr), numBits);
+	}
 	freeExpr(expr);
-	checkRange(numBytes * 8, SIGNED, loc, val);
     }
     return val;
 }
@@ -222,7 +234,7 @@ encodeFixables()
 
 	val = encodeFieldType(cgSegStart[n->cgSeg] + n->addr, n->fieldType, loc,
 			      valType, val);
-	checkRange(n->numBits, n->fieldType, loc, val);
+	checkRange(n->numBits, n->fieldType, loc, val, true);
 	size_t numBytes = (n->bitOffset + n->numBits + 8 - 1) / 8;
 	val <<= (numBytes * 8 - n->bitOffset - n->numBits);
 	cgFixBytes(n->cgSeg, n->addr, numBytes, val);
