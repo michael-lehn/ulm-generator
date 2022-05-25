@@ -132,7 +132,6 @@ parseUnaryExpr()
     return parsePrimaryExpr();
 }
 
-/*
 static uint64_t
 hexToUint(const char *s)
 {
@@ -142,15 +141,14 @@ hexToUint(const char *s)
 	if (digit >= '0' && digit <= '9') {
 	    digit -= '0';
 	} else if (digit >= 'a' && digit <= 'f') {
-	    digit -= 'a' + 10;
+	    digit -= 'a' - 10;
 	} else if (digit >= 'A' && digit <= 'F') {
-	    digit -= 'A' + 10;
+	    digit -= 'A' - 10;;
 	}
 	val = val * 16 + digit;
     }
     return val;
 }
-*/
 
 static uint64_t
 octToUint(const char *s)
@@ -188,8 +186,8 @@ parsePrimaryExpr()
 	    getToken();
 	} break;
 	case HEXADECIMAL_LITERAL: {
-	    //uint64_t val = hexToUint(token.val.cstr);
-	    uint64_t val = strtoll(token.val.cstr, 0, 0);
+	    uint64_t val = hexToUint(token.val.cstr);
+	    //uint64_t val = strtoll(token.val.cstr, 0, 0);
 	    expr = makeValExpr(token.loc, ABS, val);
 	    getToken();
 	} break;
