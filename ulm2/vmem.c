@@ -180,9 +180,11 @@ ulm_fetch32(uint64_t addr, uint32_t *val)
 	abort();
     }
     if (addr % 4) {
-	fprintf(stderr, "%%IP: 0x%016" PRIx64 "\n", ulm_instrPtr); 
-	fprintf(stderr, "bad alignment: addr = 0x%016" PRIx64 ", size = 4\n",
-		addr);
+	if (udb_useStderr) {
+	    fprintf(stderr, "%%IP: 0x%016" PRIx64 "\n", ulm_instrPtr);
+	    fprintf(stderr,
+		    "bad alignment: addr = 0x%016" PRIx64 ", size = 4\n", addr);
+	}
 	udb_badAlignment = true;
 	return;
     }
@@ -206,14 +208,17 @@ ulm_fetch64(int64_t disp, ulm_Reg base, ulm_Reg index, uint64_t scale,
     uint64_t addr = disp + ulm_regVal(base) + scale * ulm_regVal(index);
 
     if (addr % numBytes) {
-	fprintf(stderr, "%%IP: 0x%016" PRIx64 "\n", ulm_instrPtr); 
-	fprintf(stderr, "bad alignment: addr = 0x%016" PRIx64 ", size = %zu\n",
-		addr, numBytes);
-	fprintf(stderr,
-		"disp = %" PRId64 ", base = %" PRIu64
-		", ulm_regVal(base) = 0x%" PRIu64 ", "
-		"index = %" PRIu64 ", ulm_regVal(index) = 0x%" PRIu64 "\n",
-		disp, base, ulm_regVal(base), index, ulm_regVal(index));
+	if (udb_useStderr) {
+	    fprintf(stderr, "%%IP: 0x%016" PRIx64 "\n", ulm_instrPtr);
+	    fprintf(stderr,
+		    "bad alignment: addr = 0x%016" PRIx64 ", size = %zu\n",
+		    addr, numBytes);
+	    fprintf(stderr,
+		    "disp = %" PRId64 ", base = %" PRIu64
+		    ", ulm_regVal(base) = 0x%" PRIu64 ", "
+		    "index = %" PRIu64 ", ulm_regVal(index) = 0x%" PRIu64 "\n",
+		    disp, base, ulm_regVal(base), index, ulm_regVal(index));
+	}
 	udb_badAlignment = true;
 	return;
     }
@@ -246,9 +251,12 @@ ulm_store64(int64_t disp, ulm_Reg base, ulm_Reg index, uint64_t scale,
     uint64_t addr = disp + ulm_regVal(base) + scale * ulm_regVal(index);
 
     if (addr % numBytes) {
-	fprintf(stderr, "%%IP: 0x%016" PRIx64 "\n", ulm_instrPtr); 
-	fprintf(stderr, "bad alignment: addr = 0x%016" PRIu64 ", size = %zu\n",
-		addr, numBytes);
+	if (udb_useStderr) {
+	    fprintf(stderr, "%%IP: 0x%016" PRIx64 "\n", ulm_instrPtr);
+	    fprintf(stderr,
+		    "bad alignment: addr = 0x%016" PRIu64 ", size = %zu\n",
+		    addr, numBytes);
+	}
 	udb_badAlignment = true;
     }
 

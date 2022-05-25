@@ -56,6 +56,7 @@ UlmApp::UlmApp(const int &argc, char *argv[])
     debugRun.addCallback("clicked", this, &UlmApp::run);
     debugTerminate.addCallback("clicked", this, &UlmApp::terminate);
 
+    udb_useStderr = false;
     udb_addCallback(this, &UlmApp::notify);
 }
 
