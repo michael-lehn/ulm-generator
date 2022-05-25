@@ -20,6 +20,8 @@ escapeStringForLatex(const std::string &str)
     escaped = replace(escaped, "%", "\\%");
     escaped = replace(escaped, "_", "\\_");
     escaped = replace(escaped, "$", "\\$");
+    escaped = replace(escaped, "{", "\\{");
+    escaped = replace(escaped, "}", "\\}");
     return escaped;
 }
 

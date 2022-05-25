@@ -173,25 +173,11 @@ cgAlign(size_t alignTo)
     }
     uint64_t padding = roundUp(addr[seg], alignTo) - addr[seg];
 
-    if (seg == CGSEG_TEXT) {
-	if (padding % 4) {
-	    error("can not achieve alignment with nop operations (required in "
-		  "text segment)");
-	}
-	for (uint64_t i = 0; i < padding; i += 4) {
-	    cgAppendBytes(4, TODO_NOP_INSTR);
-	    cgAppendComment("nop");
-	}
-    } else if (seg == CGSEG_DATA || seg == CGSEG_BSS) {
-	for (uint64_t i = 0; i < padding; ++i) {
-	    cgAppendBytes(1, 0x00);
-	}
-	if (padding) {
-	    cgAppendComment(" for alignment");
-	}
-    } else {
-	fprintf(stderr, "internal error in 'segAlign': seg = %d\n", seg);
-	assert(0); // seg has illegal value
+    for (uint64_t i = 0; i < padding; ++i) {
+	cgAppendBytes(1, 0x00);
+    }
+    if (padding) {
+	cgAppendComment(" for alignment");
     }
 
     alignment[seg] *= alignTo / gcd(alignment[seg], alignTo);
@@ -329,6 +315,5 @@ cgPrint(FILE *out)
 
     printCode(out, 0, "#BSS %" PRIu64 " %" PRIu64 "\n", alignment[CGSEG_BSS],
 	      addr[CGSEG_BSS]);
-
 }
 

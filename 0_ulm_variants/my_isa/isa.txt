@@ -5,7 +5,7 @@ U16R    (OP u 8) (XY u 16) (Z u 8)
 
 
 0x01    RRR
-:   halt_x    %X
+:   halt    %X
     ulm_halt(ulm_regVal(X));
 
 0x02    RRR
