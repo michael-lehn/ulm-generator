@@ -203,6 +203,7 @@ parsePrimaryExpr()
 	} break;
 	case IDENT:
 	    expr = makeSymExpr(token.loc, makeUStr(token.val.cstr));
+	    evalExpr(expr);
 	    getToken();
 	    break;
 	case LPAREN:
