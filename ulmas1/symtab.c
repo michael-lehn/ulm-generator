@@ -97,9 +97,34 @@ symtabGet(const struct UStr *ident, const struct UStr *recGuard,
     }
 }
 
+size_t
+symtabNumUnresolvable()
+{
+    size_t numUnresolvable = 0;
+    for (struct SymtabNode *n = symtab; n; n = n->next) {
+	evalExpr(n->val);
+	if (typeExpr(n->val) == UNKNOWN) {
+	    ++numUnresolvable;
+	}
+    }
+    return numUnresolvable;
+}
+
+void
+symtabResolve()
+{
+    size_t run1 = symtabNumUnresolvable();
+    size_t run2 = symtabNumUnresolvable();
+    while (run1 != run2 && run2 != 0) {
+	run1 = run2;
+	run2 = symtabNumUnresolvable();
+    }
+}
+
 void
 symtabPrint(FILE *out)
 {
+    symtabResolve();
     fprintf(out, "#SYMTAB\n");
     for (struct SymtabNode *n = symtab; n; n = n->next) {
 	uint64_t val = evalExpr(n->val);

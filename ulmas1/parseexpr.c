@@ -187,7 +187,6 @@ parsePrimaryExpr()
 	} break;
 	case HEXADECIMAL_LITERAL: {
 	    uint64_t val = hexToUint(token.val.cstr);
-	    //uint64_t val = strtoll(token.val.cstr, 0, 0);
 	    expr = makeValExpr(token.loc, ABS, val);
 	    getToken();
 	} break;

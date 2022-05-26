@@ -217,6 +217,7 @@ encodeExpr(enum CgSeg cgSeg, uint64_t addr, size_t numBytes, struct Expr *expr)
 void
 encodeFixables()
 {
+    symtabResolve();
     for (struct FixupNode *n = fixups; n; n = n->next) {
 	uint64_t val = evalExpr(n->expr);
 	enum ExprType valType = typeExpr(n->expr);
