@@ -226,7 +226,9 @@ instrPrintInstrRefman(FILE *out)
 		for (const struct AsmNode *n = asmNode->next; n; n = n->next) {
 		    printCode(out, 2, "ulmDoc.addUnescapedDescription(%s);\n",
 			      n->refmanNotation);
-		    printCode(out, 2, "ulmDoc.addLineBreak();\n");
+		    if (n->next) {
+			printCode(out, 2, "ulmDoc.addLineBreak();\n");
+		    }
 		}
 	    }
 	} else {

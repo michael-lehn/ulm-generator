@@ -207,8 +207,8 @@ ulm_absJump(ExprWrapper addr, ExprWrapper retReg)
 {
     std::ostringstream ss;
     ss << "\\[\\begin{array}{lcl}" << std::endl;
-    ss << "u(\\%\\mathit{IP}) & \\to & u(" << latex(addr) << ")\\\\[0.2cm]"
-       << std::endl;
+    ss << "\\left( u(\\%\\mathit{IP}) + 4 \\right) \\bmod 2^{64} & \\to & u(\\%"
+       << latex(retReg) << ")\\\\[0.2cm]" << std::endl;
     ss << "u(" << latex(addr) << ") & \\to & u(\\%\\mathit{IP}) \\\\"
        << std::endl;
     ss << "\\end{array}\\]" << std::endl;
