@@ -62,7 +62,12 @@ symtabSet(const struct UStr *ident, const struct Expr *val)
     struct SymtabNode *n = findSym(ident);
 
     if (n) {
-	setSym(n, val);
+	if (typeExpr(n->val) == UNKNOWN || typeExpr(n->val) == ABS) {
+	    setSym(n, val);
+	} else {
+	    error("symbol '%s' was defined as label and can not be redefined\n",
+		  ident->cstr);
+	}
     } else {
 	addSym(ident, val);
     }
