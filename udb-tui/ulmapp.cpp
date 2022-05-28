@@ -164,7 +164,8 @@ UlmApp::run()
     }
     udb_run(999);
 
-    if (ulm_halted || udb_illegalInstruction || udb_badAlignment) {
+    if (udb_inStep || ulm_halted || udb_illegalInstruction || udb_badAlignment)
+    {
 	delTimer(timerId);
     }
 
