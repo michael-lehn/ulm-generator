@@ -68,8 +68,8 @@ parseDirective(void)
 		      strTokenKind(token.kind));
 	    }
 	    */
-	    cgAppendInteger(numBytes, expr);
 	    commentAddExpr(expr);
+	    cgAppendInteger(numBytes, expr);
 	} break;
 	case DOT_ALIGN: {
 	    commentClear();
