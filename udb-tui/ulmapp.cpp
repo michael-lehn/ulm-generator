@@ -154,6 +154,9 @@ UlmApp::step()
 	return;
     }
     udb_notify();
+    if (udb_waitingForInput) {
+	FTerm::beep();
+    }
 }
 
 void
@@ -164,9 +167,14 @@ UlmApp::run()
     }
     udb_run(999);
 
-    if (udb_inStep || ulm_halted || udb_illegalInstruction || udb_badAlignment)
+    if (udb_waitingForInput || udb_inStep || ulm_halted ||
+	udb_illegalInstruction || udb_badAlignment)
     {
 	delTimer(timerId);
+    }
+
+    if (udb_waitingForInput) {
+	FTerm::beep();
     }
 
     if (udb_illegalInstruction) {
@@ -206,5 +214,9 @@ UlmApp::notify()
 	FString msg;
 	msg.sprintf("Illegal instruction 0x%" PRIu32, ulm_instrReg);
 	FMessageBox::info(&menuBar, "Program crashed", msg);
+    } else if (udb_waitingForInput) {
+	FString msg;
+	msg.sprintf("Input buffer empty: 'getchar()' is blocking");
+	FMessageBox::info(&menuBar, "Waiting for Input", msg);
     }
 }
