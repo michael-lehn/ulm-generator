@@ -2,12 +2,14 @@
 #include <inttypes.h>
 #include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "cg.h"
 #include "comment.h"
+#include "encode.h"
 #include "error.h"
 #include "expected.h"
-#include "encode.h"
 #include "lexer.h"
 #include "parsedirective.h"
 #include "parseexpr.h"
@@ -15,27 +17,52 @@
 #include "symtab.h"
 #include <utils/printcode.h>
 
+void
+usage(const char *prg)
+{
+    fprintf(stderr, "usage: %s [-o output] input\n", prg);
+    exit(1);
+}
+
 int
 main(int argc, char **argv)
 {
-    if (argc != 2 && argc != 3) {
-	fprintf(stderr, "usage: %s input [output]\n", argv[0]);
-	return 1;
+    if (argc != 2 && argc != 4) {
+	usage(argv[0]);
     }
 
-    FILE *in = fopen(argv[1], "r");
+    const char *input = 0, *output = "a.out";
+
+    for (int i = 1; i < argc; ++i) {
+	if (!strcmp(argv[i], "-o")) {
+	    output = argv[++i];
+	    continue;
+	}
+	if (!strcmp(argv[i], "--")) {
+	    continue;
+	} else {
+	    input = argv[i];
+	    continue;
+	}
+	if (*argv[i] == '-') {
+	    usage(argv[0]);
+	}
+    }
+
+    FILE *in = input ? fopen(input, "r") : stdin;
+    FILE *out = fopen(output, "w");
+
     if (!in) {
 	fprintf(stderr, "can not open input file '%s'\n", argv[1]);
 	return 1;
     }
-    const char *output = argc == 2 ? "a.out" : argv[2];
-    FILE *out = fopen("a.out", "w");
+
     if (!out) {
 	fprintf(stderr, "can not open output file '%s'\n", output);
 	return 1;
     }
 
-    setLexerIn(in, argv[1]);
+    setLexerIn(in, input);
 
     getToken();
     while (token.kind != EOI) {
