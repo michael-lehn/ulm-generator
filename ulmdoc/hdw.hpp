@@ -25,6 +25,8 @@ void ulm_trap(ExprWrapper reg0, ExprWrapper reg1, ExprWrapper reg2);
 
 void ulm_setReg(ExprWrapper val, ExprWrapper reg);
 
+void ulm_ipSet(ExprWrapper val);
+
 void ulm_add64(ExprWrapper a, ExprWrapper b, ExprWrapper dest);
 
 void ulm_sub64(ExprWrapper a, ExprWrapper b, ExprWrapper dest);

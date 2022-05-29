@@ -53,6 +53,14 @@ ulm_setReg(ExprWrapper val, ExprWrapper reg)
 }
 
 void
+ulm_ipSet(ExprWrapper val)
+{
+    std::ostringstream ss;
+    ss << "TODO: ulm\\_ipSet" << std::endl;
+    ulmDoc.addDescription(ss.str());
+}
+
+void
 ulm_add64(ExprWrapper a, ExprWrapper b, ExprWrapper dest)
 {
     auto str = truncateInt(b + a, 64) + writeToUnsignedReg(dest);

@@ -24,6 +24,7 @@ class ExprWrapper
 
 std::string latex(ExprWrapper expr);
 Expr::ExprPtr ulm_regVal(ExprWrapper reg);
+Expr::ExprPtr ulm_ipVal();
 
 ExprWrapper declareBitField(std::string sym,
 			    Expr::BitPatternType bitPatternType,

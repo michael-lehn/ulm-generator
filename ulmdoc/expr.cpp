@@ -122,7 +122,6 @@ makeIntBitPattern(const Expr::ExprPtr exprPtr)
 
     if (std::holds_alternative<Expr::TypedBitPattern>(repr)) {
 	const auto &t = std::get<Expr::TypedBitPattern>(repr);
-	assert(t.bitPatternType != Expr::JUMP_OFFSET);
 	type = t.bitPatternType == Expr::UNSIGNED ? Expr::U_INT : Expr::S_INT;
 
 	numBits = t.numBits;

@@ -91,3 +91,15 @@ ulm_conditionalRelJump(bool condition, int64_t offset)
     }
 }
 
+uint64_t
+ulm_ipVal()
+{
+    return ulm_instrPtr;
+}
+
+void
+ulm_ipSet(uint64_t val)
+{
+    ulm_instrPtr = val;
+    jmp = true;
+}

@@ -1,4 +1,3 @@
-RR      (OP u 8) (X u 8) (Y u 8)
 RRR     (OP u 8) (X u 8) (Y u 8) (Z u 8)
 J26     (OP u 8) (XYZ j 24)
 U16R    (OP u 8) (XY u 16) (Z u 8)
@@ -51,10 +50,34 @@ U16R    (OP u 8) (XY u 16) (Z u 8)
 :   imulq   %X, %Y, %Z
     ulm_mul64(ulm_regVal(X), ulm_regVal(Y), Z);
 
-0x0C	RR
-:   jmp	    %X,	%Y
-    ulm_absJump(ulm_regVal(X), ulm_regVal(Y));
+0x0C    J26
+:   ja      XYZ
+    ulm_conditionalRelJump(ulm_statusReg[ULM_ZF] == 0 && ulm_statusReg[ULM_CF] == 0, XYZ);
 
-0x0D    RRR
+0x0D    J26
+:   jb      XYZ
+    ulm_conditionalRelJump(ulm_statusReg[ULM_CF] == 1, XYZ);
+
+0x0E    RRR
 :   addq    %X, %Y, %Z
     ulm_add64(ulm_regVal(X), ulm_regVal(Y), Z);
+
+0x0F    RRR
+:   imulq   X, %Y, %Z
+    ulm_mul64(X, ulm_regVal(Y), Z);
+
+0x10    RRR
+:   divq    X, %Y, %Z
+    ulm_div128(X, ulm_regVal(Y), ulm_regVal(0), Z, 0, Z + 1);
+
+0x11    RRR
+:   movb    %X, (%Z)
+    ulm_store64(0, Z, 0, 0, 1, X);
+
+0x12    RRR
+:   movq    (%X), %Z
+    ulm_fetch64(0, X, 0, 0, ULM_ZERO_EXT, 8, Z);
+
+0x13	RRR
+:   putc    X
+    ulm_printChar(X & 0xFF);

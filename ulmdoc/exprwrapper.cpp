@@ -63,6 +63,13 @@ ulm_regVal(ExprWrapper reg)
     return makeRegBitPattern(reg.exprPtr);
 }
 
+Expr::ExprPtr
+ulm_ipVal()
+{
+    return makeRegBitPattern(makeTypedBitPattern("IP", Expr::UNSIGNED, 64));
+}
+
+
 ExprWrapper
 declareBitField(std::string sym, Expr::BitPatternType bitPatternType,
 		std::size_t numBits)
