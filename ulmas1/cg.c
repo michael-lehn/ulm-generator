@@ -218,6 +218,12 @@ cgAppendComment(const char *str)
 void
 cgAppendInstr(uint32_t opCode, ...)
 {
+    // TODO: Find a better solution to this
+    /*
+       Before the encoding cgAlign needs to be triggered. Otherwise we
+       have wrong location in the fixup
+    */
+    cgAlign(4);
     va_list argp;
     va_start(argp, opCode);
     uint32_t code = encodeInstr(seg, addr[seg], opCode, argp);
@@ -229,6 +235,12 @@ cgAppendInstr(uint32_t opCode, ...)
 void
 cgAppendInteger(size_t numBytes, struct Expr *expr)
 {
+    // TODO: Find a better solution to this
+    /*
+       Before the encoding cgAlign needs to be triggered. Otherwise we
+       have wrong location in the fixup
+    */
+    cgAlign(numBytes);
     uint64_t val = encodeExpr(seg, addr[seg], numBytes, expr);
     cgAppendBytes(numBytes, val);
 }
