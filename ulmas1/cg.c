@@ -87,15 +87,18 @@ getPage(enum CgSeg fromSeg, uint64_t addr, uint64_t *pageOffset)
 }
 
 void
-cgFixBytes(enum CgSeg cgSeg, uint64_t addr, size_t numBytes, uint64_t val)
+cgFixBytes(enum CgSeg cgSeg, uint64_t addr, size_t numBytes, uint64_t mask,
+	   uint64_t val)
 {
     uint64_t pageOffset;
     struct Page *p = getPage(cgSeg, addr, &pageOffset);
     assert(pageOffset + numBytes <= PAGE_SIZE);
 
     for (size_t i = 0; i < numBytes; ++i) {
-	p->byte[pageOffset + numBytes - i - 1] |= val;
+	p->byte[pageOffset + numBytes - i - 1] &= mask & 0xFF;
+	p->byte[pageOffset + numBytes - i - 1] |= val & 0xFF;
 	val >>= 8;
+	mask >>= 8;
     }
 }
 

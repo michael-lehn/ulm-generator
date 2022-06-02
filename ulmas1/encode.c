@@ -198,7 +198,7 @@ encodeExpr(enum CgSeg cgSeg, uint64_t addr, size_t numBytes, struct Expr *expr)
     struct Loc loc = locExpr(expr);
 
     if (expr && fixupRequired(cgSeg, valType, SIGNED)) {
-	addFixupInteger(cgSeg, addr, numBytes * 8, 0, expr);
+	addFixupInteger(cgSeg, addr, 0, numBytes * 8, expr);
     } else {
 	size_t numBits = numBytes * 8;
 	bool checkSigned = checkRange(numBits, SIGNED, loc, val, false);
@@ -238,7 +238,13 @@ encodeFixables()
 	checkRange(n->numBits, n->fieldType, loc, val, true);
 	size_t numBytes = (n->bitOffset + n->numBits + 8 - 1) / 8;
 	val <<= (numBytes * 8 - n->bitOffset - n->numBits);
-	cgFixBytes(n->cgSeg, n->addr, numBytes, val);
+	uint64_t mask = 0;
+	if (n->numBits < 64) {
+	    mask = ((uint64_t) 1 << n->numBits) - 1;
+	    mask <<= 64 - n->bitOffset;
+	    mask = ~mask;
+	}
+	cgFixBytes(n->cgSeg, n->addr, numBytes, mask, val);
     }
 }
 

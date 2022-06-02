@@ -21,7 +21,8 @@ extern uint64_t cgSegStart[CGSEG_NUM_SEGMENTS];
 extern uint64_t cgSegEnd[CGSEG_NUM_SEGMENTS];
 extern bool cgSegFinalized;
 
-void cgFixBytes(enum CgSeg cgSeg, uint64_t addr, size_t numBytes, uint64_t val);
+void cgFixBytes(enum CgSeg cgSeg, uint64_t addr, size_t numBytes, uint64_t mask,
+		uint64_t val);
 void cgAppendBytes(size_t numBytes, uint64_t val);
 
 void cgSetActiveSegment(enum CgSeg cgSeg_);
