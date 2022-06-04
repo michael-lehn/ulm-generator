@@ -1,5 +1,5 @@
-#ifndef ULM_ALU_H
-#define ULM_ALU_H
+#ifndef ULM2_ALU_H
+#define ULM2_ALU_H
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -31,4 +31,4 @@ void ulm_printALU(ulm_Reg firstReg, ulm_Reg lastReg);
 } // extern "C"
 #endif // __cplusplus
 
-#endif // ULM_ALU_H
+#endif // ULM2_ALU_H

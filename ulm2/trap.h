@@ -1,5 +1,5 @@
-#ifndef ULM_TRAP_H
-#define ULM_TRAP_H
+#ifndef ULM2_TRAP_H
+#define ULM2_TRAP_H
 
 #include <stdint.h>
 #include "alu.h"
@@ -17,4 +17,4 @@ extern "C" {
 } // extern "C"
 #endif // __cplusplus
 
-#endif // ULM_TRAP_H
+#endif // ULM2_TRAP_H

@@ -1,5 +1,5 @@
-#ifndef ULM_VMEM_H
-#define ULM_VMEM_H
+#ifndef ULM2_VMEM_H
+#define ULM2_VMEM_H
 
 #include <stddef.h>
 #include <stdint.h>
@@ -44,4 +44,4 @@ void ulm_printVMem(uint64_t begin, uint64_t end, size_t chunkSize);
 } // extern "C"
 #endif // __cplusplus
 
-#endif // ULM_VMEM_H
+#endif // ULM2_VMEM_H

@@ -1,5 +1,5 @@
-#ifndef ULM_CU_H
-#define ULM_CU_H
+#ifndef ULM2_CU_H
+#define ULM2_CU_H
 
 #include <stdint.h>
 
@@ -30,4 +30,4 @@ void ulm_step();
 } // extern "C"
 #endif // __cplusplus
 
-#endif // ULM_CU_H
+#endif // ULM2_CU_H

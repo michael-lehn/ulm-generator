@@ -1,5 +1,5 @@
-#ifndef ULM_IO_H
-#define ULM_IO_H
+#ifndef ULM2_IO_H
+#define ULM2_IO_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -17,4 +17,4 @@ void ulm_setOutputCallback(void(*callBack)(int));
 } // extern "C"
 #endif // __cplusplus
 
-#endif // ULM_IO_H
+#endif // ULM2_IO_H

@@ -1,5 +1,5 @@
-#ifndef ULM_LOADER_H
-#define ULM_LOADER_H
+#ifndef ULM2_LOADER_H
+#define ULM2_LOADER_H
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -20,4 +20,4 @@ bool ulm_load_str(const char *line);
 } // extern "C"
 #endif // __cplusplus
 
-#endif // ULM_LOADER_H
+#endif // ULM2_LOADER_H
