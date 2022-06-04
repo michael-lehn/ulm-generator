@@ -226,21 +226,21 @@ encodeFixables()
 	if (valType == UNKNOWN) {
 	    continue;
 	} else if (valType == REL_TEXT) {
-	    val += cgSegStart[CGSEG_TEXT];
+	    val += cgSegStartAddr(CGSEG_TEXT);
 	} else if (valType == REL_DATA) {
-	    val += cgSegStart[CGSEG_DATA];
+	    val += cgSegStartAddr(CGSEG_DATA);
 	} else if (valType == REL_BSS) {
-	    val += cgSegStart[CGSEG_BSS];
+	    val += cgSegStartAddr(CGSEG_BSS);
 	}
 
-	val = encodeFieldType(cgSegStart[n->cgSeg] + n->addr, n->fieldType, loc,
-			      valType, val);
+	val = encodeFieldType(cgSegStartAddr(n->cgSeg) + n->addr, n->fieldType,
+			      loc, valType, val);
 	checkRange(n->numBits, n->fieldType, loc, val, true);
 	size_t numBytes = (n->bitOffset + n->numBits + 8 - 1) / 8;
 	val <<= (numBytes * 8 - n->bitOffset - n->numBits);
 	uint64_t mask = 0;
 	if (n->numBits < 64) {
-	    mask = ((uint64_t) 1 << n->numBits) - 1;
+	    mask = ((uint64_t)1 << n->numBits) - 1;
 	    mask <<= 64 - n->bitOffset;
 	    mask = ~mask;
 	}

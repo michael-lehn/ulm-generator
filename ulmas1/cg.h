@@ -17,8 +17,12 @@ enum CgSeg
     CGSEG_NUM_SEGMENTS,
 };
 
-extern uint64_t cgSegStart[CGSEG_NUM_SEGMENTS];
-extern uint64_t cgSegEnd[CGSEG_NUM_SEGMENTS];
+//extern uint64_t cgSegStart[CGSEG_NUM_SEGMENTS];
+//extern uint64_t cgSegEnd[CGSEG_NUM_SEGMENTS];
+
+uint64_t cgSegStartAddr(enum CgSeg);
+uint64_t cgSegEndAddr(enum CgSeg);
+
 extern bool cgSegFinalized;
 
 void cgFixBytes(enum CgSeg cgSeg, uint64_t addr, size_t numBytes, uint64_t mask,
@@ -26,6 +30,7 @@ void cgFixBytes(enum CgSeg cgSeg, uint64_t addr, size_t numBytes, uint64_t mask,
 void cgAppendBytes(size_t numBytes, uint64_t val);
 
 void cgSetActiveSegment(enum CgSeg cgSeg_);
+enum CgSeg cgGetActiveSegment(void);
 void cgAlign(size_t alignTo);
 void cgAppendSpace(size_t numBytes);
 void cgSetLabel(struct Loc loc, const struct UStr *ident);

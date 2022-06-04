@@ -21,6 +21,18 @@ uint64_t cgSegStart[CGSEG_NUM_SEGMENTS];
 uint64_t cgSegEnd[CGSEG_NUM_SEGMENTS];
 bool cgSegFinalized;
 
+uint64_t
+cgSegStartAddr(enum CgSeg cgSeg)
+{
+    return cgSegStart[cgSeg];
+}
+
+uint64_t
+cgSegEndAddr(enum CgSeg cgSeg)
+{
+    return cgSegEnd[cgSeg];
+}
+
 static uint64_t
 roundUp(uint64_t a, uint64_t m)
 {
