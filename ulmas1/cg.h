@@ -17,9 +17,6 @@ enum CgSeg
     CGSEG_NUM_SEGMENTS,
 };
 
-//extern uint64_t cgSegStart[CGSEG_NUM_SEGMENTS];
-//extern uint64_t cgSegEnd[CGSEG_NUM_SEGMENTS];
-
 uint64_t cgSegStartAddr(enum CgSeg);
 uint64_t cgSegEndAddr(enum CgSeg);
 
