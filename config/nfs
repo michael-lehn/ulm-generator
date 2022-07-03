@@ -12,6 +12,5 @@ ifeq ($(strip $(on_nfs)),nfs)
     $(info )
     $(error Have a nice day)
 else
-    $(info )
 endif
 

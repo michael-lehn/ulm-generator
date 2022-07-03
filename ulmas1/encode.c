@@ -225,13 +225,16 @@ encodeFixables()
 
 	if (valType == UNKNOWN) {
 	    continue;
-	} else if (valType == REL_TEXT) {
+	}
+	/*
+	else if (valType == REL_TEXT) {
 	    val += cgSegStartAddr(CGSEG_TEXT);
 	} else if (valType == REL_DATA) {
 	    val += cgSegStartAddr(CGSEG_DATA);
 	} else if (valType == REL_BSS) {
 	    val += cgSegStartAddr(CGSEG_BSS);
 	}
+	*/
 
 	val = encodeFieldType(cgSegStartAddr(n->cgSeg) + n->addr, n->fieldType,
 			      loc, valType, val);

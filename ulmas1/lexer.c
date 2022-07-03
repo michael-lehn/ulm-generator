@@ -528,5 +528,6 @@ getToken()
     } else {
 	token.kind = EOI;
     }
+    // never reached
     return token.kind;
 }

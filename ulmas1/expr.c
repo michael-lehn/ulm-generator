@@ -6,6 +6,7 @@
 #include <string.h>
 
 #include "error.h"
+#include "cg.h"
 #include "expr.h"
 #include "symtab.h"
 #include <utils/str.h>
@@ -92,7 +93,7 @@ typeBinary(const struct Expr *x)
 	    return ABS;
 	}
     }
-    //printTreeExpr(x);
+    // printTreeExpr(x);
     errorAt(x->loc, "illegal expression\n");
     return UNKNOWN;
 }
@@ -199,9 +200,16 @@ eval(const struct Expr *x, const struct UStr *guard)
 	case VAL:
 	    m->val = x->u.val;
 	    break;
-	case SYM:
+	case SYM: {
 	    symtabGet(x->u.sym, guard, &m->type, &m->val);
-	    break;
+	    if (m->type == REL_TEXT) {
+		m->val += cgSegStartAddr(CGSEG_TEXT);
+	    } else if (m->type == REL_DATA) {
+		m->val += cgSegStartAddr(CGSEG_DATA);
+	    } else if (m->type == REL_BSS) {
+		m->val += cgSegStartAddr(CGSEG_BSS);
+	    }
+	} break;
 	case NEG:
 	    eval(x->u.unary, guard);
 	    m->type = typeUnary(x);
