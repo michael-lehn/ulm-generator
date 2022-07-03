@@ -12,6 +12,7 @@ struct Token token;
 void
 setLexerIn(FILE *in_, const char *inputfile)
 {
+    ch = 0;
     in = in_;
     token.loc.filename = inputfile;
 }
