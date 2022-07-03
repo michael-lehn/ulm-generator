@@ -571,6 +571,7 @@ printExpr_(const struct Expr *x, bool isFactor)
 		if (isFactor) {
 		    printf(")");
 		}
+		break;
 	    default:
 		printExpr_(x->u.binary.left, true);
 		printf(" %s ", strExprKind(x->kind));

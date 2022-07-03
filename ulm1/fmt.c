@@ -290,11 +290,6 @@ printFmtUndef(FILE *out, const struct FmtNode *fmt)
 }
 
 void
-printFmtList(FILE *out)
-{
-}
-
-void
 printFmtInstrEncoding(FILE *out)
 {
     const char *ft[NUM_FIELD_TYPES] = { "SIGNED", "UNSIGNED", "JMP_OFFSET" };

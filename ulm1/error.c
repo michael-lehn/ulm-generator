@@ -28,7 +28,7 @@ void
 errorAt(struct Loc loc, const char *fmt, ...)
 {
     setColor(BOLD);
-    fprintfLoc(stderr, &token.loc, "");
+    fprintfLoc(stderr, &loc, "");
     setColor(SAD);
     setColor(BOLD_RED);
     fprintf(stderr, " error: ");

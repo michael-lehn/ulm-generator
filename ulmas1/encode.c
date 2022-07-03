@@ -223,19 +223,13 @@ encodeFixables()
 	enum ExprType valType = typeExpr(n->expr);
 	struct Loc loc = locExpr(n->expr);
 
+	/*
+	   if expr type is REL_TEXT, REL_DATA or REL_BSS the value has changed
+	   as know the size of the segements is known.
+	*/
 	if (valType == UNKNOWN) {
 	    continue;
 	}
-	/*
-	else if (valType == REL_TEXT) {
-	    val += cgSegStartAddr(CGSEG_TEXT);
-	} else if (valType == REL_DATA) {
-	    val += cgSegStartAddr(CGSEG_DATA);
-	} else if (valType == REL_BSS) {
-	    val += cgSegStartAddr(CGSEG_BSS);
-	}
-	*/
-
 	val = encodeFieldType(cgSegStartAddr(n->cgSeg) + n->addr, n->fieldType,
 			      loc, valType, val);
 	checkRange(n->numBits, n->fieldType, loc, val, true);

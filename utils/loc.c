@@ -1,4 +1,6 @@
+#include <assert.h>
 #include <stdarg.h>
+#include <string.h>
 
 #include "loc.h"
 
@@ -19,6 +21,8 @@ struct Loc nullLoc;
 struct Loc
 combineLoc(struct Loc loc0, struct Loc loc1)
 {
+    assert(strcmp(loc0.filename, loc1.filename));
+
     struct Loc loc = { {
 			 min(loc0.begin.line, loc1.begin.line),
 			 min(loc0.begin.col, loc1.begin.col),
@@ -26,7 +30,8 @@ combineLoc(struct Loc loc0, struct Loc loc1)
 		       {
 			 max(loc0.begin.line, loc1.begin.line),
 			 max(loc0.begin.col, loc1.begin.col),
-		       } };
+		       },
+			loc0.filename};
     return loc;
 }
 

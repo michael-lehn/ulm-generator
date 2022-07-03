@@ -9,4 +9,7 @@
 void
 ulm_trap(ulm_Reg reg0, ulm_Reg reg1, ulm_Reg reg2)
 {
+    reg0++; // prevent warnings
+    reg1++;
+    reg2++;
 }

@@ -39,7 +39,6 @@ void printRefmanFormatDescription(FILE *out);
 
 // adding an opCode to an format defines its encoding
 void addOpCodeToFmt(struct FmtNode *fmt, uint32_t opCode);
-void printFmtList(FILE *out);
 void printFmtInstrEncoding(FILE *out);
 
 #endif // ULM1_FMT_H
