@@ -228,8 +228,14 @@ encodeFixables()
 	   as know the size of the segements is known.
 	*/
 	if (valType == UNKNOWN) {
-	    continue;
-	}
+            continue;
+        } else if (valType == REL_TEXT) {
+            val += cgSegStartAddr(CGSEG_TEXT);
+        } else if (valType == REL_DATA) {
+            val += cgSegStartAddr(CGSEG_DATA);
+        } else if (valType == REL_BSS) {
+            val += cgSegStartAddr(CGSEG_BSS);
+        }
 	val = encodeFieldType(cgSegStartAddr(n->cgSeg) + n->addr, n->fieldType,
 			      loc, valType, val);
 	checkRange(n->numBits, n->fieldType, loc, val, true);
