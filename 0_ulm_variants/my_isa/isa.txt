@@ -1,19 +1,4 @@
-foo1	(OP u 8) (XY u 16) (Z u 8)
-foo2	(OP u 8) (XY u 16) (Z u 8)
-bar	(OP u 8) (X u 8) (Y u 8) (Z u 8)
+R	(OP u 8) (X u 8)
 
 0x01 bar
     ulm_halt(X);
-
-0x02 bar
-    ;
-
-0x03 foo1
-    ulm_setReg(XY, Z);
-
-0x04 foo2
-    ulm_setReg(XY, Z);
-
-0x05 bar
-    ulm_add64(ulm_regVal(X), ulm_regVal(Y), Z);
-    
