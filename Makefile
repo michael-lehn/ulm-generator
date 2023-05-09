@@ -1,4 +1,4 @@
-CFLAGS := -Werror -Wextra -Wall -I.
+CFLAGS := -Wextra -Wall -I.
 CPPFLAGS := -Wall -I.
 
 include config/ar
