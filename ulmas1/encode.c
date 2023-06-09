@@ -223,9 +223,10 @@ encodeFixables()
 	enum ExprType valType = typeExpr(n->expr);
 	struct Loc loc = locExpr(n->expr);
 
+
 	/*
 	   if expr type is REL_TEXT, REL_DATA or REL_BSS the value has changed
-	   as know the size of the segements is known.
+	   as now the size of the segements is known.
 	*/
 	if (valType == UNKNOWN) {
             continue;
