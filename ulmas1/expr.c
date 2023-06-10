@@ -193,7 +193,7 @@ eval(const struct Expr *x, const struct UStr *guard)
     // access the mutable field 'r' of expression
     struct Mutable *m = (struct Mutable *)&x->m;
 
-    if (x->m.type != UNKNOWN) {
+    if (x->m.type == ABS) {
 	return;
     }
     switch (x->kind) {
@@ -202,7 +202,6 @@ eval(const struct Expr *x, const struct UStr *guard)
 	    break;
 	case SYM: {
 	    symtabGet(x->u.sym, guard, &m->type, &m->val);
-	    /*
 	    if (m->type == REL_TEXT) {
 		m->val += cgSegStartAddr(CGSEG_TEXT);
 	    } else if (m->type == REL_DATA) {
@@ -210,7 +209,6 @@ eval(const struct Expr *x, const struct UStr *guard)
 	    } else if (m->type == REL_BSS) {
 		m->val += cgSegStartAddr(CGSEG_BSS);
 	    }
-	    */
 	} break;
 	case NEG:
 	    eval(x->u.unary, guard);
