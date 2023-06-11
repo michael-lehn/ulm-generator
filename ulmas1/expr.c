@@ -488,23 +488,27 @@ relocStr_(const struct Expr *x, bool clear)
     }
 
     if (x->m.type != UNKNOWN) {
+	uint64_t val = x->m.val;
 	switch (x->m.type) {
 	    case REL_TEXT:
+		val -= cgSegStartAddr(CGSEG_TEXT);
 		appendCStrToStr(&str, "[text]");
 		break;
 	    case REL_DATA:
+		val -= cgSegStartAddr(CGSEG_DATA);
 		appendCStrToStr(&str, "[data]");
 		break;
 	    case REL_BSS:
+		val -= cgSegStartAddr(CGSEG_BSS);
 		appendCStrToStr(&str, "[bss]");
 		break;
 	    default:;
 	}
 	char s[30];
 	if (x->m.type == ABS) {
-	    snprintf(s, 30, "%" PRId64, x->m.val);
+	    snprintf(s, 30, "%" PRId64, val);
 	} else {
-	    snprintf(s, 30, "%+" PRId64, x->m.val);
+	    snprintf(s, 30, "%+" PRId64, val);
 	}
 	appendCStrToStr(&str, s);
 	return str.cstr;
