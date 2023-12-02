@@ -1,24 +1,29 @@
 # ulm-generator
 
-Generator for a ULM (Ulm Lecture Machine) virtual machine.
+A generator for a ULM (Ulm Lecture Machine) virtual machine.
 
-From a description of an ISA (Instruction Set Architecture), it generates:
+From a description of an ISA (Instruction Set Architecture), it generates the following tools using `make`:
 
-- the ULM (executable name `ulm`)
-- a debugger for the ULM with a text user interface (executable name `udb-tui`)
-- an assembler for the ULM (executable name `ulmas`)
+- a virtual machine for your ISA: executable named `ulm`
+- a debugger with a text user interface: executable named `udb-tui`
+- an assembler for the ULM: executable named `ulmas`
 
-See `0_ulm_variants/ulm/isa.txt` for a fully-featured example and `0_ulm_variants/ex/isa.txt` for a starting point example. After running `make` in `1_ulm_build/ex/`, you will find all the tools generated for this variant, i.e., `ulm`, `udb-tui`, `ulmas`. After running `make refman`, you will also find `refman.pdf` documenting the instruction set.
+Additionally, it can generate documentation for the ISA (using `make refman`):
+- File name: `refman.pdf`
 
-You can define several ISAs, and for each ISA, the above tools are generated. For each ISA variant, all the tools are generated in `1_ulm_build/NAME_OF_VARIANT/`.
+You can define multiple ISAs, and for each ISA, the above tools are generated. For each ISA variant, all the tools are generated in `1_ulm_build/NAME_OF_VARIANT/`.
+
+See `0_ulm_variants/ulm/isa.txt` for a fully-featured example and `0_ulm_variants/my_isa/isa.txt` for a starting point example. After running `make`, you will find all the tools generated from `0_ulm_variants/ulm/isa.txt` in `1_ulm_build/ulm/`, and the tools generated from `0_ulm_variants/my_isa/isa.txt` in `1_ulm_build/my_isa/`.
+
+After running `make refman`, you will also have `1_ulm_build/ulm/refman.pdf` generated from `0_ulm_variants/ulm/isa.txt` and `1_ulm_build/my_isa/refman.pdf` generated from `0_ulm_variants/my_isa/isa.txt`.
 
 # Requirements
 
-The debugger requires an installation of the great `finalcut` library: https://github.com/gansm/finalcut. Modify `config/finalcut` so that it contains the correct include and library path for `finalcut`.
+The debugger requires an installation of the excellent `finalcut` library: https://github.com/gansm/finalcut. Modify `config/finalcut` to contain the correct include and library path for `finalcut`.
 
 # Compile
 
-A simple `make` should do. However, if `finalcut` is not installed or `config/finalcut` is not correct, the debugger module will be ignored.
+A simple `make` should suffice. However, if `finalcut` is not installed or `config/finalcut` is incorrect, the debugger module will be ignored.
 
 # Examples
 
