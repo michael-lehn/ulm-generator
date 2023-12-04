@@ -57,7 +57,7 @@ MSR_R   (OP u  8) (X	s   8)	(Y  u  8) (Z u  8)
 
 0x37 RRR
 :   adcq    %X, %Y, %Z
-    ulm_add64(ulm_regVal(X) + ulm_statusReg[ULM_ZF], ulm_regVal(Y), Z);
+    ulm_add64(ulm_regVal(X) + ulm_statusReg[ULM_CF], ulm_regVal(Y), Z);
 
 #-------------------------------------------------------------------------------
 
