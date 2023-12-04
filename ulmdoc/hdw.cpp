@@ -125,7 +125,7 @@ ulm_div128(ExprWrapper a, ExprWrapper b0, ExprWrapper b1, ExprWrapper dest0,
     ss << "b := u\\left(" << latex(b1) << latex(b0) << "\\right)";
     ss << "\\]" << std::endl;
 
-    ss << "and unsigned 64-bia denominator" << std::endl;
+    ss << "and unsigned 64-bit denominator" << std::endl;
     ss << "\\[" << std::endl;
     ss << "a := " << latex(makeInt(a.exprPtr));
     ss << "\\]" << std::endl;
