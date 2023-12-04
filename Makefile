@@ -1,5 +1,5 @@
-CFLAGS := -Wextra -Wall -I.
-CPPFLAGS := -Wall -I.
+CFLAGS += -Wextra -Wall -I.
+CPPFLAGS += -Wextra -Wall -I.
 
 include config/ar
 include config/nfs

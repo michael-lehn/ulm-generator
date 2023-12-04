@@ -50,7 +50,7 @@ illegalInstr(uint32_t opCode)
     printf("Instr Ptr 0x%016" PRIX64 "\n", ulm_instrPtr);
     exit(1);
     */
-    opCode++; // prevent warning
+    (void) opCode; // prevent warning 'opCode unused'
     udb_illegalInstruction = true;
 }
 

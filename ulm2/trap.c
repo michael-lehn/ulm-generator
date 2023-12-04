@@ -9,7 +9,7 @@
 void
 ulm_trap(ulm_Reg reg0, ulm_Reg reg1, ulm_Reg reg2)
 {
-    reg0++; // prevent warnings
-    reg1++;
-    reg2++;
+    (void) reg0; // prevent warning 'reg0 unused'
+    (void) reg1; // prevent warning 'reg1 unused'
+    (void) reg2; // prevent warning 'reg2 unused'
 }

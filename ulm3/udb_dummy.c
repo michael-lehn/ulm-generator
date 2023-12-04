@@ -3,7 +3,7 @@
 
 #include "../ulm2/udb.h"
 
-#define FAKE_PARAM_USE(x) x++
+#define FAKE_PARAM_USE(x) (void)(x)
 
 // dummy implementation for interface specified in udb.h
 void

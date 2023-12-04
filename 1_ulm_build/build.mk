@@ -1,7 +1,5 @@
-# $(this).CC := gcc-11
-# $(this).CXX := g++-11
-$(this).CC := gcc
-$(this).CXX := g++
+$(this).CC := $(CC)
+$(this).CXX := $(CXX)
 $(this).CFLAGS := $(CFLAGS) -Wall -DDEBUG
-$(this).CXXFLAGS := -Wall -std=c++17
+$(this).CXXFLAGS := $(CXXFLAGS) -Wall -std=c++17
 $(this).CPPFLAGS := $(CPPFLAGS)
