@@ -21,8 +21,8 @@ A simple `make install` will install `ulm-generator` in `/usr/local/bin`. To cha
 
 - `ulm-generator --fetch` displays a list of available demo ISAs. One ISA is `ulm-ice40.isa`.
 - `ulm-generator --fetch ulm-ice40.isa` copies the ISA file `ulm-ice40.isa` to the current directory.
-- `ulm-generator ulm-ice40.isa` creates a subdirectory `ulm-ise40` and builds the tools `ulm.exe`, `udb-tui.exe`, `ulmas.exe`.
-- `ulm-generator ulm-ice40.isa --refman` generates in addition to these tools a reference manual for the assembler instructions.
+- `ulm-generator ulm-ice40.isa` creates a subdirectory `ulm-ise40` and builds the tools `ulm`, `udb-tui`, `ulmas`.
+- `ulm-generator ulm-ice40.isa --refman` generates in addition to these tools a reference manual `refman.pdf` for the assembler instructions.
 - `ulm-generator ulm-ice40.isa --install` installs the tools in `/usr/local/bin`.
 - `ulm-generator ulm-ice40.isa --install --prefix=/foo/bar` installs the tools in `/foo/bar/bin`.
 
