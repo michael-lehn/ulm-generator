@@ -13,7 +13,7 @@ $(if $(add.found),\
 
 $(eval this := $(add.ident))
 $(eval this.dir := $(add.dir))
-$(eval include $1)
+$(eval -include $1)
 
 $(if $($(this).ignore),\
     $(info module '$(this)' ignored),\

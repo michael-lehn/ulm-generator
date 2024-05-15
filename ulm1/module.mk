@@ -8,6 +8,7 @@ $(this).requires.gen := \
     ulm0/_gen_tokenkind.h
 
 $(this).prg.c := \
+    xtest_lexer.c \
     xtest_fmt_parser.c \
     xtest_fmt_check_parser.c
 

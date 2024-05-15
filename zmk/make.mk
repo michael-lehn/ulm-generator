@@ -16,14 +16,22 @@ BUILD :=
 VARIANT :=
 MODULE :=
 
+ifneq ($(isa),)
+$(call add_isa,$(isa))
+else
 variant_list := \
 	$(sort $(wildcard *.isa) $(wildcard */*.isa))
 
 $(foreach v,$(variant_list),\
     $(call add_isa,$v))
+endif
 
+ifneq ($(build),)
+$(call add,$(build),BUILD)
+else
 $(foreach b,$(wildcard */build.mk */*/build.mk),\
     $(call add,$b,BUILD))
+endif
 
 $(foreach m,$(wildcard */module.mk */*/module.mk),\
     $(call add,$m,MODULE))
@@ -86,7 +94,7 @@ ifeq ($(default.build),)
 endif
 
 ifeq ($(strip $(prefix)),)
-	install.prefix := /usr/local/bin
+	install.prefix := /usr/local
 endif
 
 install_select_build:
@@ -121,8 +129,33 @@ default-$(install.variant):
 	echo "isa=$(default.variant)" > build/default
 	echo "build=$(default.build)" >> build/default
 
+install.list := \
+	Makefile \
+	$(wildcard *.isa) \
+	config \
+	udb-tui \
+	ulm0 \
+	ulm1 \
+	ulm2 \
+	ulm3 \
+	ulmas0 \
+	ulmas1 \
+	ulmdoc \
+	utils \
+	zmk
 
-install: $(install.target)
+patch_ulm_generator := \
+	sed "s\#FIXME\#prefix=$(install.prefix)/\#" \
+		./ulm-generator.in \
+		> $(install.prefix)/bin/ulm-generator
+
+install:
+	@mkdir -p $(install.prefix)/bin
+	@mkdir -p $(install.prefix)/share/ulm-generator
+	$(patch_ulm_generator)
+	@chmod +x $(install.prefix)/bin/ulm-generator
+	cp -r $(install.list) $(install.prefix)/share/ulm-generator
+
 	
 default: $(default.target)
 	

@@ -14,5 +14,4 @@ $(this).prg.c := \
 	xtest_lexer.c
 
 $(this).install := \
- 	ulmas \
-	xtest_lexer
+ 	ulmas

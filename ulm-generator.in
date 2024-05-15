@@ -1,0 +1,114 @@
+#! /bin/sh
+
+FIXME
+ulm_gen_path=${prefix}/share/ulm-generator/
+
+demos=""
+
+for i in ${ulm_gen_path}*.isa; do
+    demo="${demo} `basename $i`"
+done
+
+make_opt=""
+install=no
+fetch=no
+help=no
+
+while [[ $# -gt 0 ]]; do
+    case $1 in
+	--help)
+	    shift
+	    help=yes
+	    ;;
+	--fetch)
+	    shift
+	    fetch=yes
+	    isa="$1"
+	    shift
+	    ;;
+	--install)
+	    install=yes
+	    shift
+	    ;;
+	--prefix=*)
+	    prefix="${1#*=}"
+	    shift
+	    ;;
+	clean)
+	    make_opt="${make_opt} $1"
+	    shift
+	    ;;
+	-j)
+	    shift
+	    make_opt="${make_opt} -j$1"
+	    shift
+	    ;;
+	-j*)
+	    make_opt="${make_opt} $1"
+	    shift
+	    ;;
+	-*|--*)
+	    echo "Unknown option $1"
+	    help=yes
+	    ;;
+	*)
+	    if [ -z "${isa}" ]; then
+		isa="$1"
+	    else
+		echo "illegal option: '$1'"
+		exit 1
+	    fi
+	    shift
+	    ;;
+    esac
+done
+
+if [ ${help} = "yes" ] || [ -z "${isa}" ] && [ fetch = "no" ]; then
+    echo "usage: $0 [options] file"
+    echo "       $0 --fetch [file]\n"
+    echo "options:"
+    echo "\t--prefix=path \tPrefix for installation (default: /usr/local)"
+    echo "\t--install \tBuild and install"
+    echo "\t-j N \tBuild in parallel with N jobs"
+    echo ""
+    exit 1
+fi
+
+if [ ${fetch} = "yes" ]; then
+    if [ -z ${isa} ] || [ ! -f ${ulm_gen_path}/${isa} ]; then
+	echo "available isa files: ${demo}"
+	echo "usage: $0 --fetch <isa file>"
+	exit 1
+    fi
+    cp ${ulm_gen_path}/${isa} .
+    exit 0;
+fi
+
+isa_path=`realpath -q "${isa}"`
+
+if [ -z "${isa}" ]; then
+    echo "can not find isa file: ${isa}"
+    exit 1
+fi
+
+if [ -z "${prefix}" ]; then
+    prefix=/usr/local/
+fi
+
+make_lock="$PWD/${isa%%.*}/make.lock"
+make_opt="${make_opt} make.lock=${make_lock}"
+
+echo "prefix=${prefix}"
+echo "isa=${isa}"
+echo "realpath=${isa}"
+echo "make_opt=${make_opt}"
+
+make -C ${ulm_gen_path} isa="${isa_path}" build="$PWD/build.mk" ${make_opt}
+
+if [ ${install} = "yes" ]; then
+    (set -x; sudo cp "$PWD/${isa%%.*}/ulm" "${prefix}/bin/")
+    (set -x; sudo cp "$PWD/${isa%%.*}/ulmas" "${prefix}/bin/")
+    (set -x; sudo cp "$PWD/${isa%%.*}/udb-tui" "${prefix}/bin/")
+fi
+
+rm -f "${make_lock}"
