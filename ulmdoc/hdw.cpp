@@ -36,6 +36,9 @@ ulm_printChar(ExprWrapper val)
 void
 ulm_trap(ExprWrapper reg0, ExprWrapper reg1, ExprWrapper reg2)
 {
+    (void)reg0;
+    (void)reg1;
+    (void)reg2;
     std::ostringstream ss;
     ss << "TODO: ulm\\_trap" << std::endl;
     ulmDoc.addDescription(ss.str());
@@ -55,6 +58,7 @@ ulm_setReg(ExprWrapper val, ExprWrapper reg)
 void
 ulm_ipSet(ExprWrapper val)
 {
+    (void)val;
     std::ostringstream ss;
     ss << "TODO: ulm\\_ipSet" << std::endl;
     ulmDoc.addDescription(ss.str());
@@ -111,6 +115,10 @@ ulm_mul64(ExprWrapper a, ExprWrapper b, ExprWrapper dest)
 void
 ulm_mul128(ExprWrapper a, ExprWrapper b, ExprWrapper dest0, ExprWrapper dest1)
 {
+    (void)a;
+    (void)b;
+    (void)dest0;
+    (void)dest1;
     std::ostringstream ss;
     ss << "TODO: ulm\\_mul128" << std::endl;
     ulmDoc.addDescription(ss.str());
@@ -165,6 +173,9 @@ ulm_idiv64(ExprWrapper a, ExprWrapper b, ExprWrapper dest)
 void
 ulm_shiftLeft64(ExprWrapper a, ExprWrapper b, ExprWrapper dest)
 {
+    (void)a;
+    (void)b;
+    (void)dest;
     std::ostringstream ss;
     ss << "TODO: ulm\\_shiftLeft64" << std::endl;
     ulmDoc.addDescription(ss.str());
@@ -173,6 +184,9 @@ ulm_shiftLeft64(ExprWrapper a, ExprWrapper b, ExprWrapper dest)
 void
 ulm_shiftRightSigned64(ExprWrapper a, ExprWrapper b, ExprWrapper dest)
 {
+    (void)a;
+    (void)b;
+    (void)dest;
     std::ostringstream ss;
     ss << "TODO: ulm\\_shiftRightSigned64" << std::endl;
     ulmDoc.addDescription(ss.str());
@@ -181,6 +195,9 @@ ulm_shiftRightSigned64(ExprWrapper a, ExprWrapper b, ExprWrapper dest)
 void
 ulm_shiftRightUnsigned64(ExprWrapper a, ExprWrapper b, ExprWrapper dest)
 {
+    (void)a;
+    (void)b;
+    (void)dest;
     std::ostringstream ss;
     ss << "TODO: ulm\\_shiftRightUnsigned64" << std::endl;
     ulmDoc.addDescription(ss.str());
@@ -198,6 +215,9 @@ ulm_and64(ExprWrapper a, ExprWrapper b, ExprWrapper dest)
 void
 ulm_or64(ExprWrapper a, ExprWrapper b, ExprWrapper dest)
 {
+    (void)a;
+    (void)b;
+    (void)dest;
     std::ostringstream ss;
     ss << "TODO: ulm\\_or64" << std::endl;
     ulmDoc.addDescription(ss.str());
@@ -206,6 +226,8 @@ ulm_or64(ExprWrapper a, ExprWrapper b, ExprWrapper dest)
 void
 ulm_not64(ExprWrapper a, ExprWrapper dest)
 {
+    (void)a;
+    (void)dest;
     std::ostringstream ss;
     ss << "TODO: ulm\\_not64" << std::endl;
     ulmDoc.addDescription(ss.str());

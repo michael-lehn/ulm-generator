@@ -17,9 +17,7 @@ VARIANT :=
 MODULE :=
 
 variant_list := \
-	$(sort \
-		$(dir $(wildcard */variant.mk */*/variant.mk)) \
-		$(dir $(wildcard */variant.mk */*/isa.txt)))
+	$(sort $(wildcard *.isa) $(wildcard */*.isa))
 
 $(foreach v,$(variant_list),\
     $(call add_isa,$v))
@@ -40,9 +38,60 @@ $(foreach m,$(MODULE),\
 
 #$(call mk0_info)
 
+#
+# For installing a variant
+#
+ifneq ($(words $(BUILD)),1)
+	ifeq ($(strip $(build)),)
+		install.target := install_select_build
+	else
+		install.build := $(build)
+	endif
+else
+	install.build := $(BUILD)
+endif
+
+ifneq ($(words $(VARIANT)),1)
+	ifeq ($(strip $(isa)),)
+		install.target := install_select_isa
+	else
+		install.variant := $(notdir $(basename $(isa)))
+	endif
+else
+	install.variant := $(VARIANT)
+endif
+
+ifeq ($(install.target),)
+	install.target := install-$(install.variant)
+endif
+
+ifeq ($(strip $(prefix)),)
+	install.prefix := /usr/local/bin
+endif
+
+install_select_build:
+	@echo "select build to install from: $(BUILD)"
+	@echo "select isa to install from: $(VARIANT)"
+	@echo "usage: make install isa=<variant>.isa build=<build>"
+
+install_select_isa:
+	@echo "select isa to install from: $(VARIANT)"
+	@echo "usage: make install isa=<variant>.isa"
+
+install-$(install.variant): \
+		$(install.build)/$(install.variant)/ulm \
+		$(install.build)/$(install.variant)/ulmas \
+		$(install.build)/$(install.variant)/udb-tui
+	cp $(install.build)/$(install.variant)/ulm $(install.prefix)
+	cp $(install.build)/$(install.variant)/ulmas $(install.prefix)
+	cp $(install.build)/$(install.variant)/udb-tui $(install.prefix)
+
+install: $(install.target)
+	
+
 .DEFAULT_GOAL := all
 .PHONY: all
-all: $(TARGET)
+all: $(TARGET) $(install)
 
 opt: $(OPT_TARGET)
 
@@ -50,10 +99,7 @@ info:
 	@echo "VARIANT=$(VARIANT)"
 	@echo "BUILD=$(BUILD)"
 	@echo "MODULE=$(MODULE)"
-	@echo "dep files:"
-	@echo "DEP_FILES=$(DEP_FILES)"
-	@echo "EXTRA_DIRS=$(EXTRA_DIRS)"
-	@echo "CLEAN_DIRS=$(CLEAN_DIRS)"
+	@echo "default=$(default)"
 
 clean:
 	$(RM) $(CLEAN_LIST)

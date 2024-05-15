@@ -12,9 +12,8 @@ endif
 flock_check := $(shell flock -V > /dev/null 2>&1 && echo "has_flock")
 
 ifeq ($(strip $(flock_check)),has_flock)
-make.lock := make.lock
-AR := flock $(make.lock) $(AR)
-CLEAN_LIST += $(make.lock)
+    make.lock := 1_ulm_build/build.mk
+    AR := flock $(make.lock) $(AR)
 else
 $(info command 'flock' not installed: parallel builds are disbaled)
 .NOTPARALLEL:

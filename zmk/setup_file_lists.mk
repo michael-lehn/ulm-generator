@@ -20,8 +20,10 @@ $(eval id := $3.$2.$1)
 $(eval $(id).module := $1)
 $(eval $(id).variant := $2)
 $(eval $(id).build := $3)
+
 $(eval $(id).src_dir := $($1.dir))
 $(eval $(id).variant_dir := $($2.dir))
+$(eval $(id).variant_isa := $($2.isa))
 $(eval $(id).install_dir := $($3.dir)$2/)
 $(eval $(id).build_dir.top := $($(id).install_dir).build/)
 $(eval $(id).build_dir := $($(id).build_dir.top)$1/)
@@ -40,7 +42,7 @@ $(eval $(id).requires.gen := \
 	$(patsubst %,$($(id).build_dir.top)%,$i)))
 
 $(foreach i,$($1.install), \
-    $(call install,$i,$($(id).build_dir),$($(id).install_dir)))
+    $(call fn_install,$i,$($(id).build_dir),$($(id).install_dir)))
 
 $(eval $(id).h := \
     $(wildcard $($(id).src_dir)*.h))
@@ -122,6 +124,10 @@ $(eval CLEAN_DIRS := \
     $(sort $(CLEAN_DIRS) $($(id).build_dir.top) $($(id).dep_dir.top)))
 
 .PHONY: $($(id).dep.content.obsolete) $($(id).lib.ar_d)
+
+$(eval $(id).module := $1)
+$(eval $(id).variant := $2)
+$(eval $(id).build := $3)
 
 
 $($(id).lib.ar_d):

@@ -18,6 +18,8 @@ $(eval src_dir := \
     $($1.src_dir))
 $(eval variant_dir := \
     $($1.variant_dir))
+$(eval variant_isa := \
+    $($1.variant_isa))
 $(eval build_dir := \
     $($1.build_dir))
 $(eval build_dir.top := \

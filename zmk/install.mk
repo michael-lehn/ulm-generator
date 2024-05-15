@@ -4,7 +4,7 @@
 
 #install: create link from $1 in directory $2 to directory $3
 
-define install
+define fn_install
 
 $(eval TARGET += $3$1)
 $(eval INSTALL += $3$1)

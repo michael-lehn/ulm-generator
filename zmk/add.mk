@@ -29,19 +29,14 @@ endef
 # $1.dir	(directory of file, e.g. 'build/release/')
 
 define add_isa
-$(eval add.dir := $(dir $1))
-$(eval add.ident := $(lastword $(subst /, ,$(add.dir))))
-$(eval add.found := $(filter $(add.ident),$(VARIANT)))
-$(if $(add.found),\
-    $(error "Name conflict: Multiple defintions of '$(add.found)'."))
+$(eval add.isa := $1)
+$(eval add.dir := $(basename $1))
+$(eval add.ident := $(notdir $(add.dir)))
 
 $(eval this := $(add.ident))
-$(eval this.dir := $(add.dir))
+$(eval $(this).dir := $(add.dir))
+$(eval $(this).isa := $(add.isa))
 
-$(if $($(this).ignore),\
-    $(info module '$(this)' ignored),\
-    $(eval VARIANT += $(add.ident)) \
-)
+$(eval VARIANT += $(add.ident))
 
-$(eval $(add.ident).dir := $(add.dir))
 endef
