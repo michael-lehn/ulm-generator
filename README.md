@@ -1,30 +1,31 @@
-# ulm-generator
+## ulm-generator
 
 A generator for a ULM (Ulm Lecture Machine) virtual machine.
 
-From a description of an ISA (Instruction Set Architecture), it generates the following tools using `make`:
+From a description of an ISA (Instruction Set Architecture), it generates the following tools:
 
-- a virtual machine for your ISA: executable named `ulm`
-- a debugger with a text user interface: executable named `udb-tui`
-- an assembler for the ULM: executable named `ulmas`
+- a virtual machine for your ISA: executable named `ulm.exe`
+- a debugger with a text user interface: executable named `udb-tui.exe`
+- an assembler for the ULM: executable named `ulmas.exe`
 
-Additionally, it can generate documentation for the ISA (using `make refman`):
+Additionally, it can generate documentation for the ISA:
 - File name: `refman.pdf`
 
-You can define multiple ISAs, and for each ISA, the above tools are generated. For each ISA variant, all the tools are generated in `1_ulm_build/NAME_OF_VARIANT/`.
+### Installation
 
-See `0_ulm_variants/ulm/isa.txt` for a fully-featured example and `0_ulm_variants/my_isa/isa.txt` for a starting point example. After running `make`, you will find all the tools generated from `0_ulm_variants/ulm/isa.txt` in `1_ulm_build/ulm/`, and the tools generated from `0_ulm_variants/my_isa/isa.txt` in `1_ulm_build/my_isa/`.
+A simple `make install` will install `ulm-generator` in `/usr/local/bin`. To change the installation directory you can specify a prefix. For example, `make install prefix=/foo/bar` will install `ulm-generator` in `/foo/bar/bin`.
 
-After running `make refman`, you will also have `1_ulm_build/ulm/refman.pdf` generated from `0_ulm_variants/ulm/isa.txt` and `1_ulm_build/my_isa/refman.pdf` generated from `0_ulm_variants/my_isa/isa.txt`.
+### Usage
 
-# Requirements
+`ulm-generator --help` displays the usage and available options. Some first steps might be:
 
-The debugger requires an installation of the excellent `finalcut` library: https://github.com/gansm/finalcut. Modify `config/finalcut` to contain the correct include and library path for `finalcut`.
+- `ulm-generator --fetch` displays a list of available demo ISAs. One ISA is `ulm-ice40.isa`.
+- `ulm-generator --fetch ulm-ice40.isa` copies the ISA file `ulm-ice40.isa` to the current directory.
+- `ulm-generator ulm-ice40.isa` creates a subdirectory `ulm-ise40` and builds the tools `ulm.exe`, `udb-tui.exe`, `ulmas.exe`.
+- `ulm-generator ulm-ice40.isa --refman` generates in addition to these tools a reference manual for the assembler instructions.
+- `ulm-generator ulm-ice40.isa --install` installs the tools in `/usr/local/bin`.
+- `ulm-generator ulm-ice40.isa --install --prefix=/foo/bar` installs the tools in `/foo/bar/bin`.
 
-# Compile
+### Requirements
 
-A simple `make` should suffice. However, if `finalcut` is not installed or `config/finalcut` is incorrect, the debugger module will be ignored.
-
-# Examples
-
-For testing `udb-tui`, run `./1_ulm_build/ulm/udb-tui 0_ulm_variants/ulm/examples/hello`.
+The debugger requires an installation of the excellent `finalcut` library, which can be found at: [finalcut GitHub repository](https://github.com/gansm/finalcut). Make sure to modify the `config/finalcut` file to include the correct paths for `finalcut` library and header files.
