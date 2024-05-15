@@ -50,6 +50,8 @@ If you save it in a file `hello` you can execute it with `ulm hello`. For using 
 - With `Control-R` the program gets executed until either a break point is reached or the program has terminated.
 - With `Control-Q` you can exit the debugger.
 
+<img src="https://github.com/michael-lehn/ulm-generator/assets/1198129/74b5dd0f-51a9-4cef-8c30-0a1de807564e" width="900">
+
 The same program in assembly:
 
 ```s
