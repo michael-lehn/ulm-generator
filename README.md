@@ -4,9 +4,9 @@ A generator for a ULM (Ulm Lecture Machine) virtual machine.
 
 From a description of an ISA (Instruction Set Architecture), it generates the following tools:
 
-- a virtual machine for your ISA: executable named `ulm.exe`
-- a debugger with a text user interface: executable named `udb-tui.exe`
-- an assembler for the ULM: executable named `ulmas.exe`
+- a virtual machine for your ISA: executable named `ulm`
+- a debugger with a text user interface: executable named `udb-tui`
+- an assembler for the ULM: executable named `ulmas`
 
 Additionally, it can generate documentation for the ISA:
 - File name: `refman.pdf`
