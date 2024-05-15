@@ -109,11 +109,11 @@ install-$(install.variant): \
 default_select_build:
 	@echo "select build from: $(BUILD)"
 	@echo "select isa from: $(VARIANT)"
-	@echo "usage: make default isa=<variant>.isa build=<build>"
+	@echo "usage: make default isa=<variant> build=<build>"
 
 default_select_isa:
 	@echo "select isa from: $(VARIANT)"
-	@echo "usage: make default isa=<variant>.isa"
+	@echo "usage: make default isa=<variant>"
 
 
 
