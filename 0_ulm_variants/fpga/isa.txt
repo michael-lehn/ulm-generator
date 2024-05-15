@@ -6,6 +6,7 @@ U20_R	    (OP u 8) (dest u 4) (imm u 20)
 S20_R	    (OP u 8) (dest u 4) (imm s 20)
 R_R_R	    (OP u 8) (z u 4) (y u 4) (x u 4)
 U16_R_R	    (OP u 8) (z u 4) (y u 4) (imm u 16)
+S16_R_R	    (OP u 8) (z u 4) (y u 4) (imm s 16)
 MR_R	    (OP u 8) (data u 4) (addr u 4) (offset s 16)
 R_MR	    (OP u 8) (data u 4) (addr u 4) (offset s 16)
 
@@ -84,57 +85,71 @@ R_MR	    (OP u 8) (data u 4) (addr u 4) (offset s 16)
 #
 
 0x10 U20_R
-:   load imm, %dest
+#   Load zero extended immediate value into destination register.
+:   loadz imm, %dest
     ulm_setReg(imm, dest);
 
-0x11 R_R_R
-:   addq %x, %y, %z
-:   movq %x, %z
-    ulm_add64(ulm_regVal(x), ulm_regVal(y), z);
+0x11 S20_R
+#   Load sign extended immediate value into destination register.
+:   loads imm, %dest
+    ulm_setReg(imm, dest);
 
 0x12 U16_R_R
+#   Adds the zero extended immediate value \\texttt{imm} to register
+#   \\texttt{%y} and stores the result in register \\texttt{%z}.
 :   addq imm, %y, %z
     ulm_add64(imm, ulm_regVal(y), z);
 
 0x13 R_R_R
-:   subq %x, %y, %z
-    ulm_sub64(ulm_regVal(x), ulm_regVal(y), z);
+#   Adds two registers
+:   addq %x, %y, %z
+:   movq %x, %z
+    ulm_add64(ulm_regVal(x), ulm_regVal(y), z);
+
+@addq
+# Integer addition.
+# Adds either the content of register X or the unsigend immediate value X to
+# register Y. The result is stored in register Z.
 
 0x14 U16_R_R
 :   subq imm, %y, %z
     ulm_sub64(imm, ulm_regVal(y), z);
 
 0x15 R_R_R
+:   subq %x, %y, %z
+    ulm_sub64(ulm_regVal(x), ulm_regVal(y), z);
+
+0x16 U16_R_R
+:   mulw imm, %y, %z
+    ulm_mul64(imm, ulm_regVal(y) & 0xFFFF, z);
+
+0x17 R_R_R
 :   mulw %x, %y, %z
     ulm_mul64(ulm_regVal(x) & 0xFFFF, ulm_regVal(y) & 0xFFFF, z);
 
-0x16 R_R_R
-:   andq %x, %y, %z
-    ulm_and64(ulm_regVal(x), ulm_regVal(y), z);
-
-0x17 U16_R_R
+0x18 U16_R_R
 :   andq imm, %y, %z
     ulm_and64(imm, ulm_regVal(y), z);
 
-0x18 U16_R_R
+0x19 R_R_R
+:   andq %x, %y, %z
+    ulm_and64(ulm_regVal(x), ulm_regVal(y), z);
+
+0x1A U16_R_R
 :   shrq imm, %y, %z
     ulm_shiftRightUnsigned64(imm, ulm_regVal(y), z);
 
-0x19 U16_R_R
-:   shlq imm, %y, %z
-    ulm_shiftLeft64(imm, ulm_regVal(y), z);
-
-0x1A R_R_R
+0x1B R_R_R
 :   shrq %x, %y, %z
     ulm_shiftRightUnsigned64(ulm_regVal(x), ulm_regVal(y), z);
 
-0x1B R_R_R
+0x1C U16_R_R
+:   shlq imm, %y, %z
+    ulm_shiftLeft64(imm, ulm_regVal(y), z);
+
+0x1D R_R_R
 :   shlq %x, %y, %z
     ulm_shiftLeft64(ulm_regVal(x), ulm_regVal(y), z);
-
-0x1C S20_R
-:   loads imm, %dest
-    ulm_setReg(imm, dest);
 
 #
 # bus instructions

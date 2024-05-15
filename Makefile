@@ -1,6 +1,9 @@
 CFLAGS += -Wextra -Wall -I.
 CPPFLAGS += -Wextra -Wall -I.
 
+#
+CLEAN_LIST :=
+
 include config/ar
 include config/nfs
 

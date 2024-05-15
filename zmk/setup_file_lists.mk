@@ -125,7 +125,7 @@ $(eval CLEAN_DIRS := \
 
 
 $($(id).lib.ar_d):
-	ar d $($(id).lib) $($(id).lib.content.obsolete) 
+	$(AR) d $($(id).lib) $($(id).lib.content.obsolete) 
 
 $($(id).lib) : $($(id).lib)($($(id).lib.c.o) $($(id).lib.cpp.o)) \
     | $($(id).build_dir) $($(id).lib.ar_d)

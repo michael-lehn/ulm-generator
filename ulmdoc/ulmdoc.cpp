@@ -25,6 +25,13 @@ escapeStringForLatex(const std::string &str)
     return escaped;
 }
 
+static std::string
+escapeLatex(const std::string &str)
+{
+    std::string escaped = replace(str, "%", "\\%");
+    return escaped;
+}
+
 //------------------------------------------------------------------------------
 
 namespace ulmdoc {
@@ -49,12 +56,13 @@ UlmDoc::addMnemonicDescription(const Key &key, const Description &description)
 {
     intro[key] += escapeStringForLatex(description);
     intro[key] += "\n";
+    intro[key] += "\\newpage\n";
 }
 
 void
 UlmDoc::addUnescapedDescription(const Description &description)
 {
-    page[activeKey] += escapeStringForLatex(description);
+    page[activeKey] += escapeLatex(description);
     page[activeKey] += "\n";
 }
 

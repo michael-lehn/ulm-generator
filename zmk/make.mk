@@ -2,20 +2,27 @@ include zmk/add.mk
 include zmk/setup_build.mk
 include zmk/setup_file_lists.mk
 
+#.NOTPARALLEL:
+
 RANLIB := ranlib
 INSTALL :=
 TARGET :=
 OPT_TARGET :=
 DEP_FILES :=
-EXTRA_DIRS :=
 REFMAN :=
+EXTRA_DIRS :=
 
 BUILD :=
 VARIANT :=
 MODULE :=
 
-$(foreach v,$(wildcard */variant.mk */*/variant.mk),\
-    $(call add,$v,VARIANT))
+variant_list := \
+	$(sort \
+		$(dir $(wildcard */variant.mk */*/variant.mk)) \
+		$(dir $(wildcard */variant.mk */*/isa.txt)))
+
+$(foreach v,$(variant_list),\
+    $(call add_isa,$v))
 
 $(foreach b,$(wildcard */build.mk */*/build.mk),\
     $(call add,$b,BUILD))
@@ -49,6 +56,7 @@ info:
 	@echo "CLEAN_DIRS=$(CLEAN_DIRS)"
 
 clean:
+	$(RM) $(CLEAN_LIST)
 	$(RM) $(REFMAN)
 	$(RM) $(INSTALL)
 	$(RM) -r $(CLEAN_DIRS)

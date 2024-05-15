@@ -66,16 +66,17 @@ ulm_add64(ExprWrapper a, ExprWrapper b, ExprWrapper dest)
     auto str = truncateInt(b + a, 64) + writeToUnsignedReg(dest);
     std::ostringstream ss;
     ss << "\\[" << str << "\\]" << std::endl;
-    ss << "Updates the status flags:\\\\[0.2cm]" << std::endl;
+    ss << "Updates the status flags:\\\\[0cm]" << std::endl;
     ss << "\\begin{tabular}{ll}" << std::endl;
-    ss << "Flag & Condition \\\\[0.2cm]" << std::endl;
-    ss << "ZF & $" << latex(b + a == 0) << "$\\\\[0.2cm]" << std::endl;
-    ss << "CF & $" << latex(b + a) << "\\geq 2^{64}$\\\\[0.2cm]" << std::endl;
+    ss << "Flag & Condition \\\\[0cm]" << std::endl;
+    ss << "ZF & $" << latex(b + a == 0) << "$\\\\[0cm]" << std::endl;
+    ss << "CF & $" << latex(b + a) << "\\geq 2^{64}$\\\\[0cm]" << std::endl;
     ss << "OF & $ s(" << latex(b) << ") + s(" << latex(a) << ") \\notin "
-       << "\\{ -2^{63}, \\dots, 2^{63}\\}$ \\\\[0.2cm]" << std::endl;
-    ss << "SF & $ s(" << latex(b) << ") + s(" << latex(a) << ") < 0$\\\\[0.2cm]"
+       << "\\{ -2^{63}, \\dots, 2^{63}\\}$ \\\\[0cm]" << std::endl;
+    ss << "SF & $ s(" << latex(b) << ") + s(" << latex(a) << ") < 0$\\\\[0cm]"
        << std::endl;
     ss << "\\end{tabular}" << std::endl;
+    ss << "\\vspace{-0.5cm}" << std::endl;
     ulmDoc.addDescription(ss.str());
 }
 
@@ -85,14 +86,14 @@ ulm_sub64(ExprWrapper a, ExprWrapper b, ExprWrapper dest)
     auto str = truncateInt(b - a, 64) + writeToUnsignedReg(dest);
     std::ostringstream ss;
     ss << "\\[" << str << "\\]" << std::endl;
-    ss << "Updates the status flags:\\\\[0.2cm]" << std::endl;
+    ss << "Updates the status flags:\\\\[0.1cm]" << std::endl;
     ss << "\\begin{tabular}{ll}" << std::endl;
-    ss << "Flag & Condition \\\\[0.2cm]" << std::endl;
-    ss << "ZF & $" << latex(b - a == 0) << "$\\\\[0.2cm]" << std::endl;
-    ss << "CF & $" << latex(b - a) << "< 0$\\\\[0.2cm]" << std::endl;
+    ss << "Flag & Condition \\\\[0.1cm]" << std::endl;
+    ss << "ZF & $" << latex(b - a == 0) << "$\\\\[0.1cm]" << std::endl;
+    ss << "CF & $" << latex(b - a) << "< 0$\\\\[0.1cm]" << std::endl;
     ss << "OF & $ s(" << latex(b) << ") - s(" << latex(a) << ") \\notin "
-       << "\\{ -2^{63}, \\dots, 2^{63}\\}$ \\\\[0.2cm]" << std::endl;
-    ss << "SF & $ s(" << latex(b) << ") - s(" << latex(a) << ") < 0$\\\\[0.2cm]"
+       << "\\{ -2^{63}, \\dots, 2^{63}\\}$ \\\\[0.1cm]" << std::endl;
+    ss << "SF & $ s(" << latex(b) << ") - s(" << latex(a) << ") < 0$\\\\[0.1cm]"
        << std::endl;
     ss << "\\end{tabular}" << std::endl;
     ulmDoc.addDescription(ss.str());
