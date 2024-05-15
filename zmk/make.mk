@@ -95,7 +95,11 @@ endif
 
 ifeq ($(strip $(prefix)),)
 	install.prefix := /usr/local
+else
+	install.prefix := $(prefix)
 endif
+
+$(info install.prefix=$(install.prefix))
 
 install_select_build:
 	@echo "select build to install from: $(BUILD)"
