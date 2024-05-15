@@ -26,6 +26,10 @@ while [[ $# -gt 0 ]]; do
 	    isa="$1"
 	    shift
 	    ;;
+	--refman)
+	    make_opt="${make_opt} refman"
+	    shift
+	    ;;
 	--install)
 	    install=yes
 	    shift
@@ -56,20 +60,23 @@ while [[ $# -gt 0 ]]; do
 		isa="$1"
 	    else
 		echo "illegal option: '$1'"
-		exit 1
+		help=yes
 	    fi
 	    shift
 	    ;;
     esac
 done
 
-if [ ${help} = "yes" ] || [ -z "${isa}" ] && [ fetch = "no" ]; then
-    echo "usage: $0 [options] file"
-    echo "       $0 --fetch [file]\n"
+prog=`basename $0`
+
+if [[ ${help} = "yes"  ||  "${isa}" = "" &&  ${fetch} = "no" ]]; then
+    echo "usage: ${prog} [options] file"
+    echo "       ${prog} --fetch [file]\n"
     echo "options:"
     echo "\t--prefix=path \tPrefix for installation (default: /usr/local)"
     echo "\t--install \tBuild and install"
-    echo "\t-j N \tBuild in parallel with N jobs"
+    echo "\t-j N \t\tBuild in parallel with N jobs"
+    echo "\t--refman \tGenerate reference manual"
     echo ""
     exit 1
 fi
@@ -77,7 +84,7 @@ fi
 if [ ${fetch} = "yes" ]; then
     if [ -z ${isa} ] || [ ! -f ${ulm_gen_path}/${isa} ]; then
 	echo "available isa files: ${demo}"
-	echo "usage: $0 --fetch <isa file>"
+	echo "usage: ${prog} --fetch <isa file>"
 	exit 1
     fi
     cp ${ulm_gen_path}/${isa} .
