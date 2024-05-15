@@ -41,7 +41,7 @@ This is a hello world program in machine code for the `ulm-ice40.isa`:
 12 11 00 01 
 05 FF FF FB 
 01 41 00 00 
-68  65  6c  6c  6f  2c  20  77  6f  72  6c  64  21  0a 00
+68 65 6c 6c 6f 2c 20 77 6f 72 6c 64 21 0a 00
 ```
 
 If you save it in a file `hello` you can execute it with `ulm hello`. For using the debugger run `udb-tui hello`:
