@@ -62,13 +62,13 @@ msg .string "hello, world!\n"
     .equ    ch, 2
 
     .text
-    loadz   msg,    %1
+    loadz   msg,    %p
 loop:
-    movzbq  (%1),   %2
-    subq    0,      %2,     %0
+    movzbq  (%p),   %ch
+    subq    0,      %ch,    %0
     jz      halt
-    putc    %2
-    addq    1,      %1,     %1
+    putc    %ch
+    addq    1,      %p,     %p
     jmp     loop
 halt:
     halt    0
