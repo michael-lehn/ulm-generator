@@ -12,7 +12,7 @@ endif
 flock_check := $(shell flock -V > /dev/null 2>&1 && echo "has_flock")
 
 ifeq ($(strip $(flock_check)),has_flock)
-    make.lock := 1_ulm_build/build.mk
+    make.lock := build/build.mk
     AR := flock $(make.lock) $(AR)
 else
 $(info command 'flock' not installed: parallel builds are disbaled)

@@ -44,6 +44,7 @@ $(foreach m,$(MODULE),\
 ifneq ($(words $(BUILD)),1)
 	ifeq ($(strip $(build)),)
 		install.target := install_select_build
+		install.build := $(firstword $(BUILD))
 	else
 		install.build := $(build)
 	endif
