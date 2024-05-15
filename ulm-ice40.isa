@@ -101,15 +101,11 @@ R_MR	    (OP u 8) (data u 4) (addr u 4) (offset s 16)
     ulm_add64(imm, ulm_regVal(y), z);
 
 0x13 R_R_R
-#   Adds two registers
+#   Adds register \\texttt{%x} to register and stores the result in
+#   register \\texttt{%z}.
 :   addq %x, %y, %z
 :   movq %x, %z
     ulm_add64(ulm_regVal(x), ulm_regVal(y), z);
-
-@addq
-# Integer addition.
-# Adds either the content of register X or the unsigend immediate value X to
-# register Y. The result is stored in register Z.
 
 0x14 U16_R_R
 :   subq imm, %y, %z
