@@ -17,39 +17,39 @@ help=no
 while [[ $# -gt 0 ]]; do
     case $1 in
 	--help)
-	    shift
+	    shift 1
 	    help=yes
 	    ;;
 	--fetch)
-	    shift
+	    shift 1
 	    fetch=yes
 	    isa="$1"
-	    shift
+	    shift 1
 	    ;;
 	--refman)
 	    make_opt="${make_opt} refman"
-	    shift
+	    shift 1
 	    ;;
 	--install)
 	    install=yes
-	    shift
+	    shift 1
 	    ;;
 	--prefix=*)
 	    prefix="${1#*=}"
-	    shift
+	    shift 1
 	    ;;
 	clean)
 	    make_opt="${make_opt} $1"
-	    shift
+	    shift 1
 	    ;;
 	-j)
-	    shift
+	    shift 1
 	    make_opt="${make_opt} -j$1"
-	    shift
+	    shift 1
 	    ;;
 	-j*)
 	    make_opt="${make_opt} $1"
-	    shift
+	    shift 1
 	    ;;
 	-*|--*)
 	    echo "Unknown option $1"
@@ -62,14 +62,14 @@ while [[ $# -gt 0 ]]; do
 		echo "illegal option: '$1'"
 		help=yes
 	    fi
-	    shift
+	    shift 1
 	    ;;
     esac
 done
 
 prog=`basename $0`
 
-if [[ ${help} = "yes"  ||  "${isa}" = "" &&  ${fetch} = "no" ]]; then
+if [ ${help} = "yes" ]  ||  [ "${isa}" = "" ] && [ ${fetch} = "no" ]; then
     echo "usage: ${prog} [options] file"
     echo "       ${prog} --fetch [file]\n"
     echo "options:"
