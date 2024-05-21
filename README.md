@@ -11,6 +11,9 @@ From a description of an ISA (Instruction Set Architecture), it generates the fo
 Additionally, it can generate documentation for the ISA:
 - File name: `refman.pdf`
 
+[<img src="https://github.com/michael-lehn/ulm-generator/assets/1198129/74b5dd0f-51a9-4cef-8c30-0a1de807564e" width="900">](https://youtu.be/ALWl-W_5raE)
+
+
 ### Installation
 
 A simple `make install` will install `ulm-generator` in `/usr/local/bin`. To change the installation directory you can specify a prefix. For example, `make install prefix=/foo/bar` will install `ulm-generator` in `/foo/bar/bin`.
@@ -49,8 +52,6 @@ If you save it in a file `hello` you can execute it with `ulm hello`. For using 
 - With `Control-S` you can execute the program step-wise.
 - With `Control-R` the program gets executed until either a break point is reached or the program has terminated.
 - With `Control-Q` you can exit the debugger.
-
-<img src="https://github.com/michael-lehn/ulm-generator/assets/1198129/74b5dd0f-51a9-4cef-8c30-0a1de807564e" width="900">
 
 The same program in assembly:
 
