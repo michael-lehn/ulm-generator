@@ -11,7 +11,7 @@ From a description of an ISA (Instruction Set Architecture), it generates the fo
 Additionally, it can generate documentation for the ISA:
 - File name: `refman.pdf`
 
-[<img src="https://github.com/michael-lehn/ulm-generator/assets/1198129/74b5dd0f-51a9-4cef-8c30-0a1de807564e" width="900">](https://youtu.be/ALWl-W_5raE)
+[<img src="https://github.com/michael-lehn/ulm-generator/assets/1198129/74b5dd0f-51a9-4cef-8c30-0a1de807564e" width="900">]([https://youtu.be/ALWl-W_5raE](https://www.youtube.com/playlist?list=PL7bpgGDa-GJAgZmCLt6cgYch0mlWRdWok)
 
 
 ### Installation
