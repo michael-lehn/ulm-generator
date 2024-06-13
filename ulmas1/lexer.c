@@ -516,6 +516,14 @@ getToken()
 	appendCharToStr(&token.val, ch);
 	nextCh();
 	token.kind = PERCENT;
+    } else if (ch == '@') {
+	appendCharToStr(&token.val, ch);
+	nextCh();
+	token.kind = KLAMMERAFFE;
+    } else if (ch == '#') {
+	appendCharToStr(&token.val, ch);
+	nextCh();
+	token.kind = LATTENZAUN;
     } else if (ch == ',') {
 	appendCharToStr(&token.val, ch);
 	nextCh();

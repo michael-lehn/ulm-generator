@@ -9,6 +9,7 @@
 #include "udb.h"
 #include "vmem.h"
 
+uint64_t ulm_bss;
 uint64_t ulm_brk;
 
 static FILE *in;
@@ -258,6 +259,7 @@ parseDirective()
 	    error("literal for BSS size expected");
 	}
 	alignTo(align);
+	ulm_bss = addr;
 	for (uint64_t i = 0; i < size; ++i, ++addr) {
 	    ulm_store8(addr, 0);
 	}
@@ -365,7 +367,7 @@ parse()
 	}
     }
     ulm_brk = addr;
-    ulm_setReg(ulm_brk, 1);
+    ulm_setReg(ulm_bss, 1);
     ulm_setReg(ulm_brk, 2);
     ulm_setReg((ulm_brk + 7) / 8 * 8, 3);
     // printf("prog loaded\n");

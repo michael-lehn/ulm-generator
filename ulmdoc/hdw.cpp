@@ -73,7 +73,7 @@ ulm_add64(ExprWrapper a, ExprWrapper b, ExprWrapper dest)
     ss << "Updates the status flags:\\\\[0cm]" << std::endl;
     ss << "\\begin{tabular}{ll}" << std::endl;
     ss << "Flag & Condition \\\\[0cm]" << std::endl;
-    ss << "ZF & $" << latex(b + a == 0) << "$\\\\[0cm]" << std::endl;
+    ss << "ZF & $" << latex(b + a) << " \\bmod 2^{64} = 0 " << "$\\\\[0cm]" << std::endl;
     ss << "CF & $" << latex(b + a) << "\\geq 2^{64}$\\\\[0cm]" << std::endl;
     ss << "OF & $ s(" << latex(b) << ") + s(" << latex(a) << ") \\notin "
        << "\\{ -2^{63}, \\dots, 2^{63}\\}$ \\\\[0cm]" << std::endl;

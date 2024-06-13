@@ -167,7 +167,7 @@ getToken_()
 	    fprintf(stderr, "%zu.%zu: warning: bad suffix: '%c' (ignored)\n",
 		    token.loc.begin.line, token.loc.begin.col, ch);
 	}
-    } else if (ch == '#') {
+    } else if (ch == '#' && currPos.col == 2) {
 	do {
 	    nextCh();
 	    switch (ch) {
@@ -212,6 +212,10 @@ getToken_()
 	appendCharToStr(&token.val, ch);
 	nextCh();
 	token.kind = RBRACE;
+    } else if (ch == '#') {
+	appendCharToStr(&token.val, ch);
+	nextCh();
+	token.kind = LATTENZAUN;
     } else if (ch == '@') {
 	appendCharToStr(&token.val, ch);
 	nextCh();
