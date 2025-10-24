@@ -13,7 +13,7 @@ uint64_t ulm_bss;
 uint64_t ulm_brk;
 
 static FILE *in;
-static char ch;
+static int ch;
 static char *inbuf, *cp;
 static size_t inbufLen;
 static size_t line, col;
@@ -94,7 +94,7 @@ readLine()
     }
 }
 
-static char
+static int
 nextch()
 {
     if (ch == EOF) {
@@ -353,6 +353,7 @@ parse()
 		return false;
 	    }
 	    if (ch != '\n') {
+		printf("got ch = %d\n", ch);
 		error("newline expected");
 		return false;
 	    }
