@@ -24,7 +24,7 @@ $(eval REFMAN += $3refman.pdf)
 $(eval REFMAN.theon += $3refman-theon.pdf)
 
 $2% : $1tex/%
-	ln -f $$< $$@
+	cp $$< $$@
 
 $2refman.pdf : $2refman.tex $2by-sa.pdf $2refman.cls $2title.tex
 	(cd $2; lualatex refman.tex) 
