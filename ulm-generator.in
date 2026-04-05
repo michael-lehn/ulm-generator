@@ -112,10 +112,13 @@ echo "make_opt=${make_opt}"
 
 make -C ${ulm_gen_path} isa="${isa_path}" build="$PWD/build.mk" ${make_opt}
 
+SUDO="sudo"
+[ "$(uname)" = "Darwin" ] && SUDO=""
+
 if [ ${install} = "yes" ]; then
-    (set -x; sudo cp "$PWD/${isa%%.*}/ulm" "${prefix}/bin/")
-    (set -x; sudo cp "$PWD/${isa%%.*}/ulmas" "${prefix}/bin/")
-    (set -x; sudo cp "$PWD/${isa%%.*}/udb-tui" "${prefix}/bin/")
+    (set -x; $SUDO cp "$PWD/${isa%%.*}/ulm" "${prefix}/bin/")
+    (set -x; $SUDO cp "$PWD/${isa%%.*}/ulmas" "${prefix}/bin/")
+    (set -x; $SUDO cp "$PWD/${isa%%.*}/udb-tui" "${prefix}/bin/")
 fi
 
 rm -f "${make_lock}"
