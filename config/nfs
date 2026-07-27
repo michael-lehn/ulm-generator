@@ -1,6 +1,6 @@
 # detect if files are on nfs. In that case build in /tmp/...
 
-on_nfs := $(shell stat -fc %T config/nfs > /dev/null 2>&1 || echo "sane")
+on_nfs := $(shell stat -fc %T config/nfs > /dev/null 2>&1 || echo "nfs")
 
 ifeq ($(strip $(on_nfs)),nfs)
     $(info )
