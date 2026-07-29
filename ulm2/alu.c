@@ -12,7 +12,7 @@ enum
     NUM_REGS = 256
 };
 
-static uint64_t regDev[256];
+static uint64_t regDev[NUM_REGS];
 
 void
 ulm_aluClear()
@@ -25,12 +25,14 @@ ulm_aluClear()
 uint64_t *
 ulm_regDevice(ulm_Reg reg)
 {
+    assert(reg < NUM_REGS);
     return reg ? &regDev[reg] : 0;
 }
 
 void
 ulm_printALU(ulm_Reg firstReg, ulm_Reg lastReg)
 {
+    assert(firstReg < NUM_REGS && lastReg < NUM_REGS);
     printf("ZF = %d, CF = %d, SF = %d, OF = %d\n", ulm_statusReg[ULM_ZF],
 	   ulm_statusReg[ULM_CF], ulm_statusReg[ULM_SF], ulm_statusReg[ULM_OF]);
     for (size_t i = firstReg; i <= lastReg; ++i) {
