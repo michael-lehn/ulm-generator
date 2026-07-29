@@ -49,10 +49,13 @@ void
 printTokenKind(FILE *out, enum HeaderFooter t)
 {
     if (t == HEADER) {
+	printCode(out, 0, "#ifndef ULM0_TOKENKIND_H\n");
+	printCode(out, 0, "#define ULM0_TOKENKIND_H\n");
 	printCode(out, 0, "enum TokenKind {\n");
     } else {
 	printCode(out, 1, "NUM_TOKENKIND,\n");
 	printCode(out, 0, "};\n");
+	printCode(out, 0, "#endif // ULM0_TOKENKIND_H\n");
     }
 }
 
@@ -176,4 +179,5 @@ main(int argc, char **argv)
     fclose(in);
     fclose(tk);
     fclose(stk);
+    fclose(vtk);
 }
