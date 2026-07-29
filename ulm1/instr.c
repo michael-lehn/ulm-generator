@@ -153,7 +153,7 @@ instrPrintInstrList(FILE *out)
 	    if (!cn->next && *cn->line == 0) {
 		break;
 	    }
-	    printCode(out, 3, "%s\n", cn->line);
+	    printCode(out, 4, "%s\n", cn->line);
 	}
 	printFmtUndef(out, in->instr.fmt);
 	printCode(out, 3, "}\n");
@@ -179,7 +179,8 @@ instrPrintAsmNotation(FILE *out)
     printCode(out, 0, "#undef FMT_OPCODE\n");
 
     for (const struct InstrNode *in = instrNode; in; in = in->next) {
-	printCode(out, 2, "case 0x%02" PRIX32 ": {\n", in->instr.opCode);
+	printCode(out, 2, "case 0x%02" PRIX32 ":\n", in->instr.opCode);
+	printCode(out, 3, "{\n");
 
 	bool alt = false;
 	for (const struct AsmNode *an = in->instr.asmNode; an;
@@ -187,12 +188,12 @@ instrPrintAsmNotation(FILE *out)
 	{
 	    if (!alt) {
 		printFmtDef(out, in->instr.fmt, "instr");
-		printCode(out, 3, "%s\n", an->copyOperands);
+		printCode(out, 4, "%s\n", an->copyOperands);
 		printFmtUndef(out, in->instr.fmt);
-		printCode(out, 3, "snprintf(s, len, %s);\n", an->notation);
+		printCode(out, 4, "snprintf(s, len, %s);\n", an->notation);
 	    } else {
-		printCode(out, 3, "/* ignoring alternatives for now */\n");
-		printCode(out, 3, "//snprintf(s, len, %s);\n", an->notation);
+		printCode(out, 4, "/* ignoring alternatives for now */\n");
+		printCode(out, 4, "//snprintf(s, len, %s);\n", an->notation);
 	    }
 	}
 
@@ -251,7 +252,7 @@ instrPrintInstrRefman(FILE *out)
 	    if (!cn->next && *cn->line == 0) {
 		break;
 	    }
-	    printCode(out, 1, "%s\n", cn->line);
+	    printCode(out, 2, "%s\n", cn->line);
 	}
 	printCode(out, 1, "}\n");
     }
