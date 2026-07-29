@@ -29,4 +29,7 @@ main(int argc, char **argv)
 
     parseFmtCheck();
     printTestCaseList(out);
+
+    fclose(in);
+    fclose(out);
 }
