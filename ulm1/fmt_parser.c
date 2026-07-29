@@ -62,7 +62,7 @@ parseFmt()
 	} else if (token.kind == KLAMMERAFFE) {
 	    parseMnemonicDescription();
 	} else {
-	    error("begin of format definition or begin of intruction "
+	    error("begin of format definition or begin of instruction "
 		  "definition expected\n");
 	}
     }
@@ -162,7 +162,7 @@ parseInstrLayout()
     // instructions need to know about arguments (e.g. by calling getFmtFieldId)
     setInstrFmt(instr, fmt);
     // formats need to generate code for enconding instructions of given opCode
-    addOpCodeToFmt(fmt, getInstrOpCode(instr));
+    addOpCodeToFmt(fmt, opCode);
     getToken();
     expected(EOL);
     getToken();
