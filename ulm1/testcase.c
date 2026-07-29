@@ -22,7 +22,7 @@ struct CaseNode
 struct TestCase *
 addTestCase()
 {
-    struct CaseNode *cn = malloc(sizeof(*caseNode));
+    struct CaseNode *cn = malloc(sizeof(*cn));
     if (!cn) {
 	fprintf(stderr, "addTestCase: out of memory\n");
 	exit(1);
@@ -95,7 +95,7 @@ printTestCaseList(FILE *out)
     printCode(out, 0, "\n");
 
     printCode(out, 0, "int\n");
-    printCode(out, 0, "main(int argc, char **argv)\n", count);
+    printCode(out, 0, "main(int argc, char **argv)\n");
     printCode(out, 0, "{\n");
     count = 1;
     for (const struct CaseNode *n = caseNode; n; n = n->next, ++count) {
