@@ -11,7 +11,7 @@
 #include <utils/str.h>
 
 /*
-    List of formats linke 'RRR (OP u 8) (X u 8) (Y  u  8) (Z u  8)'
+    List of formats like 'RRR (OP u 8) (X u 8) (Y  u  8) (Z u  8)'
     Each format node has:
     - an identifier
     - a list with its fields
@@ -160,7 +160,7 @@ const struct FmtFieldNode *
 getFmtField(const struct FmtNode *fmt, const struct UStr *fieldId)
 {
     for (const struct FmtFieldNode *f = fmt->field; f; f = f->next) {
-	if (f->id->cstr == fieldId->cstr) {
+	if (f->id == fieldId) {
 	    return f;
 	}
     }
@@ -312,7 +312,7 @@ printFmtInstrEncoding(FILE *out)
     for (const struct FmtNode *n = fmtNode; n; n = n->next) {
 	bool fmtUsed = false;
 	for (const struct OpCodeNode *op = n->opCode; op; op = op->next) {
-	    printCode(out, 3, "case 0x%02" PRIX32 ":\n", op->cached);
+	    printCode(out, 2, "case 0x%02" PRIX32 ":\n", op->cached);
 	    fmtUsed = true;
 	}
 	if (!fmtUsed) {
@@ -331,7 +331,7 @@ printFmtInstrEncoding(FILE *out)
 			  f->bitPos, f->numBits, ft[f->type]);
 	    }
 	}
-	printCode(out, 2, "break;\n");
+	printCode(out, 3, "break;\n");
     }
 
     printCode(out, 2, "default:;\n");
