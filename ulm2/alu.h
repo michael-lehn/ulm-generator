@@ -14,8 +14,8 @@ extern "C" {
 #include "../ulm0/hdw_alu.h"
 
 /*
- * Exept for the zero register regBytes returns a pointer to the
- * least significant byte of register reg.
+ * Except for the zero register ulm_regDevice returns a pointer to the
+ * most significant byte of register reg.
  * For the zero register it returns a null pointer.
  **/
 uint64_t *ulm_regDevice(ulm_Reg reg);
