@@ -15,7 +15,7 @@ extern "C" {
 
 /*
  * Except for the zero register ulm_regDevice returns a pointer to the
- * most significant byte of register reg.
+ * value of register reg.
  * For the zero register it returns a null pointer.
  **/
 uint64_t *ulm_regDevice(ulm_Reg reg);
