@@ -45,7 +45,7 @@ tokenGroupBegin(const char *ident)
     }
 
     /*
-	now: closed == false;
+	now: open == false;
 	if addedEnd == true we still need the old 'identEnd' as alias
     */
     copyCStrToStr(&tokenGroup.identBeg, ident);
