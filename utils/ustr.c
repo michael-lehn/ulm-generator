@@ -7,7 +7,7 @@
 struct Node
 {
     struct Node *next;
-    struct UStr ustr[];
+    struct UStr ustr[1];
 };
 
 static struct Node *node;

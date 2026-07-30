@@ -7,7 +7,7 @@
 struct UStr
 {
     size_t len;
-    char cstr[];
+    char cstr[1];
 };
 
 struct UStr *makeUStr_(const char *s, bool *added);
