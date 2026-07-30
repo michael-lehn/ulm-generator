@@ -4,6 +4,6 @@
 #include <stdio.h>
 #include <stdio.h>
 
-void printCode(FILE *out, size_t identLevel, const char *fmt, ...);
+void printCode(FILE *out, size_t indentLevel, const char *fmt, ...);
 
 #endif // UTILS_PRINTCODE_H

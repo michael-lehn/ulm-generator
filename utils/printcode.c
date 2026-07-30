@@ -13,9 +13,9 @@ printIndent(FILE *out, size_t indent)
 }
 
 void
-printCode(FILE *out, size_t identLevel, const char *fmt, ...)
+printCode(FILE *out, size_t indentLevel, const char *fmt, ...)
 {
-    printIndent(out, identLevel * 4);
+    printIndent(out, indentLevel * 4);
     if (!fmt) {
 	return;
     }
