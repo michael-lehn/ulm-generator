@@ -15,7 +15,7 @@ makeEmptyStr(struct Str *str)
     str->capacity = MIN_CAPACITY;
     str->cstr = str->end = malloc(str->capacity);
     if (!str->cstr) {
-	fprintf(stderr, "in appendToStr: out of memory.\n");
+	fprintf(stderr, "in makeEmptyStr: out of memory.\n");
 	abort();
     }
     *str->cstr = 0;
@@ -54,7 +54,7 @@ appendCharToStr(struct Str *str, char c)
 	}
 	str->cstr = realloc(str->cstr, str->capacity);
 	if (!str->cstr) {
-	    fprintf(stderr, "in appendToStr: out of memory.\n");
+	    fprintf(stderr, "in appendCharToStr: out of memory.\n");
 	    abort();
 	}
 	str->end = str->cstr + len;
@@ -79,7 +79,7 @@ appendStrToStr(struct Str *str, struct Str *append)
 	}
 	str->cstr = realloc(str->cstr, str->capacity);
 	if (!str->cstr) {
-	    fprintf(stderr, "in appendToStr: out of memory.\n");
+	    fprintf(stderr, "in appendStrToStr: out of memory.\n");
 	    abort();
 	}
 	str->end = str->cstr + len0;
@@ -96,7 +96,7 @@ copyCStrToStr(struct Str *str, const char *cstr)
 	str->capacity = len + 1;
 	str->cstr = realloc(str->cstr, str->capacity);
 	if (!str->cstr) {
-	    fprintf(stderr, "in copyToStr: out of memory.\n");
+	    fprintf(stderr, "in copyCStrToStr: out of memory.\n");
 	    abort();
 	}
     }
@@ -120,7 +120,7 @@ appendCStrToStr(struct Str *str, const char *cstr)
 	}
 	str->cstr = realloc(str->cstr, str->capacity);
 	if (!str->cstr) {
-	    fprintf(stderr, "in appendToStr: out of memory.\n");
+	    fprintf(stderr, "in appendCStrToStr: out of memory.\n");
 	    abort();
 	}
 	str->end = str->cstr + len0;
