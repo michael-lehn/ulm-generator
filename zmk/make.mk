@@ -168,6 +168,7 @@ default: $(default.target)
 .PHONY: all
 all: $(TARGET) $(install)
 
+.PHONY: opt
 opt: $(OPT_TARGET)
 
 info:
