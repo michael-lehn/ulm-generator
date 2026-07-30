@@ -20,7 +20,10 @@ uint64_t rand_uint64(uint64_t nbits) {
 }
 
 int main() {
-  srand(time(NULL));
+  unsigned int seed = time(0);
+  printf("random seed = %u\n", seed);
+  srand(seed);
+
 
   for (int i = 0; i < 100; ++i) {
     uint64_t nbitsA = rand_uint64(6);
@@ -44,7 +47,7 @@ int main() {
     assert(eH == 0); // because a times the cH shoulb be in the 64 bit range
     assert(dL == bL);
     if (dH != bH) {
-      ++dH; // assume this is due to an overflow in 'dL += r'
+      ++dH; // assume this is due to a carry in 'dL += r' hack
     }
     assert(dH == bH);
   }
