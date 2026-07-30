@@ -28,7 +28,7 @@ makeUStr_(const char *s, bool *added)
 	}
     }
 
-    struct Node *n = malloc(len + 1 + sizeof(size_t) + sizeof(struct Node *));
+    struct Node *n = malloc(len + sizeof(*n));
     if (!n) {
 	fprintf(stderr, "makeUStr: out of memory\n");
 	abort();
