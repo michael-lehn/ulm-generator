@@ -25,8 +25,10 @@ void ulm_sub64(uint64_t a, uint64_t b, ulm_Reg dest);
 void ulm_mul64(uint64_t a, uint64_t b, ulm_Reg dest);
 void ulm_mul128(uint64_t a, uint64_t b, ulm_Reg dest0, ulm_Reg dest1);
 void ulm_div128(uint64_t a, uint64_t b0, uint64_t b1, ulm_Reg dest0,
-		ulm_Reg dest1, ulm_Reg dest2);
+                ulm_Reg dest1, ulm_Reg dest2);
 void ulm_idiv64(int64_t a, int64_t b, ulm_Reg dest);
+void ulm_iquot64(int64_t a, int64_t b, ulm_Reg dest);
+void ulm_irem64(int64_t a, int64_t b, ulm_Reg dest);
 void ulm_shiftLeft64(uint64_t a, uint64_t b, ulm_Reg dest);
 void ulm_shiftRightSigned64(uint64_t a, int64_t b, ulm_Reg dest);
 void ulm_shiftRightUnsigned64(uint64_t a, uint64_t b, ulm_Reg dest);

@@ -32,7 +32,7 @@ void
 ulm_printALU(ulm_Reg firstReg, ulm_Reg lastReg)
 {
     printf("ZF = %d, CF = %d, SF = %d, OF = %d\n", ulm_statusReg[ULM_ZF],
-	   ulm_statusReg[ULM_CF], ulm_statusReg[ULM_SF], ulm_statusReg[ULM_OF]);
+           ulm_statusReg[ULM_CF], ulm_statusReg[ULM_SF], ulm_statusReg[ULM_OF]);
     for (size_t i = firstReg; i <= lastReg; ++i) {
 	printf("%%%02zx: 0x%016" PRIx64 "\n", i, regDev[i]);
     }
@@ -73,7 +73,7 @@ ulm_add64(uint64_t a, uint64_t b, ulm_Reg dest)
     ulm_statusReg[ULM_CF] = s < a || s < b;
     ulm_statusReg[ULM_SF] = s_ < 0;
     ulm_statusReg[ULM_OF] =
-      (a_ > 0 && b_ > 0 && s_ < 0) || (a_ < 0 && b_ < 0 && s_ > 0);
+        (a_ > 0 && b_ > 0 && s_ < 0) || (a_ < 0 && b_ < 0 && s_ > 0);
 }
 
 void
@@ -87,7 +87,7 @@ ulm_sub64(uint64_t a, uint64_t b, ulm_Reg dest)
     ulm_statusReg[ULM_CF] = s > b;
     ulm_statusReg[ULM_SF] = s_ < 0;
     ulm_statusReg[ULM_OF] =
-      (a_ > 0 && b_ < 0 && s_ > 0) || (a_ < 0 && b_ > 0 && s_ < 0);
+        (a_ > 0 && b_ < 0 && s_ > 0) || (a_ < 0 && b_ > 0 && s_ < 0);
 }
 
 void
@@ -143,8 +143,52 @@ ulm_idiv64(int64_t a, int64_t b, ulm_Reg dest)
 }
 
 void
+ulm_iquot64(int64_t a, int64_t b, ulm_Reg dest)
+{
+    int64_t sgnA = a < 0 ? -1 : 1;
+    int64_t sgnB = b < 0 ? -1 : 1;
+
+    int64_t abs_a = a < 0 ? -a : a;
+    int64_t abs_b = b < 0 ? -b : b;
+
+    int64_t q = sgnA * sgnB * (abs_b / abs_a);
+    int64_t r = b - a * q;
+
+    ulm_setReg(q, dest);
+    if (q * a + r != b) {
+	fprintf(stderr, "b = %016" PRIX64 "\n", b);
+	fprintf(stderr, "a = %016" PRIX64 "\n", a);
+	fprintf(stderr, "q = %016" PRIX64 "\n", ulm_regVal(dest));
+	fprintf(stderr, "r = %016" PRIX64 "\n", ulm_regVal(dest + 1));
+	assert(q * a + r == b);
+    }
+}
+
+void
+ulm_irem64(int64_t a, int64_t b, ulm_Reg dest)
+{
+    int64_t sgnA = a < 0 ? -1 : 1;
+    int64_t sgnB = b < 0 ? -1 : 1;
+
+    int64_t abs_a = a < 0 ? -a : a;
+    int64_t abs_b = b < 0 ? -b : b;
+
+    int64_t q = sgnA * sgnB * (abs_b / abs_a);
+    int64_t r = b - a * q;
+
+    ulm_setReg(r, dest);
+    if (q * a + r != b) {
+	fprintf(stderr, "b = %016" PRIX64 "\n", b);
+	fprintf(stderr, "a = %016" PRIX64 "\n", a);
+	fprintf(stderr, "q = %016" PRIX64 "\n", ulm_regVal(dest));
+	fprintf(stderr, "r = %016" PRIX64 "\n", ulm_regVal(dest + 1));
+	assert(q * a + r == b);
+    }
+}
+
+void
 ulm_div128(uint64_t a, uint64_t b0, uint64_t b1, ulm_Reg dest0, ulm_Reg dest1,
-	   ulm_Reg dest2)
+           ulm_Reg dest2)
 {
     unsigned __int128 b = b1;
     b = b << 64 | b0;
@@ -159,8 +203,8 @@ ulm_div128(uint64_t a, uint64_t b0, uint64_t b1, ulm_Reg dest0, ulm_Reg dest1,
     if (q * a + r != b) {
 	fprintf(stderr, "b = %016" PRIX64 "%016" PRIX64 "\n", b1, b0);
 	fprintf(stderr, "a = %016" PRIX64 "\n", a);
-	fprintf(stderr, "q = %016" PRIX64 "%016" PRIX64 "\n",
-		ulm_regVal(dest1), ulm_regVal(dest0));
+	fprintf(stderr, "q = %016" PRIX64 "%016" PRIX64 "\n", ulm_regVal(dest1),
+	        ulm_regVal(dest0));
 	fprintf(stderr, "r = %016" PRIX64 "\n", r);
 	assert(q * a + r == b);
     }
@@ -211,4 +255,3 @@ ulm_not64(uint64_t a, ulm_Reg dest)
     ulm_setReg(s, dest);
     ulm_statusReg[ULM_ZF] = s == 0;
 }
-

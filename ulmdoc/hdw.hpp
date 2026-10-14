@@ -34,12 +34,16 @@ void ulm_sub64(ExprWrapper a, ExprWrapper b, ExprWrapper dest);
 void ulm_mul64(ExprWrapper a, ExprWrapper b, ExprWrapper dest);
 
 void ulm_mul128(ExprWrapper a, ExprWrapper b, ExprWrapper dest0,
-		ExprWrapper dest1);
+                ExprWrapper dest1);
 
 void ulm_div128(ExprWrapper a, ExprWrapper b0, ExprWrapper b1,
-		ExprWrapper dest0, ExprWrapper dest1, ExprWrapper dest2);
+                ExprWrapper dest0, ExprWrapper dest1, ExprWrapper dest2);
 
 void ulm_idiv64(ExprWrapper a, ExprWrapper b, ExprWrapper dest);
+
+void ulm_iquot64(ExprWrapper a, ExprWrapper b, ExprWrapper dest);
+
+void ulm_irem64(ExprWrapper a, ExprWrapper b, ExprWrapper dest);
 
 void ulm_shiftLeft64(ExprWrapper a, ExprWrapper b, ExprWrapper dest);
 
@@ -65,11 +69,11 @@ extern ExprWrapper ULM_ZERO_EXT;
 extern ExprWrapper ULM_SIGN_EXT;
 
 void ulm_fetch64(ExprWrapper disp, ExprWrapper base, ExprWrapper index,
-		 ExprWrapper scale, ExprWrapper ext, ExprWrapper numBytes,
-		 ExprWrapper dest);
+                 ExprWrapper scale, ExprWrapper ext, ExprWrapper numBytes,
+                 ExprWrapper dest);
 
 void ulm_store64(ExprWrapper disp, ExprWrapper base, ExprWrapper index,
-		 ExprWrapper scale, ExprWrapper numBytes, ExprWrapper src);
+                 ExprWrapper scale, ExprWrapper numBytes, ExprWrapper src);
 
 } // namespace ulmdoc
 

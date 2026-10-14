@@ -19,7 +19,7 @@ Expr::ExprPtr
 ulm_readChar()
 {
     return makeTypedBitPattern("\\text{\\textit{ulm\\_readChar()}}",
-			       Expr::SIGNED, 16);
+                               Expr::SIGNED, 16);
 }
 
 void
@@ -73,7 +73,8 @@ ulm_add64(ExprWrapper a, ExprWrapper b, ExprWrapper dest)
     ss << "Updates the status flags:\\\\[0cm]" << std::endl;
     ss << "\\begin{tabular}{ll}" << std::endl;
     ss << "Flag & Condition \\\\[0cm]" << std::endl;
-    ss << "ZF & $" << latex(b + a) << " \\bmod 2^{64} = 0 " << "$\\\\[0cm]" << std::endl;
+    ss << "ZF & $" << latex(b + a) << " \\bmod 2^{64} = 0 " << "$\\\\[0cm]"
+       << std::endl;
     ss << "CF & $" << latex(b + a) << "\\geq 2^{64}$\\\\[0cm]" << std::endl;
     ss << "OF & $ s(" << latex(b) << ") + s(" << latex(a) << ") \\notin "
        << "\\{ -2^{63}, \\dots, 2^{63}\\}$ \\\\[0cm]" << std::endl;
@@ -126,7 +127,7 @@ ulm_mul128(ExprWrapper a, ExprWrapper b, ExprWrapper dest0, ExprWrapper dest1)
 
 void
 ulm_div128(ExprWrapper a, ExprWrapper b0, ExprWrapper b1, ExprWrapper dest0,
-	   ExprWrapper dest1, ExprWrapper dest2)
+           ExprWrapper dest1, ExprWrapper dest2)
 {
     std::ostringstream ss;
     ss << "For the unsigned 128-bit numerator" << std::endl;
@@ -164,6 +165,28 @@ ulm_idiv64(ExprWrapper a, ExprWrapper b, ExprWrapper dest)
     ss << latex(b / a) + writeToUnsignedReg(dest);
     ss << "\\]" << std::endl;
     ss << "and the remainder" << std::endl;
+    ss << "\\[" << std::endl;
+    ss << latex(b % a) + writeToUnsignedReg(dest + 1);
+    ss << "\\]" << std::endl;
+    ulmDoc.addDescription(ss.str());
+}
+
+void
+ulm_iquot64(ExprWrapper a, ExprWrapper b, ExprWrapper dest)
+{
+    std::ostringstream ss;
+    ss << "Computes the divisor" << std::endl;
+    ss << "\\[" << std::endl;
+    ss << latex(b / a) + writeToUnsignedReg(dest);
+    ss << "\\]" << std::endl;
+    ulmDoc.addDescription(ss.str());
+}
+
+void
+ulm_irem64(ExprWrapper a, ExprWrapper b, ExprWrapper dest)
+{
+    std::ostringstream ss;
+    ss << "Computes the remainder" << std::endl;
     ss << "\\[" << std::endl;
     ss << latex(b % a) + writeToUnsignedReg(dest);
     ss << "\\]" << std::endl;
@@ -290,8 +313,8 @@ ExprWrapper ULM_SIGN_EXT = makeIntEnum("ULM_SIGN_EXT");
 
 void
 ulm_fetch64(ExprWrapper disp, ExprWrapper base, ExprWrapper index,
-	    ExprWrapper scale, ExprWrapper ext, ExprWrapper numBytes,
-	    ExprWrapper dest)
+            ExprWrapper scale, ExprWrapper ext, ExprWrapper numBytes,
+            ExprWrapper dest)
 {
     ExprWrapper addr = ulm_regVal(base);
     if (!index.isLiteralZero()) {
@@ -326,7 +349,7 @@ ulm_fetch64(ExprWrapper disp, ExprWrapper base, ExprWrapper index,
 
 void
 ulm_store64(ExprWrapper disp, ExprWrapper base, ExprWrapper index,
-	    ExprWrapper scale, ExprWrapper numBytes, ExprWrapper src)
+            ExprWrapper scale, ExprWrapper numBytes, ExprWrapper src)
 {
     ExprWrapper addr = ulm_regVal(base);
     if (!index.isLiteralZero()) {
@@ -359,4 +382,3 @@ ulm_store64(ExprWrapper disp, ExprWrapper base, ExprWrapper index,
 }
 
 } // namespace ulmdoc
-
