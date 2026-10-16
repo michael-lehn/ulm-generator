@@ -10,7 +10,6 @@ ifeq ($(strip $(on_nfs)),nfs)
     $(info )
     $(info If there is need for that contact michael.lehn@uni-ulm.de)
     $(info )
-    $(error Have a nice day)
 else
 endif
 
