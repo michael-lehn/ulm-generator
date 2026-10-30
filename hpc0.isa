@@ -224,3 +224,8 @@ R_MR	    (OP u 8) (data u 4) (addr u 4) (offset s 16)
     ulm_conditionalRelJump(ulm_statusReg[ULM_ZF] == 0 &&
 			   ulm_statusReg[ULM_SF] == ulm_statusReg[ULM_OF],
 			   offset);
+
+0xF7 S16_R_R
+: imulq x, %y, %z
+    ulm_mul64(x, ulm_regVal(y), z);
+
