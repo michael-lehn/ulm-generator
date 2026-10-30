@@ -226,6 +226,6 @@ R_MR	    (OP u 8) (data u 4) (addr u 4) (offset s 16)
 			   offset);
 
 0xF7 S16_R_R
-: imulq x, %y, %z
-    ulm_mul64(x, ulm_regVal(y), z);
+: imulq imm, %y, %z
+    ulm_mul64(imm, ulm_regVal(y), z);
 
